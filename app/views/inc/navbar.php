@@ -1,0 +1,73 @@
+<nav>
+  <div class="container">
+    <a href="<?php echo URLROOT . "/clients/index"; ?>" class="logo">Murtada Pizza</a>
+    <ul>
+      <?php
+
+      $current_page = $_SERVER['PHP_SELF'];
+      $url = $_SERVER['REQUEST_URI'];
+
+
+      if (pageName($url) == "register") {
+        echo '<li><a href="login" >Login</a></li>';
+      }
+      if (pageName($url) == "login") {
+        echo '<li><a href="register" >Register</a></li>';
+      }
+
+      // clients buttons
+      if (controllerName($url) == "clients") {
+        echo "<li class='user-name'>Hello " . htmlspecialchars(strtoupper($_SESSION['user_name'])) . '</li>';
+
+        if (pageName($url) == "index") {
+          echo '<li ><a href="cart">Your CART</a></li>';
+
+        } elseif (pageName($url) == "cart") {
+          echo '
+                  <li ><a href="../index">Restaurants</a></li>
+                  <form action="cart.php" method="POST">`
+                      <li><input class="place-order" type="submit" name="ordered" value="place order"></li>
+                  </form>
+                  ';
+
+        } elseif (pageName($url) == "restaurant") {
+          echo '<li ><a href="../index">Restaurants</a></li>';
+          echo '<li ><a href="../cart">Your CART</a></li>';
+        }
+      }
+
+
+      // restaurant
+      if (pageName($url) == "restaurant/jj" || pageName($url) == "restaurant/index") {
+        echo '<li><a href="orders.php" >orders</a></li>';
+      }
+      if (pageName($url) == "/pizzawebapp/restaurant/dashboard.php" || pageName($url) == "/pizzawebapp/restaurant/orders.php") {
+        echo '<li><a href="process.php" >in process</a></li>';
+      }
+      if (pageName($url) == "/pizzawebapp/restaurant/orders.php" || pageName($url) == "/pizzawebapp/restaurant/process.php") {
+        echo '<li><a href="dashboard.php" >dashboard</a></li>';
+      }
+      if (pageName($url) == "/pizzawebapp/restaurant/dashboard.php") {
+        echo '<li><a href="add.php" >Add a Pizza</a></li>';
+      }
+
+
+      // driver buttons
+      if (pageName($url) == "/pizzawebapp/driver/in_the_way.php") {
+        echo '<li><a href="driver.php" >orders</a></li>';
+      }
+      if (pageName($url) == "/pizzawebapp/driver/driver.php") {
+        echo '<li><a href="in_the_way.php" >in the way</a></li>';
+      }
+
+
+      if(pageName($url) != 'login' && pageName($url) != 'register') {
+        echo "<form action=" . URLROOT . "/users/logout method='POST'>
+        <li><input type='submit' name='logout' value='Logout' class='btn brand z-depth-0'></li>
+      </form>";
+      }
+      ?>
+      
+    </ul>
+  </div>
+</nav>

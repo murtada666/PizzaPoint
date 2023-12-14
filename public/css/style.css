@@ -1,0 +1,413 @@
+:root {
+  --primary-color: #ccb09d;
+  --white-color: #fff;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+html,
+body {
+  font-size: 62.5%;
+  background: #f1f1f1;
+}
+.user-name {
+  color: var(--primary-color);
+}
+
+input:focus {
+  outline: none;
+}
+
+h4 {
+  text-align: center;
+  font-size: 2.8rem;
+  margin-top: 1rem;
+}
+a {
+  color: var(--white-color);
+  background: var(--primary-color);
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  padding: 1rem 1.6rem;
+  border-radius: 1rem;
+  transform: scale(0.98);
+}
+
+/* navbar */
+nav {
+  height: 6rem;
+  background: var(--white-color);
+}
+
+.container {
+  height: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+ul {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  list-style-type: none;
+}
+li {
+  margin-left: 0.5rem;
+  font-size: 1.6rem;
+}
+
+input[type="submit"] {
+  background: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+  border-radius: 1rem;
+  padding: 1rem 1.6rem;
+  font-size: 1.6rem;
+}
+
+input[type="submit"]:hover {
+  cursor: pointer;
+  transform: scale(0.98);
+}
+
+.logo {
+  background: var(--white-color);
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 3.6rem;
+}
+
+/* pizza cards */
+
+.pizzas-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+.pizza-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: var(--white-color);
+  width: 30rem;
+  height: 24rem;
+  margin: 6rem 1rem;
+  padding: 5rem;
+  border-radius: 1rem;
+  border-bottom: var(--primary-color) solid 0.4rem;
+}
+
+.ing {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+h6 {
+  font-size: 2rem;
+  margin-bottom: 0.2rem;
+}
+.pizza-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.4rem;
+}
+.pizza-btn form input[type="submit"],
+.pizza-btn form a {
+  font-size: 1.6rem;
+  margin-left: 0.5rem;
+}
+.search-submit {
+  cursor: pointer;
+}
+
+.search-submit:hover {
+  transform: scale(0.98);
+  transition: transform 0.2s ease-in-out; /* Optional: Add a smooth transition effect */
+}
+
+/* restaurants */
+.res-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-around;
+  margin: 0 10rem;
+}
+.res {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 6rem;
+  width: 26rem;
+  background: var(--white-color);
+  margin: 6rem 1.6rem;
+  padding: 6rem 8rem;
+  border-radius: 1rem;
+  border-bottom: var(--primary-color) solid 0.4rem;
+}
+img {
+  position: absolute;
+  top: -5rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+.name-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20rem;
+}
+.res-name {
+  padding-bottom: 0;
+  font-size: 1.6rem;
+  background: var(--white-color);
+  color: black;
+  border-bottom: 0.2rem solid var(--primary-color);
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+}
+.res-name:hover {
+  transform: scale(0.95);
+}
+
+/* pizzas */
+
+.search-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.search-card {
+  display: flex;
+  flex-direction: column;
+}
+.search-inner-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.search {
+  width: 30rem;
+  height: 2.4rem;
+  border: 0.2rem solid var(--primary-color);
+  border-radius: 1rem;
+  margin-bottom: 0.5rem;
+  padding: 0 0.5rem;
+}
+
+.submit {
+  width: 10rem;
+}
+
+/* details */
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.details p {
+  margin-bottom: 3rem;
+}
+.details h4,
+.details p,
+.details h5,
+.details h5 {
+  font-size: 2rem;
+}
+.details .name {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.details .name h6 {
+  font-size: 2.4rem;
+}
+.details .return {
+  padding: 0.6rem 1.6rem;
+  font-size: 2rem;
+  margin: 1rem 0;
+}
+
+/* login - sign up */
+.new-user {
+  max-width: 35rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-color);
+  margin: 5rem auto;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+.new-user form {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+.new-user h2 {
+  font-size: 2.2rem;
+}
+.new-user form {
+  font-size: 2rem;
+}
+.new-user form input[type="submit"] {
+  width: 10rem;
+  border: 0.2rem solid #474646;
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+}
+
+.p-l {
+  padding-left: 1rem;
+}
+
+.new-user form input[type="submit"]:hover {
+  background-color: #ccb09d;
+}
+.new-user form div {
+  display: flex;
+  flex-direction: column;
+}
+.new-user form div input {
+  height: 3rem;
+  width: 30rem;
+  border: none;
+  border-radius: 1rem;
+  margin-top: 0.5rem;
+}
+
+.signup {
+  height: 46rem;
+}
+
+.error {
+  color: rgb(214, 49, 49);
+}
+
+/* driver */
+.card-height {
+  height: 25rem;
+}
+.card-height div h6 {
+  text-align: center;
+}
+
+.driver-orders {
+  font-size: 2rem;
+  color: var(--primary-color);
+}
+
+/* dashboard */
+.dashboard-height {
+  height: 30rem;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+.process-height {
+  height: 30rem;
+}
+
+/* add pizza */
+
+.add-container {
+  max-width: 35rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: var(--primary-color);
+  margin: 5rem auto;
+  padding: 2rem;
+  border-radius: 1rem;
+}
+
+.add-container .inputs {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.add-container .inputs label {
+  font-size: 1.6rem;
+}
+.add-container .inputs input {
+  width: 25rem;
+  height: 2.8rem;
+  border: 0.2rem solid black;
+  border-radius: 1rem;
+  margin: 0.5rem auto;
+  border: none;
+}
+.add-container .inputs .add-btns input {
+  width: 10rem;
+  height: 4rem;
+  text-align: center;
+  border: 0.2rem solid black;
+  margin-left: 0.5rem;
+}
+
+.empty {
+  background-color: rgb(176, 41, 41);
+  color: var(--white-color);
+  font-size: 2.4rem;
+  margin: 5rem auto;
+  padding: 1.6rem;
+  border-radius: 1rem;
+}
+
+/* footer */
+.footer {
+  text-align: center;
+  font-size: 2.2rem;
+  margin-bottom: 2rem;
+}
+
+/* Snackbar */
+#snackbar {
+  display: none;
+  position: fixed;
+  /* height: 16rem;
+  width: ; */
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+  padding: 2rem 4rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.place-order {
+  background-color: #5d0707;
+}
