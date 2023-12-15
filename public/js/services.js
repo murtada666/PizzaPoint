@@ -1,0 +1,21 @@
+export function showSnackbar(message) {
+  var snackbar = document.getElementById("snackbar");
+  snackbar.textContent = message; // Set the message dynamically
+  snackbar.style.display = "block";
+
+  // Hide the Snackbar after 3 seconds (3000 milliseconds)
+  setTimeout(function () {
+    snackbar.style.display = "none";
+  }, 3000);
+}
+
+// checks if the page is empty or not
+export function isEmpty(page_name) {
+  const page_content = page_name.innerHTML.trim();
+  if (page_content) {
+    return false;
+  } else {
+    return true;
+  }
+}
+  

@@ -68,7 +68,7 @@ class client{
             // die($placeholders);
         
             $this->db->query("SELECT title, ingredients, id FROM pizzas WHERE id IN ($placeholders) ORDER BY created_at");
-            print_r($ids);
+            // print_r($ids);
             foreach ($ids as $index => $id) {
                 $this->db->bind($index + 1, $id);
             }

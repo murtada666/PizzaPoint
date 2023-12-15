@@ -24,14 +24,14 @@
 
         } elseif (pageName($url) == "cart") {
           echo '
-                  <li ><a href="../index">Restaurants</a></li>
+                  <li ><a href="../index">Home</a></li>
                   <form action="cart.php" method="POST">`
                       <li><input class="place-order" type="submit" name="ordered" value="place order"></li>
                   </form>
                   ';
 
         } elseif (pageName($url) == "restaurant") {
-          echo '<li ><a href="../index">Restaurants</a></li>';
+          echo '<li ><a href="../index">Home</a></li>';
           echo '<li ><a href="../cart">Your CART</a></li>';
         }
       }
@@ -39,7 +39,7 @@
 
       // restaurant
       if (pageName($url) == "restaurant/jj" || pageName($url) == "restaurant/index") {
-        echo '<li><a href="orders.php" >orders</a></li>';
+        echo '<li><a href="orders.php" >Orders</a></li>';
       }
       if (pageName($url) == "/pizzawebapp/restaurant/dashboard.php" || pageName($url) == "/pizzawebapp/restaurant/orders.php") {
         echo '<li><a href="process.php" >in process</a></li>';
