@@ -15,6 +15,9 @@ class Clients extends Controller {
     }
 
     public function index() {
+        // Initiate the session['cart'] in case the user navigate to cart before adding to it.
+        $_SESSION['cart'] = array();
+
         $result = $this->clientModel->getRestaurants();
 
         $data = [
@@ -106,16 +109,17 @@ class Clients extends Controller {
     }
 
     public function remove() {
-        if (isset($_POST['remove'])) {
+        if (isset($_POST['pizza_id'])) {
 
             $products_ids  = $_SESSION['cart'];
         
             foreach ($products_ids as $x => $id) {
-                if ($_POST['product_id'] == $id) {
+                if ($_POST['pizza_id'] == $id) {
                     unset($_SESSION['cart'][$x]);
                 }
             }
+            // print_r($_SESSION['cart']);
+            redirect('clients/cart');
         }
-        redirect('clients/cart');
     }
 }

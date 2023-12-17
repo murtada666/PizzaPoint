@@ -20,9 +20,8 @@
 				</div>
 				<div class='pizza-btn'>
 					<!-- <form action='<php echo URLROOT; ?>/clients/remove' method='POST'> -->
-					<form class="remove-from-cart">
+					<form class="remove-from-cart" data-product-id="<?php echo $pizza->id; ?>">
 							<input type='submit' name='remove' value='remove'>
-							<input type='hidden' name='product_id' value='<?php echo $pizza->id ?>'>
 							<a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id ;?>">more info</a>
 					</form>
 				</div>	
