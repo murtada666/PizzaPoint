@@ -29,10 +29,8 @@
                 </ul>
             </div>
             <div class="pizza-btn">
-                <form class="add-form" id="add-form" data-product-id="<?php echo $pizza->id; ?>">
-                        <input type="submit" name="add" value="Add" id="add-submit" >
-                        <a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id ;?>">More Info</a>
-                </form>
+                <input type="button" name="add" value="Add" id="<?php echo $pizza->id; ?>" class="add-btn">
+                <a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id ;?>">More Info</a>
             </div>
         </div>  
     <?php endforeach; ?>

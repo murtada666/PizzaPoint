@@ -126,8 +126,7 @@ class Clients extends Controller {
 
             $pizzas = $this->clientModel->cartItems($_SESSION['cart']);
 
-            print_r(json_encode($pizzas));
-            
+            print_r(json_encode($pizzas));            
         } else {
             redirect('clients/cart');
         }

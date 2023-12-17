@@ -19,10 +19,8 @@
 					</ul>
 				</div>
 				<div class='pizza-btn'>
-				<form onsubmit="return false;" class="remove-from-cart" data-product-id="<?php echo $pizza->id; ?>">
-							<input type='submit' name='remove' value='Remove'>
+							<input type='button' name='remove' value='Remove' id="<?php echo $pizza->id; ?>" class="remove-btn">
 							<a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id ;?>">More info</a>
-					</form>
 				</div>	
 			</div>
 	<?php endforeach; ?>

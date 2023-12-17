@@ -9,15 +9,6 @@ export function showSnackbar(message) {
   }, 3000);
 }
 
-// Checks if the page is empty or not
-// export function isEmpty(page_name) {
-//   if (page_name.innerHTML.trim()) {
-//     return true;
-//   } else {
-//     return false;
-//   }
-// }
-
 // checks if the page is empty or not
 export function isEmpty(page_name) {
   const page_content = page_name.innerHTML.trim();
@@ -39,10 +30,8 @@ export function generatePizzaHTML(pizza) {
               </ul>
           </div>
           <div class='pizza-btn'>
-              <form onsubmit="return false;" class="remove-from-cart" data-product-id="${pizza.id}">
-                  <input type='submit' name='remove' value='Remove'>
-                  <a href="http://localhost/pizzapoint/clients/details/${pizza.id}">More info</a>
-              </form>
+            <input type='button' name='remove' value='Remove' id="${pizza.id}" class="remove-btn">
+            <a href="http://localhost/pizzapoint/clients/details/${pizza.id}">More info</a>
           </div>
       </div>`;
   return html;

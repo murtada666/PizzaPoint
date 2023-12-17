@@ -1,5 +1,5 @@
-import { showSnackbar } from "./services.js";
-const searchResID = document.getElementById("res-id");
+// import { showSnackbar } from "./services.js";
+// const searchResID = document.getElementById("res-id");
 
 
 
