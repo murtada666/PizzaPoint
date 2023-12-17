@@ -19,7 +19,7 @@
 					</ul>
 				</div>
 				<div class='pizza-btn'>
-					<form onsubmit="return false;" class="remove-from-cart" data-product-id="<?php echo $pizza->id; ?>">
+				<form onsubmit="return false;" class="remove-from-cart" data-product-id="<?php echo $pizza->id; ?>">
 							<input type='submit' name='remove' value='Remove'>
 							<a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id ;?>">More info</a>
 					</form>

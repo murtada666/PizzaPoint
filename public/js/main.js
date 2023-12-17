@@ -1,7 +1,3 @@
-import { search } from "./search.js";
-import { showSnackbar, isEmpty, generatePizzaHTML } from "./services.js";
-
-
 const page = document.getElementById("page");
 const searchResID = document.getElementById("res-id");
 
@@ -15,11 +11,24 @@ if (document.getElementById("search-form")) {
   searchForm.addEventListener("submit", function (e) {
     search(e);
   });
+if (document.getElementById("search-form")) {
+  const searchForm = document.getElementById("search-form");
+
+  searchForm.addEventListener("submit", function (e) {
+    search(e);
+  });
 }
 
 // XHR instant
 var xhr = new XMLHttpRequest();
 
+// Empty pages note.
+if (page) {
+  if (isEmpty(page)) {
+    page.innerHTML = `
+        <h1 class="empty">there is no items yet!<h1>
+        `;
+  }
 // Empty pages note.
 if (page) {
   if (isEmpty(page)) {

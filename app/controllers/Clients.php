@@ -112,6 +112,7 @@ class Clients extends Controller {
 
     public function remove() {
         if (isset($_POST['pizza_id'])) {
+        if (isset($_POST['pizza_id'])) {
 
             $products_ids  = $_SESSION['cart'];
 
@@ -130,5 +131,6 @@ class Clients extends Controller {
         } else {
             redirect('clients/cart');
         }
+    }
     }
 }

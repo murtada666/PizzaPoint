@@ -17,10 +17,12 @@ export function showSnackbar(message) {
 //     return false;
 //   }
 // }
+
+// checks if the page is empty or not
 export function isEmpty(page_name) {
-  if (page_name && page_name.innerHTML) {
-    const page_content = page_name.innerHTML.trim();
-    return !page_content;
+  const page_content = page_name.innerHTML.trim();
+  if (page_content) {
+    return false;
   } else {
     return true;
   }
@@ -44,7 +46,4 @@ export function generatePizzaHTML(pizza) {
           </div>
       </div>`;
   return html;
-}
-
-
-  
+}  
