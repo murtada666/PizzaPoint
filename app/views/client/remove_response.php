@@ -1,10 +1,6 @@
-<?php require APPROOT . '/views/inc/header.php'; ?>
+<?php if(!$data): ?>
 
-<?php if(!$data['pizzas']): ?>
-	<section class='pizzas-container' id='page'>
-
-	</section>
-<?php  else: ?>
+<?php else: ?>
 
 <section class='pizzas-container' id='page'>
 	<?php foreach ($data['pizzas'] as $pizza) : ?>
@@ -25,9 +21,7 @@
 					</form>
 				</div>	
 			</div>
-	<?php endforeach; ?>
+	<?php endforeach; ?>	
 </section>
-<?php  endif ?>
 
-
-<?php require APPROOT . '/views/inc/footer.php'; ?>
+<?php endif ?> 

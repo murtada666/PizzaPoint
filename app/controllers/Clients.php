@@ -4,7 +4,7 @@ class Clients extends Controller {
     public function __construct() {
         // session_destroy();
         // Check for login & account type
-        if(!isLoggedIn()){
+        if (!isLoggedIn()) {
             redirect('users/login');
         }
         if (clientAccount($_SESSION['user_type'])) {
@@ -14,9 +14,12 @@ class Clients extends Controller {
         $this->clientModel = $this->model('client');
     }
 
-    public function index() {
+    public function index()
+    {
         // Initiate the session['cart'] in case the user navigate to cart before adding to it.
-        $_SESSION['cart'] = array();
+        if(!isset($_SESSION['cart'])) {
+            $_SESSION['cart'] = array();
+        }
 
         $result = $this->clientModel->getRestaurants();
 
@@ -45,7 +48,7 @@ class Clients extends Controller {
                         $item_id = $_POST['pizza_id'];
 
                         // Add the item to the end of $_SESSION['cart'].
-                        array_push($_SESSION['cart'], $item_id);                        
+                        array_push($_SESSION['cart'], $item_id);
                     } else {
                         echo "exist";
                     }
@@ -56,7 +59,7 @@ class Clients extends Controller {
                     array_push($_SESSION['cart'], $item_id);
                 }
 
-            // Check for POST request for search  
+                // Check for POST request for search  
             } elseif (isset($_POST['search_content'])) {
 
                 $search = $_POST['search_content'];
@@ -66,13 +69,13 @@ class Clients extends Controller {
                     'search' => $search,
                     'pizzas' => $result
                 ];
-                $this->view('client/search', $data);
+                $this->view('client/search_response', $data);
             }
         } else {
             // Normal rendering for the page.
             $result = $this->clientModel->getRestaurantPizzas($id);
 
-            if(!$result) {
+            if (!$result) {
                 $result = [];
             }
 
@@ -97,7 +100,6 @@ class Clients extends Controller {
     }
 
     public function cart() {
-        // session_destroy();  
         $ids = $_SESSION['cart'];
         $pizzas = $this->clientModel->cartItems($ids);
 
@@ -112,13 +114,20 @@ class Clients extends Controller {
         if (isset($_POST['pizza_id'])) {
 
             $products_ids  = $_SESSION['cart'];
-        
+
             foreach ($products_ids as $x => $id) {
                 if ($_POST['pizza_id'] == $id) {
                     unset($_SESSION['cart'][$x]);
                 }
             }
-            // print_r($_SESSION['cart']);
+            // Reindex the array 
+            $_SESSION['cart'] = array_values($_SESSION['cart']);
+
+            $pizzas = $this->clientModel->cartItems($_SESSION['cart']);
+
+            print_r(json_encode($pizzas));
+            
+        } else {
             redirect('clients/cart');
         }
     }

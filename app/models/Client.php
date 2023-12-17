@@ -59,23 +59,32 @@ class client{
     }
 
     // Fetch cart items
+
     public function cartItems($ids) {
-        if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
-            // Creates a placeholders of (?) to be used in the query.
-            $placeholders = implode(',', array_fill(0, count($ids), '?'));
-            // $placeholders = implode(',', $ids);
+        try {
+            if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+                // Create an associative array of named placeholders
+                $namedPlaceholders = array_map(function ($index) {
+                    return ":id$index";
+                }, array_keys($ids));
+                
+                // Create a string of named placeholders separated by commas
+                $placeholders = implode(', ', $namedPlaceholders);
+                
+                $this->db->query("SELECT title, ingredients, id FROM pizzas WHERE id IN ($placeholders) ORDER BY created_at");
+    
+                // Bind parameters using named placeholders
+                foreach ($ids as $index => $id) {
+                    $this->db->bind(":id$index", $id);
+                }
+    
+                $result = $this->db->resultSet();
 
-            // die($placeholders);
-        
-            $this->db->query("SELECT title, ingredients, id FROM pizzas WHERE id IN ($placeholders) ORDER BY created_at");
-            // print_r($ids);
-            foreach ($ids as $index => $id) {
-                $this->db->bind($index + 1, $id);
+                return $result;
             }
-
-            $result = $this->db->resultSet();
-
-            return $result;
+        } catch (PDOException $e) {
+            // Handle the exception (e.g., log the error, display a user-friendly message)
+            echo "Error: " . $e->getMessage();
         }
     }
 }

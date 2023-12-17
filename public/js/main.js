@@ -1,5 +1,6 @@
 import { search } from "./search.js";
-import { showSnackbar, isEmpty } from "./services.js";
+import { showSnackbar, isEmpty, generatePizzaHTML } from "./services.js";
+
 
 const page = document.getElementById("page");
 const searchResID = document.getElementById("res-id");
@@ -32,8 +33,11 @@ function addToCart(e) {
   if (e.target && e.target.id.startsWith("add-form")) {
     e.preventDefault();
 
+
     var form = e.target;
+
     var pizzaID = form.getAttribute("data-product-id");
+
     var resID = searchResID.value;
     var url = "http://localhost/pizzapoint/clients/restaurant/" + resID;
     var params = "pizza_id=" + pizzaID;
@@ -70,16 +74,19 @@ function remove(e) {
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
   xhr.onload = function () {
-    var response = this.responseText;
-    console.log(response);
-    // console.log('worked');
-    // document.open();
-    // document.write(response);
-    // document.close();
 
-    // document.body.innerHTML = response;
+    var pizzas = JSON.parse(this.responseText);
+
+    if (Array.isArray(pizzas)) {
+
+      page.innerHTML = "";
+
+      pizzas.forEach(function(pizza) {
+        page.innerHTML += generatePizzaHTML(pizza);
+          console.log("my pizza: ", pizza);
+      });
+  }
   };
-
   xhr.send(params);
 }
 
