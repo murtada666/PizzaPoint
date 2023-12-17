@@ -25,14 +25,14 @@
         } elseif (pageName($url) == "cart") {
           echo '
                   <li ><a href="../index">Home</a></li>
-                  <form action="cart.php" method="POST">`
-                      <li><input class="place-order" type="submit" name="ordered" value="place order"></li>
+                  <form action="APPROOT/clients/placeOrder" method="POST">`
+                      <li><input class="place-order" type="submit" name="ordered" value="Place order"></li>
                   </form>
                   ';
 
         } elseif (pageName($url) == "restaurant") {
-          echo '<li ><a href="../index">Home</a></li>';
-          echo '<li ><a href="../cart">Your CART</a></li>';
+          echo '<li ><a href="../index">Home</a></li>
+                <li ><a href="../cart">Your CART</a></li>';
         }
       }
 

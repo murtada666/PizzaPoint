@@ -15,6 +15,12 @@ if (document.getElementById("search-form")) {
   });
 }
 
+page.addEventListener("click", function (e) {
+  if (e.target && e.target.classList.contains("remove-btn")) {
+    remove(e);
+  }
+});
+
 // XHR instant
 var xhr = new XMLHttpRequest();
 
@@ -55,12 +61,12 @@ function addToCart(e) {
 // Remove item from cart
 function remove(e) {
 
-
+  console.log("pressed");
   var pizzaID = e.target.getAttribute("id");
   var url = "http://localhost/pizzapoint/clients/remove/" + pizzaID;
   var params = "pizza_id=" + pizzaID;
   
-  // XHR instant
+  // XHR instant  
   var xhr = new XMLHttpRequest();
 
   xhr.open("POST", url, true);
@@ -78,16 +84,20 @@ function remove(e) {
         page.innerHTML += generatePizzaHTML(pizza);
       });
 
+  } else {
+    page.innerHTML = `
+    <h1 class="empty">there is no items yet!<h1>
+    `;;
   }
   };
   xhr.send(params);
 }
 
 // Event Listeners
-for (var i = 0; i < removeBtns.length; i++) {
-  // Add event listener to each form
-  removeBtns[i].addEventListener("click", remove);
-}
+// for (var i = 0; i < removeBtns.length; i++) {
+//   // Add event listener to each form
+//   removeBtns[i].addEventListener("click", remove);
+// }
 for (var i = 0; i < addBtns.length; i++) {
   // Add event listener to each form
   addBtns[i].addEventListener("click", addToCart);

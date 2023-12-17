@@ -87,7 +87,7 @@ class Clients extends Controller {
         }
     }
 
-    // Details page
+    // Details page.
     public function details($id) {
         $result = $this->clientModel->getDetails($id);
 
@@ -99,6 +99,7 @@ class Clients extends Controller {
         $this->view('client/details', $data);
     }
 
+    // Fetch cart items from DB.
     public function cart() {
         $ids = $_SESSION['cart'];
         $pizzas = $this->clientModel->cartItems($ids);
@@ -110,6 +111,7 @@ class Clients extends Controller {
         $this->view('client/cart', $data);
     }
 
+    // Remove item from cart
     public function remove() {
         if (isset($_POST['pizza_id'])) {
         if (isset($_POST['pizza_id'])) {
@@ -130,6 +132,6 @@ class Clients extends Controller {
         } else {
             redirect('clients/cart');
         }
-    }
+        }
     }
 }

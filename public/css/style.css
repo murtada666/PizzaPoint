@@ -70,7 +70,7 @@ input[type="submit"] {
   font-size: 1.6rem;
 }
 
-input[type="submit"]:hover {
+input[type="button"]:hover {
   cursor: pointer;
   transform: scale(0.98);
 }
@@ -123,10 +123,28 @@ h6 {
   align-items: center;
   margin-top: 0.4rem;
 }
-.pizza-btn form input[type="submit"],
-.pizza-btn form a {
+.pizza-btn input[type="button"],
+.pizza-btn  a {
   font-size: 1.6rem;
-  margin-left: 0.5rem;
+  margin-left: 0.5rem; 
+  height: 4rem;   
+  width: 6rem;   
+  border-radius: 1rem;
+
+}
+
+.pizza-btn input {
+  background: var(--primary-color);
+  color: var(--white-color);
+  border: none;
+
+}
+.pizza-btn a {
+  width: 10rem;
+}
+.remove {
+  padding: 0 0.4rem;
+  width: 8rem !important;
 }
 .search-submit {
   cursor: pointer;
@@ -410,4 +428,5 @@ img {
 
 .place-order {
   background-color: #5d0707;
+  margin-bottom: 0.5rem;
 }

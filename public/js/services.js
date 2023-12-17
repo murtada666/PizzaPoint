@@ -30,7 +30,7 @@ export function generatePizzaHTML(pizza) {
               </ul>
           </div>
           <div class='pizza-btn'>
-            <input type='button' name='remove' value='Remove' id="${pizza.id}" class="remove-btn">
+            <input type='button' name='remove' value='Remove' id="${pizza.id}" class="remove-btn remove">
             <a href="http://localhost/pizzapoint/clients/details/${pizza.id}">More info</a>
           </div>
       </div>`;
