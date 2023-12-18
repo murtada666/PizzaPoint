@@ -12,8 +12,6 @@ class Core {
     protected $params = [];
 
     public function __construct() {
-        // print_r($this->getUrl());
-        // echo '<br>';
 
         $url = $this->getUrl();
         // print_r($url);

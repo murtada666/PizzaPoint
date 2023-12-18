@@ -12,7 +12,7 @@ class Database {
     private $pass = DB_PASS;
     private $dbname = DB_NAME;
 
-    private $dbh; // DATABASE holder
+    private $dbh; // DATABASE holder.
     private $stmt;
     private $error;
 
@@ -24,7 +24,7 @@ class Database {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         );
 
-        // Create PDO Instance
+        // Create PDO Instance.
         try{
             $this->dbh = new PDO($dsn, $this->user, $this->pass);
         }catch(PDOException $e) {
@@ -32,7 +32,7 @@ class Database {
             echo $this->error;
         }
     }
-    // Prepare statements with query
+    // Prepare statements with query.
     public function query($sql) {
         $this->stmt = $this->dbh->prepare($sql);
     } 
@@ -57,24 +57,24 @@ class Database {
         $this->stmt->bindValue($param, $value, $type);
     }
 
-    // Execute the prepared statement (we will use it in the functions below)
+    // Execute the prepared statement (we will use it in the functions below).
     public function execute() {
         return $this->stmt->execute();
     }
 
-    // Get results set as array of objects
+    // Get results set as array of objects.
     public function resultSet() {
         $this->execute();
         return $this->stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
-    // Get single record as object
+    // Get single record as object.
     public function single() {
         $this->execute();
         return $this->stmt->fetch(PDO::FETCH_OBJ);
     }
 
-    // Get row count
+    // Get row count.
     public function rowCount(){
         $this->execute();
         return $this->stmt->rowCount();

@@ -19,7 +19,7 @@
 					</ul>
 				</div>
 				<div class='pizza-btn'>
-					<input type='button' name='remove' value='Remove' id="<?php echo $pizza->id; ?>" class="remove-btn remove">
+					<input type='button' name='remove' value='Remove' id="<?php echo $pizza->id; ?>" class="remove">
 					<a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id; ?>">More info</a>
 				</div>
 			</div>

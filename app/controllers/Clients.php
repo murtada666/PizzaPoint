@@ -114,7 +114,6 @@ class Clients extends Controller {
     // Remove item from cart
     public function remove() {
         if (isset($_POST['pizza_id'])) {
-        if (isset($_POST['pizza_id'])) {
 
             $products_ids  = $_SESSION['cart'];
 
@@ -132,6 +131,34 @@ class Clients extends Controller {
         } else {
             redirect('clients/cart');
         }
+    }
+
+    // Placing client order.
+    public function order() {
+
+        if(!isset($_SESSION['cart'])) {
+            redirect('clients/index');
+        }
+        if(empty($_SESSION['cart'])) {
+            redirect('clients/cart');
+        }
+
+        // Set random driver.
+        $drivers = $this->clientModel->randDriver();
+
+        $rand_driver_id = array_rand($drivers);
+        $client_id = $_SESSION['user_id'];
+        $res_id = $_SESSION['res_id'];
+        $pizzas_ids = implode(", ", $_SESSION['cart']);
+        try {
+            $result = $this->clientModel->placeOrder($client_id, $res_id, $pizzas_ids, $rand_driver_id);
+            print_r($result);
+            unset($_SESSION['cart']);
+            // To show the snackbar.
+            $_SESSION['order_placed'] = true;
+            redirect('clients/index');
+        } catch(Exception $e) {
+            echo "Error: " . $e->getMessage();
         }
     }
 }

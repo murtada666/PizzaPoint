@@ -25,7 +25,7 @@
         } elseif (pageName($url) == "cart") {
           echo '
                   <li ><a href="../index">Home</a></li>
-                  <form action="APPROOT/clients/placeOrder" method="POST">`
+                  <form action="./order" method="POST">`
                       <li><input class="place-order" type="submit" name="ordered" value="Place order"></li>
                   </form>
                   ';
