@@ -26,7 +26,7 @@
           echo '
                   <li ><a href="../index">Home</a></li>
                   <form action="./order" method="POST">`
-                      <li><input class="place-order" type="submit" name="ordered" value="Place order"></li>
+                      <li><input class="place-order" id="place-btn" type="submit" name="ordered" value="Place order"></li>
                   </form>
                   ';
 
