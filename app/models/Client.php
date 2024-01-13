@@ -88,8 +88,14 @@ class client {
             $this->db->query("SELECT id from drivers");
 
             $result = $this->db->resultSet();
+            // Random id index.
+            $rand_index = array_rand($result);
+            // Id stored in an array.
+            $rand_id = get_object_vars($result[$rand_index]);
+            // Single value.
+            $id = $rand_id['id'];
 
-            return $result;
+            return $id;
         } catch (PDOException $e) {
             // Handle the exception (e.g., log the error, display a user-friendly message)
             echo "Error: " . $e->getMessage();
@@ -97,23 +103,26 @@ class client {
     }
 
     // Place order.
-    public function placeOrder($client_id, $res_id, $pizzas_ids, $rand_driver_id) {
+    public function placeOrder($client_id, $res_id, $pizzas_ids, $driver_id) {
 
         // Clean data 
-        $client_id = htmlspecialchars(strip_tags($client_id));
-        $res_id = htmlspecialchars(strip_tags($res_id));
+        $client_id =  filter_var(htmlspecialchars(strip_tags($client_id)), FILTER_VALIDATE_INT);
+        $res_id =  filter_var(htmlspecialchars(strip_tags($res_id)), FILTER_VALIDATE_INT);
         $pizzas_ids = htmlspecialchars(strip_tags($pizzas_ids));
-        $driver = htmlspecialchars(strip_tags($rand_driver_id));
-
+        $driver_id =  filter_var(htmlspecialchars(strip_tags($driver_id)), FILTER_VALIDATE_INT);
         
-       $this->db->query("INSERT INTO orders (client_id, restaurant_id, driver_id, order_details) VALUES (:client_id, :res_id, :driver, :pizzas_ids)");
+        $this->db->query("INSERT INTO orders (client_id, restaurant_id, driver_id, order_details) VALUES (:client_id, :res_id, :driver, :pizzas_ids)");
 
-       $this->db->bind(":client_id", $client_id);
-       $this->db->bind(":res_id", $res_id);
-       $this->db->bind(":driver", $driver);
-       $this->db->bind(":pizzas_ids", $pizzas_ids);
+        $this->db->bind(":client_id", $client_id);
+        $this->db->bind(":res_id", $res_id);
+        $this->db->bind(":driver", $driver_id);
+        $this->db->bind(":pizzas_ids", $pizzas_ids);
 
-
-        $this->db->execute();
+        try {
+            $this->db->execute();
+            } catch (PDOException $e) {
+                // Handle the exception (e.g., log the error, display a user-friendly message)
+                echo "Error: " . $e->getMessage();
+        }
     }
 }

@@ -13,31 +13,32 @@
     </div>
 </section>
 <h4>Pizzas!</h4>
-<?php if(!$data): ?>
+<?php if (!$data) : ?>
 
-<?php else: ?>
-<section class="pizzas-container" id='page' id='page-content'>
-    <?php foreach ($data['pizzas'] as $pizza) : ?>
-        <div class="pizza-container">
-            <img src="<?php echo URLROOT;?>/img/pizza.svg">
-            <div>
-                <h6><?php echo htmlspecialchars($pizza->title); ?></h6>
-                <ul class="ing">
-                    <?php foreach (explode(',', $pizza->ingredients) as $ing) : ?>
-                        <li><?php echo htmlspecialchars($ing); ?></li>
-                    <?php endforeach; ?>
-                </ul>
+<?php else : ?>
+    <section class="pizzas-container" id='page' id='page-content'>
+        <?php foreach ($data['pizzas'] as $pizza) : ?>
+            <div class="pizza-container">
+                <img src="<?php echo URLROOT; ?>/img/pizza.svg">
+                <div>
+                    <h6><?php echo htmlspecialchars($pizza->title); ?></h6>
+                    <ul class="ing">
+                        <?php foreach (explode(',', $pizza->ingredients) as $ing) : ?>
+                            <li><?php echo htmlspecialchars($ing); ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+                <div class="pizza-btn">
+                    <input type="button" name="add" value="Add" id="<?php echo $pizza->id; ?>" class="add-btn">
+                    <a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id; ?>">More Info</a>
+                </div>
             </div>
-            <div class="pizza-btn">
-                <input type="button" name="add" value="Add" id="<?php echo $pizza->id; ?>" class="add-btn">
-                <a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id ;?>">More Info</a>
-            </div>
-        </div>  
-    <?php endforeach; ?>
-    <div id="snackbar">This is a Snackbar!</div>
-</section>
+        <?php endforeach; ?>
+        <!-- SnackBar -->
+        <div id="snackbar"></div>
+    </section>
 
-<?php endif ?> 
+<?php endif ?>
 
 
 <div id="snackbar">This is a Snackbar!</div>

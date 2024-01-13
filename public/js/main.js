@@ -1,9 +1,9 @@
-import { search } from "./search.js";
-import { isEmpty} from "./services.js";
-import { addToCart, remove } from "./ajaxs.js";
+import { isEmpty,} from "./services.js";
+import { addToCart, remove, search, placeOrder} from "./ajaxs.js";
 
 const page = document.getElementById("page");
 const addBtns = document.getElementsByClassName("add-btn");
+const placeBtn = document.getElementById("place-btn");
 
 // XHR instant
 var xhr = new XMLHttpRequest();
@@ -18,23 +18,32 @@ if (page && isEmpty(page)) {
 // Event Listeners
 
 // We Used Event Delegation.
-page.addEventListener("click", function (e) {
-  if (e.target && e.target.classList.contains("remove-btn")) {
-    remove(e);
-  }
-});
+if(page) {
+  page.addEventListener("click", function (e) {
+    if (e.target && e.target.classList.contains("remove-btn")) {
+      remove(e);
+    }
+  });
+}
 
 for (var i = 0; i < addBtns.length; i++) {
-  // Add event listener to each form
+  // Add event listener to each form.
   addBtns[i].addEventListener("click", function(e) {
     addToCart(e);
   });
 }
-
+// Search event listener.
 if (document.getElementById("search-form")) {
   const searchForm = document.getElementById("search-form");
 
   searchForm.addEventListener("submit", function (e) {
     search(e);
+  });
+}
+
+// Place order event listener.
+if (placeBtn) {
+  placeBtn.addEventListener('click', function(e) {
+    placeOrder(e);
   });
 }
