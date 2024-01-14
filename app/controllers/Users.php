@@ -174,6 +174,7 @@ class Users extends Controller {
     }
   }
 
+  // Create the needed sessions.
   public function createUserSession($user) {
     $_SESSION['user_type'] = $user->account_type;
     $_SESSION['user_id'] = $user->id;
@@ -181,7 +182,7 @@ class Users extends Controller {
     $_SESSION['user_name'] = $user->name;
     $_SESSION['user_type'] = $user->account_type;
   }
-
+  // Logout operations.
   public function logout() {
     unset($_SESSION['user_id']);
     unset($_SESSION['user_email']);
@@ -189,7 +190,7 @@ class Users extends Controller {
     session_destroy();
     redirect('users/login');
   }
-
+  // Checks for a signed up(to show the snackBar).
   public function check_signed() {
     if(isset($_SESSION['signed']) && $_SESSION['signed'] === true) {
       echo 'true';
