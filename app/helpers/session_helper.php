@@ -8,11 +8,3 @@ function isLoggedIn(){
     return false;
   }
 }
-
-function clientAccount($accountType) {
-  if($accountType != 'client') {
-    return true;
-  } else {
-    return false;
-  }
-}

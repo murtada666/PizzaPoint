@@ -3,14 +3,9 @@ class Clients extends Controller {
     private $clientModel;
     public function __construct() {
         // Check for login & account type
-        if (!isLoggedIn()) {
+        if (!isLoggedIn() || $_SESSION['user_type'] != 'client') {
             redirect('users/login');
         }
-        // Needs checking.!!!!!!!!!!!!!!!!!!!!!!!
-        // if (clientAccount($_SESSION['user_type']) != 'client') {
-        //     redirect('users/login');
-        // }
-
         $this->clientModel = $this->model('client');
     }
 

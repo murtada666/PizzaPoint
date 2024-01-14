@@ -2,6 +2,7 @@
 class Users extends Controller {
   private $userModel;
   public function __construct() {
+    // To redirect the logged in user back to his home page.
     if (isLoggedIn()) {
       $path = $_SESSION['user_type'] . 's/index';
       redirect($path);
@@ -70,8 +71,7 @@ class Users extends Controller {
 
         // Register User
         if ($this->userModel->register($data)) {
-          // echo('signed up');
-          // flash('register_success', 'You are registered and can log in');
+          $_SESSION['signed'] = true;
           redirect('users/login');
         } else {
           die('Something went wrong');
@@ -92,7 +92,6 @@ class Users extends Controller {
         'password_err' => '',
         'confirm_password_err' => ''
       ];
-      echo('first try');
       // Load view
       $this->view('users/register', $data);
     }
@@ -190,4 +189,11 @@ class Users extends Controller {
     session_destroy();
     redirect('users/login');
   }
+
+  public function check_signed() {
+    if(isset($_SESSION['signed']) && $_SESSION['signed'] === true) {
+      echo 'true';
+      unset($_SESSION['signed']);
+    }
+}
 }

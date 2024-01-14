@@ -20,6 +20,7 @@
             <input type="submit" value="Submit" name="submit">
             <a href="<?php echo URLROOT;?>/users/register">Not registered yet?</a>
         </form>
+        <div id="snackbar" class="signed-snackbar"></div>
     </div>
 
 <?php  require APPROOT . '/views/inc/footer.php'; ?>
