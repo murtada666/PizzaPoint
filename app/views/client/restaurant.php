@@ -16,7 +16,7 @@
 <?php if (!$data) : ?>
 
 <?php else : ?>
-    <section class="pizzas-container" id='page' id='page-content'>
+    <section class="pizzas-container" id='page' >
         <?php foreach ($data['pizzas'] as $pizza) : ?>
             <div class="pizza-container">
                 <img src="<?php echo URLROOT; ?>/img/pizza.svg">
@@ -34,9 +34,9 @@
                 </div>
             </div>
         <?php endforeach; ?>
-        <!-- SnackBar -->
-        <div id="snackbar"></div>
     </section>
+    <!-- SnackBar -->
+    <div id="snackbar"></div>
 
 <?php endif ?>
 

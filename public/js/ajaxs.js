@@ -80,7 +80,7 @@ export function remove(e) {
   };
   xhr.send(params);
 }
-
+// Place order AJAX.
 export function placeOrder(e) {
   e.preventDefault();
 
@@ -94,6 +94,20 @@ export function placeOrder(e) {
       showSnackbar("Cart is empty, please add some items first!");
     } else if (this.responseText.trim() === "placed") {
       window.location.href = "http://localhost/pizzapoint/clients/index";
+    }
+  };
+  xhr.send();
+}
+
+// Place order snackbar AJAX.
+export function CheckPlaceOrder() {
+
+  var url = "http://localhost/pizzapoint/clients/checkPlaceOrder";
+
+  xhr.open("GET", url, true);
+  xhr.onload = function () {
+    if(this.responseText.trim() === 'true') {
+      showSnackbar('Your order is placed!');
     }
   };
   xhr.send();

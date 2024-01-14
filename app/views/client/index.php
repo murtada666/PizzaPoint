@@ -15,7 +15,7 @@
 			</div>
 		</div>
 	<?php endforeach; ?>
-	<div id="snackbar"></div>
+	<div id="snackbar" class="index-snackbar"></div>
 </div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

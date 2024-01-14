@@ -2,20 +2,19 @@
 class Clients extends Controller {
     private $clientModel;
     public function __construct() {
-        // session_destroy();
         // Check for login & account type
         if (!isLoggedIn()) {
             redirect('users/login');
         }
-        if (clientAccount($_SESSION['user_type'])) {
-            redirect('users/login');
-        }
+        // Needs checking.!!!!!!!!!!!!!!!!!!!!!!!
+        // if (clientAccount($_SESSION['user_type']) != 'client') {
+        //     redirect('users/login');
+        // }
 
         $this->clientModel = $this->model('client');
     }
 
-    public function index()
-    {
+    public function index() {
         // Initiate the session['cart'] in case the user navigate to cart before adding to it.
         if(!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = array();
@@ -74,11 +73,9 @@ class Clients extends Controller {
         } else {
             // Normal rendering for the page.
             $result = $this->clientModel->getRestaurantPizzas($id);
-
             if (!$result) {
                 $result = [];
             }
-
             $data = [
                 'search' => '',
                 'pizzas' => $result,
@@ -138,7 +135,6 @@ class Clients extends Controller {
 
         if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
             echo 'empty';
-            // redirect('clients/index');
         } elseif(isset($_SESSION['cart']) || !empty($_SESSION['cart'])) {
             // Get a random driver depending on existing once.
             $driver_id = $this->clientModel->randDriver();
@@ -149,10 +145,20 @@ class Clients extends Controller {
                 $this->clientModel->placeOrder($client_id, $res_id, $pizzas_ids, $driver_id);
                 // Clear cart session.
                 unset($_SESSION['cart']);
+                // To show snackBar after placing order.
+                $_SESSION['placed'] = true;
                 echo'placed';
             } catch(Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
+        }
+    }
+
+    // This function notify the index page that an order is placed.
+    public function checkPlaceOrder() {
+        if(isset($_SESSION['placed']) && $_SESSION['placed'] === true) {
+            echo 'true';
+            unset($_SESSION['placed']);
         }
     }
 }

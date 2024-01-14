@@ -1,6 +1,7 @@
-import { isEmpty,} from "./services.js";
-import { addToCart, remove, search, placeOrder} from "./ajaxs.js";
+import { isEmpty} from "./services.js";
+import { addToCart, remove, search, placeOrder, CheckPlaceOrder} from "./ajaxs.js";
 
+const indexSnackbar = document.getElementsByClassName('index-snackbar');
 const page = document.getElementById("page");
 const addBtns = document.getElementsByClassName("add-btn");
 const placeBtn = document.getElementById("place-btn");
@@ -46,4 +47,7 @@ if (placeBtn) {
   placeBtn.addEventListener('click', function(e) {
     placeOrder(e);
   });
+}
+if(indexSnackbar) {
+  document.addEventListener('DOMContentLoaded', CheckPlaceOrder);
 }
