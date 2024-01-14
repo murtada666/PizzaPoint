@@ -1,6 +1,6 @@
 <nav>
   <div class="container">
-    <a href="<?php echo URLROOT . "/clients/index"; ?>" class="logo">Murtada Pizza</a>
+    <a href="<?php echo URLROOT . "/clients/index"; ?>" class="logo">Pizza Point</a>
     <ul>
       <?php
 

@@ -1,6 +1,6 @@
 <?php  require APPROOT . '/views/inc/header.php'; ?>
 <div class="new-user signup">
-    <h2>Create a new user</h2>
+    <h2>Create a new account</h2>
     <form action="<?php echo URLROOT; ?>/users/register" method="POST">
       <div>
         <label>Name: </label>
@@ -26,7 +26,12 @@
         <div class="error">
           <?php echo $data['confirm_password_err']; ?>
         </div>
-      </div> 
+      </div>
+      <select class="account-type" name="account_type">
+        <option value="client">client</option>        
+        <option value="restaurant">restaurant</option>        
+        <option value="driver">driver</option>        
+      </select> 
       <input type="submit" value="Submit" name="submit" >
       <a href="<?php echo URLROOT ;?>/users/login">Already have an account?</a>
     </form>

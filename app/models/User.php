@@ -8,7 +8,14 @@ class User {
 
     // Register user
     public function register($data){
-        $this->db->query('INSERT INTO clients(name, email, password) VALUES(:name, :email, :password)');
+        // Check account type.
+        if($data['account_type'] == 'client') {
+            $this->db->query('INSERT INTO clients (name, email, password) VALUES(:name, :email, :password)');
+        } elseif($data['account_type'] == 'restaurant') {
+            $this->db->query('INSERT INTO restaurants (name, email, password) VALUES(:name, :email, :password)');
+        } elseif($data['account_type'] == 'driver') {
+            $this->db->query('INSERT INTO drivers (name, email, password) VALUES(:name, :email, :password)');
+        }
         // Bind values
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
