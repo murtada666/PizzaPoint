@@ -31,12 +31,32 @@ class User {
 
     // Login user
     public function login($email, $password) {
-        $this->db->query('SELECT * FROM clients WHERE email = :email');
+        // Match email account type with its corresponding table
+        $this->db->query('SELECT id, account_type FROM clients WHERE email = :email
+                          UNION 
+                          SELECT id, account_type FROM restaurants WHERE email = :email
+                          UNION 
+                          SELECT id, account_type FROM drivers WHERE email = :email');
+
         $this->db->bind(':email', $email);
 
         $row = $this->db->single();
 
+        // Check the right table.
+        if($row->account_type == 'client') {
+            $this->db->query('SELECT * FROM clients WHERE id = :id');
+        } elseif($row->account_type == 'restaurant') {
+            $this->db->query('SELECT * FROM `restaurants` WHERE id = :id');
+        } elseif($row->account_type == 'driver') {
+            $this->db->query('SELECT * FROM drivers WHERE id = :id');
+        }
+
+        $this->db->bind(':id', $row->id);
+
+        $row = $this->db->single();
+
         $hashed_password = $row->password;
+
         if(password_verify($password, $hashed_password)){
             return $row;
         } else {

@@ -20,6 +20,7 @@ class Clients extends Controller {
         $data = [
             'restaurants' => $result
         ];
+        
         $this->view('client/index', $data);
     }
 

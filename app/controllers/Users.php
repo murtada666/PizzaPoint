@@ -145,9 +145,9 @@ class Users extends Controller {
           if ($_SESSION['user_type'] == 'client') {
             redirect('clients/index');
           } elseif ($_SESSION['user_type'] == 'restaurant') {
-            redirect('restaurant/index');
+            redirect('restaurants/index');
           } elseif ($_SESSION['user_type'] == 'driver') {
-            redirect('driver/index');
+            redirect('drivers/index');
           } else {
             die('Unrecognizable User Type!');
           }
