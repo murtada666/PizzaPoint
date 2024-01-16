@@ -7,10 +7,17 @@ class Restaurants extends Controller {
         if (!isLoggedIn() || $_SESSION['user_type'] != 'restaurant') {
             redirect('users/login');
         }
-        // $this->restaurantModel = $this->model('restaurant');
+        $this->restaurantModel = $this->model('restaurant');
     }
 
     public function index(){
-        echo 'nailed it!';
+        
+        $result = $this->restaurantModel->getPizzas($_SESSION['user_id']);
+        
+        $data = [
+            'pizzas' => $result,
+        ];
+
+        $this->view('restaurant/index', $data);
     }
 }

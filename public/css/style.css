@@ -89,6 +89,7 @@ input[type="button"]:hover {
   justify-content: center;
   align-items: center;
 }
+
 .pizza-container {
   display: flex;
   flex-direction: column;
@@ -99,6 +100,22 @@ input[type="button"]:hover {
   background: var(--white-color);
   width: 30rem;
   height: 24rem;
+  margin: 6rem 1rem;
+  padding: 5rem;
+  border-radius: 1rem;
+  border-bottom: var(--primary-color) solid 0.4rem;
+}
+
+.pizza-res-container{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  background: var(--white-color);
+  width: 30rem;
+  height: 26rem;
   margin: 6rem 1rem;
   padding: 5rem;
   border-radius: 1rem;

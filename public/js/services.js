@@ -12,7 +12,7 @@ export function showSnackbar(message) {
 // checks if the page is empty or not
 export function isEmpty(page_name) {
   const page_content = page_name.innerHTML.trim();
-  if (page_content) {
+  if (z) {
     return false;
   } else {
     return true;

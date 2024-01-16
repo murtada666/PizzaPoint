@@ -13,9 +13,7 @@
     </div>
 </section>
 <h4>Pizzas!</h4>
-<?php if (!$data) : ?>
 
-<?php else : ?>
     <section class="pizzas-container" id='page' >
         <?php foreach ($data['pizzas'] as $pizza) : ?>
             <div class="pizza-container">
@@ -37,10 +35,5 @@
     </section>
     <!-- SnackBar -->
     <div id="snackbar"></div>
-
-<?php endif ?>
-
-
-<div id="snackbar">This is a Snackbar!</div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

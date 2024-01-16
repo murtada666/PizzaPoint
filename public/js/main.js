@@ -3,7 +3,7 @@ import { addToCart, remove, search, placeOrder, CheckPlaceOrder, CheckSigned} fr
 
 const indexSnackbar = document.getElementsByClassName('index-snackbar');
 const signedSnackbar = document.getElementsByClassName('signed-snackbar');
-const page = document.getElementById("page");
+const page = document.getElementByIdz("page");
 const addBtns = document.getElementsByClassName("add-btn");
 const placeBtn = document.getElementById("place-btn");
 
