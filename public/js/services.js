@@ -1,3 +1,4 @@
+// Dynamic snackbar.
 export function showSnackbar(message) {
   var snackbar = document.getElementById("snackbar");
   snackbar.textContent = message; // Set the message dynamically
@@ -9,14 +10,9 @@ export function showSnackbar(message) {
   }, 3000);
 }
 
-// checks if the page is empty or not
-export function isEmpty(page_name) {
-  const page_content = page_name.innerHTML.trim();
-  if (z) {
-    return false;
-  } else {
-    return true;
-  }
+// Checks if the page is empty or not
+export function isEmpty(element) {
+  return element.childElementCount === 0 && element.textContent.trim() === "";
 }
 
 export function generatePizzaHTML(pizza) {
@@ -26,13 +22,20 @@ export function generatePizzaHTML(pizza) {
           <div>
               <h6>${pizza.title}</h6>
               <ul class='ing'>
-                  ${pizza.ingredients.split(',').map(ing => `<li>${ing.trim()}</li>`).join('')}
+                  ${pizza.ingredients
+                    .split(",")
+                    .map((ing) => `<li>${ing.trim()}</li>`)
+                    .join("")}
               </ul>
           </div>
           <div class='pizza-btn'>
-            <input type='button' name='remove' value='Remove' id="${pizza.id}" class="remove-btn">
-            <a href="http://localhost/pizzapoint/clients/details/${pizza.id}">More info</a>
+            <input type='button' name='remove' value='Remove' id="${
+              pizza.id
+            }" class="remove-btn">
+            <a href="http://localhost/pizzapoint/clients/details/${
+              pizza.id
+            }">More info</a>
           </div>
       </div>`;
   return html;
-}  
+}

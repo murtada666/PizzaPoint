@@ -1,19 +1,29 @@
-import { isEmpty} from "./services.js";
-import { addToCart, remove, search, placeOrder, CheckPlaceOrder, CheckSigned} from "./ajaxs.js";
+import { isEmpty } from "./services.js";
+import {
+  addToCart,
+  remove,
+  search,
+  placeOrder,
+  CheckPlaceOrder,
+  CheckSigned,
+} from "./ajaxs.js";
 
-const indexSnackbar = document.getElementsByClassName('index-snackbar');
-const signedSnackbar = document.getElementsByClassName('signed-snackbar');
-const page = document.getElementByIdz("page");
+const indexSnackbar = document.getElementsByClassName("index-snackbar");
+const signedSnackbar = document.getElementsByClassName("signed-snackbar");
+// Used to show (empty note).
+const page = document.getElementsByClassName("page");
+// Used for event Listener.
+const pageID = document.getElementById("page");
 const addBtns = document.getElementsByClassName("add-btn");
 const placeBtn = document.getElementById("place-btn");
 
 // XHR instant
 var xhr = new XMLHttpRequest();
 
-// Empty pages note.
-if (page && isEmpty(page)) {
-  page.innerHTML = `
-    <h1 class="empty">There are no items yet!</h1>
+// We used page[0] because its a class and it will return HTMLCollection [].
+if (page[0] && isEmpty(page[0])) {
+  page[0].innerHTML = `
+   <h1 class="empty">There are no items yet!</h1>
   `;
 }
 
@@ -21,17 +31,18 @@ if (page && isEmpty(page)) {
 
 // Removing items to cart eventListener.
 // We Used Event Delegation.
-if(page) {
-  page.addEventListener("click", function (e) {
+if (pageID) {
+  pageID.addEventListener("click", function (e) {
     if (e.target && e.target.classList.contains("remove-btn")) {
       remove(e);
     }
   });
 }
+
 // Adding items to cart eventListener.
 for (var i = 0; i < addBtns.length; i++) {
   // Add event listener to each form.
-  addBtns[i].addEventListener("click", function(e) {
+  addBtns[i].addEventListener("click", function (e) {
     addToCart(e);
   });
 }
@@ -46,15 +57,15 @@ if (document.getElementById("search-form")) {
 
 // Place order event listener.
 if (placeBtn) {
-  placeBtn.addEventListener('click', function(e) {
+  placeBtn.addEventListener("click", function (e) {
     placeOrder(e);
   });
 }
 // Place order snackbar.
-if(indexSnackbar) {
-  document.addEventListener('DOMContentLoaded', CheckPlaceOrder);
+if (indexSnackbar) {
+  document.addEventListener("DOMContentLoaded", CheckPlaceOrder);
 }
 // Signed up snackbar.
-if(signedSnackbar) {
-  document.addEventListener('DOMContentLoaded', CheckSigned);
+if (signedSnackbar) {
+  document.addEventListener("DOMContentLoaded", CheckSigned);
 }

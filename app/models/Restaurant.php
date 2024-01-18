@@ -13,7 +13,6 @@ class Restaurant {
 
         try {
             if($result = $this->db->resultSet()) {
-
                 return $result;
             } else {
                 die('Something went wrong');
