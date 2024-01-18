@@ -3,6 +3,7 @@ import { showSnackbar, generatePizzaHTML } from "./services.js";
 const searchResID = document.getElementById("res-id");
 const page = document.getElementById("page");
 const searchContent = document.getElementById("search-content");
+const resPage = document.getElementById("res-index");
 
 // XHR instant
 var xhr = new XMLHttpRequest();
@@ -55,7 +56,7 @@ export function addToCart(e) {
 }
 
 // Remove item from cart AJAX.
-export function remove(e) {
+export function removeFromCart(e) {
   var pizzaID = e.target.getAttribute("id");
   var url = "http://localhost/pizzapoint/clients/remove/" + pizzaID;
   var params = "pizza_id=" + pizzaID;
@@ -101,13 +102,12 @@ export function placeOrder(e) {
 
 // Place order snackbar AJAX.
 export function CheckPlaceOrder() {
-
   var url = "http://localhost/pizzapoint/clients/checkPlaceOrder";
 
   xhr.open("GET", url, true);
   xhr.onload = function () {
-    if(this.responseText.trim() === 'true') {
-      showSnackbar('Your order is placed!');
+    if (this.responseText.trim() === "true") {
+      showSnackbar("Your order is placed!");
     }
   };
   xhr.send();
@@ -115,14 +115,44 @@ export function CheckPlaceOrder() {
 
 // Signed up snackbar AJAX.
 export function CheckSigned() {
-
   var url = "http://localhost/pizzapoint/users/check_signed";
 
   xhr.open("GET", url, true);
   xhr.onload = function () {
-    if(this.responseText.trim() === 'true') {
-      showSnackbar('You are signed up!');
-    } 
+    if (this.responseText.trim() === "true") {
+      showSnackbar("You are signed up!");
+    }
   };
   xhr.send();
+}
+
+// Remove item from restaurant dashboard.
+export function removeItemFromRes(e) {
+  e.preventDefault();
+  var pizzaID = e.target.getAttribute("id");
+  var params = "pizza_id=" + pizzaID;
+  var url = "http://localhost/pizzapoint/restaurants/remove_item";
+
+  xhr.open("POST", url, true);
+
+  // Needed when using POST request
+  xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+  xhr.onload = function () {
+    var pizzas;
+    if ((pizzas = pizzas = JSON.parse(this.responseText))) {
+      if (Array.isArray(pizzas)) {
+        resPage.innerHTML = "";
+        pizzas.forEach(function (pizza) {
+          resPage.innerHTML += generatePizzaHTML(pizza);
+        });
+      }
+    } else {
+      resPage.innerHTML = `
+        <h1 class="empty">there is no items yet!<h1>
+        `;
+    }
+  };
+  // xhr.send();
+  xhr.send(params);
 }

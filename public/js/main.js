@@ -1,11 +1,12 @@
 import { isEmpty } from "./services.js";
 import {
   addToCart,
-  remove,
+  removeFromCart,
   search,
   placeOrder,
   CheckPlaceOrder,
   CheckSigned,
+  removeItemFromRes,
 } from "./ajaxs.js";
 
 const indexSnackbar = document.getElementsByClassName("index-snackbar");
@@ -13,14 +14,18 @@ const signedSnackbar = document.getElementsByClassName("signed-snackbar");
 // Used to show (empty note).
 const page = document.getElementsByClassName("page");
 // Used for event Listener.
-const pageID = document.getElementById("page");
+const clientPage = document.getElementById("page");
+const resPage = document.getElementById("res-index");
 const addBtns = document.getElementsByClassName("add-btn");
 const placeBtn = document.getElementById("place-btn");
 
 // XHR instant
 var xhr = new XMLHttpRequest();
 
-// We used page[0] because its a class and it will return HTMLCollection [].
+/*
+  - Checks if the page is empty to add empty note.
+  - We used page[0] because its a class and it will return HTMLCollection [].
+*/
 if (page[0] && isEmpty(page[0])) {
   page[0].innerHTML = `
    <h1 class="empty">There are no items yet!</h1>
@@ -31,10 +36,10 @@ if (page[0] && isEmpty(page[0])) {
 
 // Removing items to cart eventListener.
 // We Used Event Delegation.
-if (pageID) {
-  pageID.addEventListener("click", function (e) {
+if (clientPage) {
+  clientPage.addEventListener("click", function (e) {
     if (e.target && e.target.classList.contains("remove-btn")) {
-      remove(e);
+      removeFromCart(e);
     }
   });
 }
@@ -68,4 +73,13 @@ if (indexSnackbar) {
 // Signed up snackbar.
 if (signedSnackbar) {
   document.addEventListener("DOMContentLoaded", CheckSigned);
+}
+
+// Remove item restaurant side.
+if (resPage) {
+  resPage.addEventListener("click", function (e) {
+    if (e.target && e.target.classList.contains("remove-btn")) {
+      removeItemFromRes(e);
+    }
+  });
 }
