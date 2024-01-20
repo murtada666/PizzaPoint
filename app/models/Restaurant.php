@@ -47,4 +47,29 @@ class Restaurant {
             echo 'Error: ' . $e->getMessage();
         }
     }
+
+    // Update pizza details.
+    public function updatePizza($id, $title, $ing) {
+
+        // Clean data 
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+        $title = htmlspecialchars(strip_tags($title));
+        $ing =  htmlspecialchars(strip_tags($ing));
+
+        // Prepare query statement.
+        $this->db->query('UPDATE pizzas 
+        SET title = :title, ingredients = :ing 
+        WHERE id = :id');
+        
+        // Bind the data.                  
+        $this->db->bind(':id', $id);
+        $this->db->bind(':title', $title);
+        $this->db->bind(':ing', $ing);
+
+        try{
+            $this->db->execute();
+        } catch(PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
 }

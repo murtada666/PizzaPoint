@@ -1,4 +1,4 @@
-import { isEmpty } from "./services.js";
+import { isEmpty } from './services.js';
 import {
   addToCart,
   removeFromCart,
@@ -7,17 +7,19 @@ import {
   CheckPlaceOrder,
   CheckSigned,
   removeItemFromRes,
-} from "./ajaxs.js";
+  updatePizzaDetails
+} from './ajaxs.js';
 
-const indexSnackbar = document.getElementsByClassName("index-snackbar");
-const signedSnackbar = document.getElementsByClassName("signed-snackbar");
+const indexSnackbar = document.getElementsByClassName('index-snackbar');
+const signedSnackbar = document.getElementsByClassName('signed-snackbar');
 // Used to show (empty note).
-const page = document.getElementsByClassName("page");
+const page = document.getElementsByClassName('page');
 // Used for event Listener.
-const clientPage = document.getElementById("page");
-const resPage = document.getElementById("res-index");
-const addBtns = document.getElementsByClassName("add-btn");
-const placeBtn = document.getElementById("place-btn");
+const clientPage = document.getElementById('page');
+const resPage = document.getElementById('res-index');
+const addBtns = document.getElementsByClassName('add-btn');
+const placeBtn = document.getElementById('place-btn');
+const itemUpdateForm = document.getElementById('item-update-form');
 
 // XHR instant
 var xhr = new XMLHttpRequest();
@@ -28,17 +30,16 @@ var xhr = new XMLHttpRequest();
 */
 if (page[0] && isEmpty(page[0])) {
   page[0].innerHTML = `
-   <h1 class="empty">There are no items yet!</h1>
+   <h1 class='empty'>There are no items yet!</h1>
   `;
 }
-
-// Event Listeners.
+/* Event Listeners */ 
 
 // Removing items to cart eventListener.
 // We Used Event Delegation.
 if (clientPage) {
-  clientPage.addEventListener("click", function (e) {
-    if (e.target && e.target.classList.contains("remove-btn")) {
+  clientPage.addEventListener('click', function (e) {
+    if (e.target && e.target.classList.contains('remove-btn')) {
       removeFromCart(e);
     }
   });
@@ -47,39 +48,47 @@ if (clientPage) {
 // Adding items to cart eventListener.
 for (var i = 0; i < addBtns.length; i++) {
   // Add event listener to each form.
-  addBtns[i].addEventListener("click", function (e) {
+  addBtns[i].addEventListener('click', function (e) {
     addToCart(e);
   });
 }
 // Search event listener.
-if (document.getElementById("search-form")) {
-  const searchForm = document.getElementById("search-form");
+if (document.getElementById('search-form')) {
+  const searchForm = document.getElementById('search-form');
 
-  searchForm.addEventListener("submit", function (e) {
+  searchForm.addEventListener('submit', function (e) {
     search(e);
   });
 }
 
 // Place order event listener.
 if (placeBtn) {
-  placeBtn.addEventListener("click", function (e) {
+  placeBtn.addEventListener('click', function (e) {
     placeOrder(e);
   });
 }
 // Place order snackbar.
 if (indexSnackbar) {
-  document.addEventListener("DOMContentLoaded", CheckPlaceOrder);
+  document.addEventListener('DOMContentLoaded', CheckPlaceOrder);
 }
 // Signed up snackbar.
 if (signedSnackbar) {
-  document.addEventListener("DOMContentLoaded", CheckSigned);
+  document.addEventListener('DOMContentLoaded', CheckSigned);
 }
 
-// Remove item restaurant side.
+// Remove item from dashboard, Restaurant side.
 if (resPage) {
-  resPage.addEventListener("click", function (e) {
-    if (e.target && e.target.classList.contains("remove-btn")) {
+  resPage.addEventListener('click', function (e) {
+    if (e.target && e.target.classList.contains('remove-btn')) {
       removeItemFromRes(e);
     }
+  });
+}
+
+// Update item in the dashboard, Restaurant side.
+if (itemUpdateForm) {
+  const updateSubmitBtn = document.getElementById('update-submit-btn');
+  updateSubmitBtn.addEventListener('click', function (e) {
+    updatePizzaDetails(e);
   });
 }

@@ -1,6 +1,6 @@
 <nav>
   <div class="container">
-    <a href="<?php echo URLROOT . "/clients/index"; ?>" class="logo">Pizza Point</a>
+    <a href="<?php echo URLROOT . "/" . $_SESSION['user_type'] ?? 'users' . "s/index"; ?>" class="logo">Pizza Point</a>
     <ul>
       <?php
 
@@ -21,7 +21,6 @@
 
         if (pageName($url) == "index") {
           echo '<li ><a href="cart">Your CART</a></li>';
-
         } elseif (pageName($url) == "cart") {
           echo '
                   <li ><a href="../index">Home</a></li>
@@ -29,7 +28,6 @@
                       <li><input  id="place-btn" type="submit" name="ordered" value="Place order"></li>
                   </form>
                   ';
-
         } elseif (pageName($url) == "restaurant") {
           echo '<li ><a href="../index">Home</a></li>
                 <li ><a href="../cart">Your CART</a></li>';
@@ -61,13 +59,13 @@
       }
 
 
-      if(pageName($url) != 'login' && pageName($url) != 'register') {
+      if (pageName($url) != 'login' && pageName($url) != 'register') {
         echo "<form action=" . URLROOT . "/users/logout method='POST'>
         <li><input type='submit' name='logout' value='Logout' class='btn brand z-depth-0'></li>
       </form>";
       }
       ?>
-      
+
     </ul>
   </div>
 </nav>

@@ -46,24 +46,36 @@ class Restaurants extends Controller {
     // Update pizza details.
     public function update_pizza() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Initialize empty errors array.
+            $errors = [
+                'title' => '',
+                'ingredients' => ''
+            ];
+            
             // Check title.
-            if (empty($_POST['title'])) {
-                $errors['title'] = 'Title is required';
+            if (isset($_POST['title']) && empty($_POST['title'])) {
+                $errors['title'] = 'empty';
             } else {
-                $title = $_POST['title'];
-                if (!preg_match('/^[a-zA-Z\s]+$/', $title)) {
-                    $errors['title'] = 'Title must be letters and spaces only';
+                if (isset($_POST['title']) && !preg_match('/^[a-zA-Z\s]+$/',  $_POST['title'])) {
+                    $errors['title'] = 'unacceptable';
                 }
             }
 
             // Check ingredients.
-            if (empty($_POST['ingredients'])) {
-                $errors['ingredients'] = 'At least one ingredient is required';
+            if (isset($_POST['ing']) && empty($_POST['ing'])) {
+                $errors['ingredients'] = 'empty';
             } else {
-                $ingredients = $_POST['ingredients'];
-                if (!preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $ingredients)) {
-                    $errors['ingredients'] = 'Ingredients must be a comma separated list';
+                if (isset($_POST['ing']) && !preg_match('/^([a-zA-Z\s]+)(,\s*[a-zA-Z\s]*)*$/', $_POST['ing'])) {
+                    $errors['ingredients'] = 'unacceptable';
                 }
+            }
+            // In case there is NO errors, save updates to DB.
+            if($errors['title'] == '' && $errors['ingredients'] == '') {
+                $this->restaurantModel->updatePizza($_POST['pizza_id'], $_POST['title'], $_POST['ing']); 
+                echo(json_encode('done'));
+            // In case there is an error, Send the error to the AJAX to render it.
+            } else {
+                print_r(json_encode($errors));
             }
         } 
     }
