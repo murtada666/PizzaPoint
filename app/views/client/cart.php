@@ -3,7 +3,7 @@
 <h4>Your cart</h4>
 
 <?php if (!$data['pizzas']) : ?>
-	<section class='pizzas-container page'>
+	<section class='pizzas-container page' id='page'>
 
 	</section>
 <?php else : ?>
@@ -13,7 +13,7 @@
 			<div class='pizza-container'>
 				<img src='../img/pizza.svg'>
 				<div>
-					<h6><?php echo htmlspecialchars(ucwords($pizza->title)); ?></h6>
+					<h6><?php echo htmlspecialchars(ucfirst($pizza->title)); ?></h6>
 					<ul class='ing'>
 						<?php foreach (explode(',', $pizza->ingredients) as $ing) : ?>
 							<li><?php echo htmlspecialchars($ing); ?></li>

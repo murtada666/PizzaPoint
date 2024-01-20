@@ -1,4 +1,4 @@
-import { showSnackbar, generatePizzaHTML } from "./services.js";
+import { showSnackbar, generateClientPizzaHTML, generateResPizzaHTML } from "./services.js";
 
 const searchResID = document.getElementById("res-id");
 const page = document.getElementById("page");
@@ -73,10 +73,10 @@ export function removeFromCart(e) {
 
     // Check if the response(pizzas) is an array.
     if (Array.isArray(pizzas)) {
-      page.innerHTML = "";
+      page.innerHTML = '';
 
       pizzas.forEach(function (pizza) {
-        page.innerHTML += generatePizzaHTML(pizza);
+        page.innerHTML += generateClientPizzaHTML(pizza);
       });
     } else {
       page.innerHTML = `
@@ -94,10 +94,11 @@ export function placeOrder(e) {
 
   xhr.open("GET", url, true);
   xhr.onload = function () {
-    // Check for duplicates and alert if exist
+    // Check if the cart is empty to show snackbar.
     if (this.responseText.trim() === "empty") {
       page.innerHTML += '<div id="snackbar"></div>';
       showSnackbar("Cart is empty, please add some items first!");
+      // Check if the order is placed.
     } else if (this.responseText.trim() === "placed") {
       window.location.href = "http://localhost/pizzapoint/clients/index";
     }
@@ -147,9 +148,12 @@ export function removeItemFromRes(e) {
     var pizzas;
     if ((pizzas = pizzas = JSON.parse(this.responseText))) {
       if (Array.isArray(pizzas)) {
-        resPage.innerHTML = "";
+        resPage.innerHTML = '';
+
+        // var cardClass = 'pizza-res-container' 
+
         pizzas.forEach(function (pizza) {
-          resPage.innerHTML += generatePizzaHTML(pizza);
+          resPage.innerHTML += generateResPizzaHTML(pizza);
         });
       }
     } else {

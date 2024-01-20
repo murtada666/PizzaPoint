@@ -34,7 +34,25 @@
         }
       }
 
+      if (controllerName($url) == "restaurants") {
+        echo "<li class='user-name'>Hello " . htmlspecialchars(strtoupper($_SESSION['user_name'])) . '</li>';
 
+        if (pageName($url) == "index") {
+          echo '<li ><a href="orders">Orders</a></li>
+                <li ><a href="process">In Process</a></li>
+                <li ><a href="add">New Item</a></li>';
+        } elseif (pageName($url) == "cart") {
+          echo '
+                  <li ><a href="../index">Home</a></li>
+                  <form action="./order" method="POST">
+                      <li><input  id="place-btn" type="submit" name="ordered" value="Place order"></li>
+                  </form>
+                  ';
+        } elseif (pageName($url) == "restaurant") {
+          echo '<li ><a href="../index">Home</a></li>
+                <li ><a href="../cart">Your CART</a></li>';
+        }
+      }
 
 
       // restaurant
