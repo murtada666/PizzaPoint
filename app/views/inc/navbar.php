@@ -1,13 +1,13 @@
 <nav>
   <div class="container">
-    <a href="<?php echo URLROOT . "/" . $_SESSION['user_type'] ?? 'users' . "s/index"; ?>" class="logo">Pizza Point</a>
+    <a href="<?php echo URLROOT . "/" . ($_SESSION['user_type'] ?? 'user') . "s/index"; ?>" class="logo">Pizza Point</a>
     <ul>
       <?php
 
       $current_page = $_SERVER['PHP_SELF'];
       $url = $_SERVER['REQUEST_URI'];
 
-
+      // Unsigned side.
       if (pageName($url) == "register") {
         echo '<li><a href="login" >Login</a></li>';
       }
@@ -15,7 +15,7 @@
         echo '<li><a href="register" >Register</a></li>';
       }
 
-      // clients buttons
+      // Clients side.
       if (controllerName($url) == "clients") {
         echo "<li class='user-name'>Hello " . htmlspecialchars(strtoupper($_SESSION['user_name'])) . '</li>';
 
@@ -33,6 +33,8 @@
                 <li ><a href="../cart">Your CART</a></li>';
         }
       }
+
+
 
 
       // restaurant

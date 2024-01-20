@@ -33,16 +33,16 @@ class client {
         $this->db->bind('restaurant_id', $res_id);
         $this->db->bind('search', '%' . $searchContent . '%');
 
-        $result = $this->db->resultSet();
-        return $result;
+        return $this->db->resultSet();
     }
 
     // Details
     public function getDetails($id) {
+        // Fetch the pizza data.
         $this->db->query('SELECT * FROM pizzas WHERE id = :id');
 
         $this->db->bind('id', $id);
-
+        // Fetch the pizza restaurant name.
         if ($pizza = $this->db->single()) {
             $this->db->query('SELECT name FROM restaurants WHERE id = :id');
             $this->db->bind(':id', $pizza->restaurant_id);

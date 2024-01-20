@@ -13,7 +13,7 @@
             <div class="pizza-res-container">
                 <img src="<?php echo URLROOT; ?>/img/pizza.svg">
                 <div>
-                    <h6><?php echo htmlspecialchars($pizza->title); ?></h6>
+                    <h6><?php echo htmlspecialchars(ucwords($pizza->title)); ?></h6>
                     <ul class="ing">
                         <?php foreach (explode(',', $pizza->ingredients) as $ing) : ?>
                             <li><?php echo htmlspecialchars($ing); ?></li>

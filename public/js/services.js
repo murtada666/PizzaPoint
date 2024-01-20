@@ -18,7 +18,7 @@ export function isEmpty(element) {
 export function generatePizzaHTML(pizza) {
   var html = `
       <div class='pizza-container'>
-          <img src='../img/pizza.svg'>
+          <img src='http://localhost/pizzapoint/img/pizza.svg'>
           <div>
               <h6>${pizza.title}</h6>
               <ul class='ing'>

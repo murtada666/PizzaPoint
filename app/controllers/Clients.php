@@ -53,18 +53,6 @@ class Clients extends Controller {
 
                     array_push($_SESSION['cart'], $item_id);
                 }
-
-                // Check for POST request for search  
-            } elseif (isset($_POST['search_content'])) {
-
-                $search = $_POST['search_content'];
-                $result = $this->clientModel->searchPizza($id, $search);
-
-                $data = [
-                    'search' => $search,
-                    'pizzas' => $result
-                ];
-                $this->view('client/search_response', $data);
             }
         } else {
             // Normal rendering for the page.
@@ -77,6 +65,21 @@ class Clients extends Controller {
                 'pizzas' => $result,
             ];
             $this->view('client/restaurant', $data);
+        }
+    }
+
+    // Search functionality.
+    public function search() {
+        if (isset($_POST['search_content'])) {
+            $res_id = $_SESSION['res_id'];
+            $search = $_POST['search_content'];
+
+            // Check whether search content is empty or not to avoid unnecessary wildcard/like behavior in SQL. 
+            if(!empty($search)) {
+                print_r(json_encode($this->clientModel->searchPizza($res_id, $search)));
+            } else {
+                echo(json_encode('empty'));
+            }
         }
     }
 
@@ -107,7 +110,6 @@ class Clients extends Controller {
     // Remove item from cart
     public function remove() {
         if (isset($_POST['pizza_id'])) {
-
             $products_ids  = $_SESSION['cart'];
 
             foreach ($products_ids as $x => $id) {
@@ -128,7 +130,6 @@ class Clients extends Controller {
 
     // Placing client order.
     public function order() {
-
         if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
             echo 'empty';
         } elseif(isset($_SESSION['cart']) || !empty($_SESSION['cart'])) {
