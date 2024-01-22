@@ -14,11 +14,6 @@
 </section>
 <h4>Pizzas!</h4>
 
-<?php if (!$data['pizzas']) : ?>
-	<section class='pizzas-container page'>
-
-	</section>
-<?php else : ?>
     <section class="pizzas-container page" id='page' >
         <?php foreach ($data['pizzas'] as $pizza) : ?>
             <div class="pizza-container">
@@ -38,7 +33,6 @@
             </div>
         <?php endforeach; ?>
     </section>
-<?php endif ?>
 
     <!-- SnackBar -->
     <div id="snackbar"></div>

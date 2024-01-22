@@ -72,4 +72,32 @@ class Restaurant {
             echo 'Error: ' . $e->getMessage();
         }
     }
+
+    // Get all restaurant orders.
+    public function getOrders($id) {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
+        $this->db->query('SELECT * from orders WHERE restaurant_id = :id');
+        $this->db->bind(':id', $id);
+
+        try{
+            return $this->db->resultSet();
+        } catch(PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    // Get pizza for orders.
+    public function getOrderPizza($id) {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
+        $this->db->query('SELECT title FROM pizzas WHERE id = :id');
+        $this->db->bind(':id', $id);
+
+        try{
+            return $this->db->single();
+        } catch(PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
 }

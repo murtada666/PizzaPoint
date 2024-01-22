@@ -78,4 +78,35 @@ class Restaurants extends Controller {
             }
         } 
     }
+
+    // Orders page.
+    public function orders() {
+        // Get all orders that belong to a specific restaurant.
+        $orders = $this->restaurantModel->getOrders($_SESSION['user_id']);
+        // Initialize array to hold arrays of titles. 
+        $all_orders_titles = [];
+        /*
+            - Loop through orders to get the details(aka pizzas IDs) for each order.
+            - Get order details/pizzas.
+            - Get the title of each pizza and add it to order_titles array.
+            - Add order_titles array to all_orders_pizzas_titles array.
+        */
+        foreach($orders as $order) {
+
+            $order_titles = [];
+
+            $pizza_details =  explode(',',$order->order_details);
+
+            foreach($pizza_details as $id) {
+                $pizza_title = $this->restaurantModel->getOrderPizza($id);
+                array_push($order_titles, $pizza_title);                
+            }
+            array_push($all_orders_titles, $order_titles);
+        }
+        $data = [
+            'orders' => $orders,
+            'orders_titles' => $all_orders_titles
+        ];
+        $this->view('restaurant/orders', $data);
+    }
 }
