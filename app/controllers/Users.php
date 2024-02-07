@@ -1,7 +1,9 @@
 <?php
-class Users extends Controller {
+class Users extends Controller
+{
   private $userModel;
-  public function __construct() {
+  public function __construct()
+  {
     // To redirect the logged in user back to his home page.
     if (isLoggedIn()) {
       $path = $_SESSION['user_type'] . 's/index';
@@ -10,7 +12,8 @@ class Users extends Controller {
     $this->userModel = $this->model('User');
   }
 
-  public function register() {
+  public function register()
+  {
     // Check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Process form
@@ -61,7 +64,7 @@ class Users extends Controller {
           $data['confirm_password_err'] = 'Passwords do not match';
         }
       }
-      
+
       // Make sure errors are empty
       if (empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
         // Validated
@@ -97,7 +100,8 @@ class Users extends Controller {
     }
   }
 
-  public function login() {
+  public function login()
+  {
     // Check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Process form
@@ -175,7 +179,8 @@ class Users extends Controller {
   }
 
   // Create the needed sessions.
-  public function createUserSession($user) {
+  public function createUserSession($user)
+  {
     $_SESSION['user_type'] = $user->account_type;
     $_SESSION['user_id'] = $user->id;
     $_SESSION['user_email'] = $user->email;
@@ -183,7 +188,8 @@ class Users extends Controller {
     $_SESSION['user_type'] = $user->account_type;
   }
   // Logout operations.
-  public function logout() {
+  public function logout()
+  {
     unset($_SESSION['user_id']);
     unset($_SESSION['user_email']);
     unset($_SESSION['user_name']);
@@ -191,10 +197,11 @@ class Users extends Controller {
     redirect('users/login');
   }
   // Checks for a signed up(to show the snackBar).
-  public function check_signed() {
-    if(isset($_SESSION['signed']) && $_SESSION['signed'] === true) {
-      echo 'true';
+  public function check_signed()
+  {
+    if (isset($_SESSION['signed']) && $_SESSION['signed'] === true) {
       unset($_SESSION['signed']);
+      echo 'true';
     }
-}
+  }
 }

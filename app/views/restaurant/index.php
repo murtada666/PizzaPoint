@@ -1,6 +1,6 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-<h4>Dashboard!</h4>
+<h4>Restaurant Pizzas</h4>
 
 <?php if (!$data['pizzas']) : ?>
     <section class="pizzas-container">

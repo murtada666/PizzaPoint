@@ -12,7 +12,7 @@
 html,
 body {
   font-size: 62.5%;
-  background: #f1f1f1;
+  background: var(--white-color);
 }
 .user-name {
   color: var(--primary-color);
@@ -104,17 +104,17 @@ input[type="button"]:hover {
   padding: 5rem;
   border-radius: 1rem;
   border-bottom: var(--primary-color) solid 0.4rem;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 
-.pizza-res-container{
+.pizza-res-container {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
   position: relative;
-  background: var(--white-color);
-  width: 30rem;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
   height: 26rem;
   margin: 6rem 1rem;
   padding: 5rem;
@@ -140,20 +140,18 @@ h6 {
   margin-top: 0.4rem;
 }
 .pizza-btn input[type="button"],
-.pizza-btn  a {
+.pizza-btn a {
   font-size: 1.6rem;
-  margin-left: 0.5rem; 
-  height: 4rem;   
-  width: 6rem;   
+  margin-left: 0.5rem;
+  height: 4rem;
+  width: 6rem;
   border-radius: 1rem;
-
 }
 
 .pizza-btn input {
   background: var(--primary-color);
   color: var(--white-color);
   border: none;
-
 }
 .pizza-btn a {
   width: 10rem;
@@ -192,6 +190,7 @@ h6 {
   padding: 6rem 8rem;
   border-radius: 1rem;
   border-bottom: var(--primary-color) solid 0.4rem;
+  box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
 }
 img {
   position: absolute;
@@ -427,9 +426,16 @@ img {
 
 /* footer */
 .footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary-color);
+  height: 5rem;
   text-align: center;
   font-size: 2.2rem;
-  margin-bottom: 2rem;
 }
 
 /* Snackbar */
@@ -446,12 +452,6 @@ img {
   padding: 2rem 4rem;
   border-radius: 1rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.place-order {
-  background-color: #5d0707;
-  margin-bottom: 0.5rem;
-  padding-top: 1rem;
 }
 
 /* Update */
@@ -471,4 +471,60 @@ img {
   flex-direction: column;
   align-items: center;
   justify-content: start;
+}
+/* Dashboard */
+.dash-table-container {
+  margin-bottom: 6rem;
+}
+table {
+  border-collapse: collapse;
+}
+.dash-table {
+  width: 100%;
+  background: var(--white-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  margin-bottom: 1rem;
+}
+
+td,
+th {
+  padding: 0.8rem 6rem;
+  text-align: center;
+  border: 0.4rem solid var(--primary-color);
+}
+
+th {
+  font-weight: bold;
+  font-size: 2rem;
+}
+td {
+  font-size: large;
+}
+
+tr:nth-child(even) {
+  background-color: #dddddd;
+}
+
+.order-status {
+  outline: none;
+  border-radius: 1rem;
+  background: var(--primary-color);
+  border: none;
+  color: var(--white-color);
+  padding: 0.4rem;
+}
+
+.br {
+  background: var(--primary-color);
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.res-header {
+  text-align: center;
+  font-size: xx-large;
+  margin-bottom: 1rem;
 }

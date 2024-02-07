@@ -1,15 +1,18 @@
 <?php
-function redirect($page){
+function redirect($page)
+{
     header('location:' . URLROOT . '/' . $page);
-} 
+}
 
-function pageName($url) {
+function pageName($url)
+{
     $url = explode('/', $url);
-    
+
     return $url[3];
 }
-function controllerName($url) {
+function controllerName($url)
+{
     $url = explode('/', $url);
-    
+
     return $url[2];
 }
