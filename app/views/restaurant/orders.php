@@ -12,8 +12,8 @@ $num_counter = 1;
 			<tr>
 				<th>Customer Name</th>
 				<th>Order Status</th>
-				<th>Submitted Datetime</th>
 				<th>Driver Name</th>
+				<th>Submitted Datetime</th>
 			</tr>
 			<tr>
 				<td>Murtada</td>
@@ -24,8 +24,8 @@ $num_counter = 1;
 						<option value="prepared">prepared</option>
 					</select>
 				</td>
-				<td>2024-01-21 14:20:28</td>
 				<td>Ali</td>
+				<td>2024-01-21 14:20:28</td>
 			</tr>
 		</table>
 	</div>

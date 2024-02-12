@@ -1,7 +1,9 @@
 <?php
-class Clients extends Controller {
+class Clients extends Controller
+{
     private $clientModel;
-    public function __construct() {
+    public function __construct()
+    {
         // Check for login & account type
         if (!isLoggedIn() || $_SESSION['user_type'] != 'client') {
             redirect('users/login');
@@ -9,9 +11,10 @@ class Clients extends Controller {
         $this->clientModel = $this->model('client');
     }
 
-    public function index() {
+    public function index()
+    {
         // Initiate the session['cart'] in case the user navigate to cart before adding to it.
-        if(!isset($_SESSION['cart'])) {
+        if (!isset($_SESSION['cart'])) {
             $_SESSION['cart'] = array();
         }
 
@@ -20,11 +23,12 @@ class Clients extends Controller {
         $data = [
             'restaurants' => $result
         ];
-        
+
         $this->view('client/index', $data);
     }
 
-    public function restaurant($id) {
+    public function restaurant($id)
+    {
         $_SESSION['res_id'] = $id;
 
         // Check if trying to add an item.
@@ -44,14 +48,17 @@ class Clients extends Controller {
 
                         // Add the item to the end of $_SESSION['cart'].
                         array_push($_SESSION['cart'], $item_id);
+                        $_SESSION['total_price'] += $_POST['price'];
                     } else {
                         echo "exist";
                     }
                 } else {
+                    $_SESSION['total_price'] = 0;
                     $_SESSION['cart'] = [];
                     $item_id = $_POST['pizza_id'];
 
                     array_push($_SESSION['cart'], $item_id);
+                    $_SESSION['total_price'] += $_POST['price'];
                 }
             }
         } else {
@@ -69,22 +76,24 @@ class Clients extends Controller {
     }
 
     // Search functionality.
-    public function search() {
+    public function search()
+    {
         if (isset($_POST['search_content'])) {
             $res_id = $_SESSION['res_id'];
             $search = $_POST['search_content'];
 
             // Check whether search content is empty or not to avoid unnecessary wildcard/like behavior in SQL. 
-            if(!empty($search)) {
+            if (!empty($search)) {
                 print_r(json_encode($this->clientModel->searchPizza($res_id, $search)));
             } else {
-                echo(json_encode('empty'));
+                echo (json_encode('empty'));
             }
         }
     }
 
     // Details page.
-    public function details($id) {
+    public function details($id)
+    {
         $result = $this->clientModel->getDetails($id);
 
         $data = [
@@ -96,7 +105,8 @@ class Clients extends Controller {
     }
 
     // Fetch cart items from DB.
-    public function cart() {
+    public function cart()
+    {
         $ids = $_SESSION['cart'];
         $pizzas = $this->clientModel->cartItems($ids);
 
@@ -108,7 +118,8 @@ class Clients extends Controller {
     }
 
     // Remove item from cart
-    public function remove() {
+    public function remove()
+    {
         if (isset($_POST['pizza_id'])) {
             $products_ids  = $_SESSION['cart'];
 
@@ -121,18 +132,22 @@ class Clients extends Controller {
             $_SESSION['cart'] = array_values($_SESSION['cart']);
 
             $pizzas = $this->clientModel->cartItems($_SESSION['cart']);
+            $total = $this->clientModel->total($_SESSION['cart']);
 
-            print_r(json_encode($pizzas));            
+            $result = [$pizzas, $total];
+
+            print_r(json_encode($result));
         } else {
             redirect('clients/cart');
         }
     }
 
     // Placing client order.
-    public function order() {
-        if(!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+    public function order()
+    {
+        if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
             echo 'empty';
-        } elseif(isset($_SESSION['cart']) || !empty($_SESSION['cart'])) {
+        } elseif (isset($_SESSION['cart']) || !empty($_SESSION['cart'])) {
             // Get a random driver depending on existing once.
             $driver_id = $this->clientModel->randDriver();
             $client_id = $_SESSION['user_id'];
@@ -144,16 +159,17 @@ class Clients extends Controller {
                 unset($_SESSION['cart']);
                 // To show snackBar after placing order.
                 $_SESSION['placed'] = true;
-                echo'placed';
-            } catch(Exception $e) {
+                echo 'placed';
+            } catch (Exception $e) {
                 echo "Error: " . $e->getMessage();
             }
         }
     }
 
     // This function notify the index page that an order is placed.
-    public function checkPlaceOrder() {
-        if(isset($_SESSION['placed']) && $_SESSION['placed'] === true) {
+    public function checkPlaceOrder()
+    {
+        if (isset($_SESSION['placed']) && $_SESSION['placed'] === true) {
             echo 'true';
             unset($_SESSION['placed']);
         }

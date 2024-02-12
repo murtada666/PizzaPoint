@@ -1,6 +1,9 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
-<h4>Your cart</h4>
+<div class="cart-header">
+	<h4>Your cart</h4>
+	<div class="total">Total: <div id="total"><?php echo isset($_SESSION['total_price']) ? $_SESSION['total_price'] : 0 ?></div>$</div>
+</div>
 
 <?php if (!$data['pizzas']) : ?>
 	<section class='pizzas-container page' id='page'>
@@ -21,7 +24,7 @@
 					</ul>
 				</div>
 				<div class='pizza-btn'>
-					<input type='button' name='remove' value='Remove' id="<?php echo $pizza->id; ?>" class="remove-btn">
+					<input type='button' name='remove' value='Remove' id="<?php echo $pizza->id; ?>" price="<?php echo $pizza->price; ?>" class="remove-btn">
 					<a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id; ?>">More info</a>
 				</div>
 			</div>

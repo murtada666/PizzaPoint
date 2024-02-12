@@ -27,7 +27,6 @@ class Restaurants extends Controller {
             if ($this->restaurantModel->remove($_POST['pizza_id'])) {
                 // Fetch the remaining pizzas from DB and send it to JS AJAX.
                 print_r(json_encode($this->restaurantModel->getPizzas($_SESSION['user_id'])));
-                die();
             }
         }
     }

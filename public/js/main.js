@@ -32,6 +32,8 @@ if (page[0] && isEmpty(page[0])) {
    <h1 class='empty'>There are no items yet!</h1>
   `;
 }
+
+
 /* Event Listeners */
 
 // Removing items to cart eventListener.

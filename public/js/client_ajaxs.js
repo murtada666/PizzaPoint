@@ -41,9 +41,14 @@ export function search(e) {
 export function addToCart(e) {
   if (e.target) {
     var pizzaID = e.target.getAttribute("id");
+    var pizzaPrice = e.target.getAttribute("price");
     var resID = searchResID.value;
     var url = "http://localhost/pizzapoint/clients/restaurant/" + resID;
-    var params = "pizza_id=" + pizzaID;
+    var params =
+      "pizza_id=" +
+      encodeURIComponent(pizzaID) +
+      "&price=" +
+      encodeURIComponent(pizzaPrice);
 
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
@@ -60,21 +65,27 @@ export function addToCart(e) {
 // Remove item from cart AJAX.
 export function removeFromCart(e) {
   var pizzaID = e.target.getAttribute("id");
+  var pizzaPrice = e.target.getAttribute("price");
   var url = "http://localhost/pizzapoint/clients/remove/" + pizzaID;
-  var params = "pizza_id=" + pizzaID;
+  var params =
+    "pizza_id=" +
+    encodeURIComponent(pizzaID) +
+    "&price=" +
+    encodeURIComponent(pizzaPrice);
 
   xhr.open("POST", url, true);
   xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
   xhr.onload = function () {
-    var pizzas = JSON.parse(this.responseText);
+    var result = JSON.parse(this.responseText);
 
     // Check if the response(pizzas) is an array.
-    if (Array.isArray(pizzas)) {
+    if (Array.isArray(result[0])) {
       page.innerHTML = "";
 
-      pizzas.forEach(function (pizza) {
+      result[0].forEach(function (pizza) {
         page.innerHTML += generateClientPizzaHTML(pizza);
       });
+      total.innerHTML = result[1][0].total;
     } else {
       page.innerHTML = `
       <h1 class="empty">there is no items yet!<h1>

@@ -1,3 +1,6 @@
+import { generateResPizzaHTML } from "./services.js";
+
+
 const resPage = document.getElementById("res-index");
 const itemUpdateForm = document.getElementById('item-update-form');
 
@@ -19,7 +22,7 @@ export function removeItemFromRes(e) {
   
     xhr.onload = function () {
       var pizzas;
-      if ((pizzas = pizzas = JSON.parse(this.responseText))) {
+      if ((pizzas = JSON.parse(this.responseText))) {
         if (Array.isArray(pizzas)) {
           resPage.innerHTML = '';
   

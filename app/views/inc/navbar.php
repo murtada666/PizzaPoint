@@ -1,7 +1,7 @@
 <nav>
   <div class="container">
     <a href="<?php echo URLROOT . "/" . ($_SESSION['user_type'] ?? 'user') . "s/index"; ?>" class="logo">Pizza Point</a>
-    <ul>
+    <ul class="nav-ul">
       <?php
 
       $current_page = $_SERVER['PHP_SELF'];

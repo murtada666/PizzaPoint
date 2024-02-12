@@ -47,7 +47,7 @@ nav {
 .container {
   height: 100%;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
 }
 ul {
@@ -55,6 +55,9 @@ ul {
   justify-content: center;
   align-items: center;
   list-style-type: none;
+}
+.nav-ul {
+  margin-right: 10rem;
 }
 li {
   margin-left: 0.5rem;
@@ -80,8 +83,29 @@ input[type="button"]:hover {
   color: var(--primary-color);
   text-decoration: none;
   font-size: 3.6rem;
+  margin-left: 10rem;
 }
 
+.cart-header {
+  position: relative;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.cart-header h4 {
+  flex: 1; /* Take up remaining space */
+}
+.total {
+  display: flex;
+  position: absolute;
+  right: 1rem;
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  text-align: center;
+  background: var(--primary-color);
+  font-size: 2rem;
+}
 /* pizza cards */
 .pizzas-container {
   display: flex;
@@ -99,12 +123,16 @@ input[type="button"]:hover {
   position: relative;
   background: var(--white-color);
   width: 30rem;
-  height: 24rem;
+  min-height: 24rem;
   margin: 6rem 1rem;
   padding: 5rem;
   border-radius: 1rem;
   border-bottom: var(--primary-color) solid 0.4rem;
   box-shadow: rgba(17, 12, 46, 0.15) 0px 48px 100px 0px;
+}
+
+.price {
+  color: rgb(161, 36, 36);
 }
 
 .pizza-res-container {
