@@ -137,8 +137,6 @@ class Clients extends Controller
             $result = [$pizzas, $total];
 
             print_r(json_encode($result));
-        } else {
-            redirect('clients/cart');
         }
     }
 
@@ -153,8 +151,9 @@ class Clients extends Controller
             $client_id = $_SESSION['user_id'];
             $res_id = $_SESSION['res_id'];
             $pizzas_ids = implode(", ", $_SESSION['cart']);
+            $total = $_SESSION['total_price'];
             try {
-                $this->clientModel->placeOrder($client_id, $res_id, $pizzas_ids, $driver_id);
+                $this->clientModel->placeOrder($client_id, $res_id, $pizzas_ids, $driver_id, $total);
                 // Clear cart session.
                 unset($_SESSION['cart']);
                 // To show snackBar after placing order.

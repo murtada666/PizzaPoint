@@ -135,7 +135,7 @@ class client
     }
 
     // Place order.
-    public function placeOrder($client_id, $res_id, $pizzas_ids, $driver_id)
+    public function placeOrder($client_id, $res_id, $pizzas_ids, $driver_id, $total)
     {
 
         // Clean data 
@@ -143,13 +143,15 @@ class client
         $res_id =  filter_var(htmlspecialchars(strip_tags($res_id)), FILTER_VALIDATE_INT);
         $pizzas_ids = htmlspecialchars(strip_tags($pizzas_ids));
         $driver_id =  filter_var(htmlspecialchars(strip_tags($driver_id)), FILTER_VALIDATE_INT);
+        $total =  filter_var(htmlspecialchars(strip_tags($total)), FILTER_VALIDATE_INT);
 
-        $this->db->query("INSERT INTO orders (client_id, restaurant_id, driver_id, order_details) VALUES (:client_id, :res_id, :driver, :pizzas_ids)");
+        $this->db->query("INSERT INTO orders (client_id, restaurant_id, driver_id, order_details, total) VALUES (:client_id, :res_id, :driver, :pizzas_ids, total)");
 
         $this->db->bind(":client_id", $client_id);
         $this->db->bind(":res_id", $res_id);
         $this->db->bind(":driver", $driver_id);
         $this->db->bind(":pizzas_ids", $pizzas_ids);
+        $this->db->bind(":total", $total);
 
         try {
             $this->db->execute();
