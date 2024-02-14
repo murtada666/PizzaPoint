@@ -1,4 +1,4 @@
-import { showSnackbar, generateClientCartPizzaHTML, generateClientAddPizzaHTML } from "./services.js";
+import { showSnackbar, generateClientPizzaHTML } from "./services.js";
 
 const searchResID = document.getElementById("res-id");
 const page = document.getElementById("page");
@@ -26,7 +26,7 @@ export function search(e) {
       page.innerHTML = "";
 
       response.forEach(function (pizza) {
-        page.innerHTML += generateClientAddPizzaHTML(pizza);
+        page.innerHTML += generateClientPizzaHTML(pizza, 'add');
       });
     } else if (response === "empty") {
       page.innerHTML = `
@@ -85,7 +85,7 @@ export function removeFromCart(e) {
       total.innerHTML = result[1][0].total;
 
       result[0].forEach(function (pizza) {
-        page.innerHTML += generateClientCartPizzaHTML(pizza);
+        page.innerHTML += generateClientPizzaHTML(pizza, 'remove');
       });
     } else {
       page.innerHTML = `
