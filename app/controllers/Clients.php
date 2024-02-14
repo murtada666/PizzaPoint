@@ -33,46 +33,60 @@ class Clients extends Controller
 
         // Check if trying to add an item.
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
             // Check for POST request to add pizza ID to cart.
             if (isset($_POST['pizza_id'])) {
-
-                // check if the ($_SESSION['cart']) is already exist.
-                if (!empty($_SESSION['cart'])) {
-                    $item_id = $_POST['pizza_id'];
-
-                    // Check if the item is already exist.
-                    if (!in_array($item_id, $_SESSION['cart'])) {
-
+                // Check if the pizza belong to a new restaurant.
+                if (!isset($_SESSION['current_res']) || $_SESSION['current_res'] === $id) {
+                    $_SESSION['current_res'] = $id;
+                    // check if the ($_SESSION['cart']) is already exist.
+                    if (!empty($_SESSION['cart'])) {
                         $item_id = $_POST['pizza_id'];
 
-                        // Add the item to the end of $_SESSION['cart'].
+                        // Check if the item is already exist.
+                        if (!in_array($item_id, $_SESSION['cart'])) {
+
+                            $item_id = $_POST['pizza_id'];
+
+                            // Add the item to the end of $_SESSION['cart'].
+                            array_push($_SESSION['cart'], $item_id);
+                            $_SESSION['total_price'] += $_POST['price'];
+                        } else {
+                            echo "exist";
+                        }
+                    } else {
+                        $_SESSION['total_price'] = 0;
+                        $_SESSION['cart'] = [];
+                        $item_id = $_POST['pizza_id'];
+
                         array_push($_SESSION['cart'], $item_id);
                         $_SESSION['total_price'] += $_POST['price'];
-                    } else {
-                        echo "exist";
                     }
+                    // The client adding item from a different restaurant.
                 } else {
-                    $_SESSION['total_price'] = 0;
-                    $_SESSION['cart'] = [];
-                    $item_id = $_POST['pizza_id'];
-
-                    array_push($_SESSION['cart'], $item_id);
-                    $_SESSION['total_price'] += $_POST['price'];
+                    echo 'new';
                 }
             }
         } else {
             // Normal rendering for the page.
             $result = $this->clientModel->getRestaurantPizzas($id);
+            $res_name = $this->clientModel->resName($id);
             if (!$result) {
                 $result = [];
             }
             $data = [
                 'search' => '',
                 'pizzas' => $result,
+                'res_name' => $res_name,
             ];
             $this->view('client/restaurant', $data);
         }
+    }
+
+    // Change the current restaurant.
+    public function changeRes() {
+        unset($_SESSION['current_res']);
+        unset($_SESSION['cart']);
+        echo 'changed';
     }
 
     // Search functionality.

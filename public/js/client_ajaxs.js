@@ -26,7 +26,7 @@ export function search(e) {
       page.innerHTML = "";
 
       response.forEach(function (pizza) {
-        page.innerHTML += generateClientPizzaHTML(pizza, 'add');
+        page.innerHTML += generateClientPizzaHTML(pizza, "add");
       });
     } else if (response === "empty") {
       page.innerHTML = `
@@ -53,8 +53,33 @@ export function addToCart(e) {
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xhr.onload = function () {
+      console.log(this.responseText);
       // Check for duplicates and alert if exist
-      if (this.responseText.startsWith("exist")) {
+      if (this.responseText.startsWith("new")) {
+        var snack = document.getElementById("snackbar-new-cart");
+        snack.style.display = "block";
+        document
+          .getElementById("cancel")
+          .addEventListener("click", function () {
+            snack.style.display = "none";
+          });
+        document.getElementById("start").addEventListener("click", function () {
+          var url = "http://localhost/pizzapoint/clients/changeRes";
+          xhr.open("POST", url, true);
+          xhr.setRequestHeader(
+            "Content-type",
+            "application/x-www-form-urlencoded"
+          );
+          xhr.onload = function () {
+            if (this.responseText.trim() == "changed") {
+              snack.style.display = "none";
+            } else {
+              console.log(this.responseText);
+            }
+          };
+          xhr.send(params);
+        });
+      } else if (this.responseText.startsWith("exist")) {
         showSnackbar("Pizza already in the cart");
       }
     };
@@ -85,7 +110,7 @@ export function removeFromCart(e) {
       total.innerHTML = result[1][0].total;
 
       result[0].forEach(function (pizza) {
-        page.innerHTML += generateClientPizzaHTML(pizza, 'remove');
+        page.innerHTML += generateClientPizzaHTML(pizza, "remove");
       });
     } else {
       page.innerHTML = `

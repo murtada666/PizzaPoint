@@ -12,7 +12,7 @@
         </form>
     </div>
 </section>
-<h4>Pizzas!</h4>
+<h4><?php echo $data['res_name']->name ?> Pizzas!</h4>
 
 <section class="pizzas-container page" id='page'>
     <?php foreach ($data['pizzas'] as $pizza) : ?>
@@ -34,8 +34,16 @@
         </div>
     <?php endforeach; ?>
 </section>
-                        
+
 <!-- SnackBar -->
 <div id="snackbar"></div>
+<div id="snackbar-new-cart">
+    <h3>Start a new cart?</h3>
+    <h5>a new order will cancel your previous order</h5>
+    <div class="snackbar-buttons">
+        <input id="cancel" type="button" value="cancel">
+        <input id="start" type="button" value="start">
+    </div>
+</div>
 
 <?php require APPROOT . '/views/inc/footer.php'; ?>

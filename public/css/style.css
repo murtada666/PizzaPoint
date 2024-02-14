@@ -481,6 +481,41 @@ img {
   border-radius: 1rem;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
+#snackbar-new-cart {
+  display: none;
+  position: fixed;
+  top: 2%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--primary-color);
+  color: #fff;
+  text-align: center;
+  font-size: 1.6rem;
+  padding: 2rem 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+#snackbar-new-cart > :nth-child(2) {
+  font-size: 1.6rem;
+}
+.snackbar-buttons {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+}
+
+.snackbar-buttons input {
+  padding: 0.4rem 1rem;
+  margin: 1rem 0 0 1rem;
+  background: var(--white-color);
+  border: none;
+  border-radius: 1rem;
+  font-size: 1.6rem;
+}
+
+.snackbar-buttons input:last-child {
+  background: rgb(235, 135, 98);
+}
 
 /* Update */
 .update-container {

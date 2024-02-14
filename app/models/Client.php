@@ -30,6 +30,16 @@ class client
         }
     }
 
+    // Restaurant name.
+    public function resName($id)
+    {
+        $this->db->query("SELECT name FROM restaurants WHERE id = :id");
+
+        $this->db->bind(':id', $id);
+
+        return $this->db->single();
+    }
+
     // Search 
     public function searchPizza($res_id, $searchContent)
     {
