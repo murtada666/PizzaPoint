@@ -33,7 +33,7 @@ class client
     // Search 
     public function searchPizza($res_id, $searchContent)
     {
-        $this->db->query("SELECT title, ingredients, id FROM pizzas WHERE restaurant_id = :restaurant_id AND title LIKE :search ORDER BY created_at");
+        $this->db->query("SELECT * FROM pizzas WHERE restaurant_id = :restaurant_id AND title LIKE :search ORDER BY created_at");
 
         $this->db->bind('restaurant_id', $res_id);
         $this->db->bind('search', '%' . $searchContent . '%');
@@ -145,7 +145,7 @@ class client
         $driver_id =  filter_var(htmlspecialchars(strip_tags($driver_id)), FILTER_VALIDATE_INT);
         $total =  filter_var(htmlspecialchars(strip_tags($total)), FILTER_VALIDATE_INT);
 
-        $this->db->query("INSERT INTO orders (client_id, restaurant_id, driver_id, order_details, total) VALUES (:client_id, :res_id, :driver, :pizzas_ids, total)");
+        $this->db->query("INSERT INTO orders (client_id, restaurant_id, driver_id, order_details, total) VALUES (:client_id, :res_id, :driver, :pizzas_ids, :total)");
 
         $this->db->bind(":client_id", $client_id);
         $this->db->bind(":res_id", $res_id);

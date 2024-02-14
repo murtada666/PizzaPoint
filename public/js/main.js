@@ -33,26 +33,22 @@ if (page[0] && isEmpty(page[0])) {
   `;
 }
 
-
 /* Event Listeners */
 
-// Removing items to cart eventListener.
+
 // We Used Event Delegation.
 if (clientPage) {
   clientPage.addEventListener("click", function (e) {
+    // Removing items to cart eventListener.
     if (e.target && e.target.classList.contains("remove-btn")) {
       removeFromCart(e);
+    // Adding items to cart eventListener.  
+    } else if (e.target && e.target.classList.contains("add-btn")) {
+      addToCart(e);
     }
   });
 }
 
-// Adding items to cart eventListener.
-for (var i = 0; i < addBtns.length; i++) {
-  // Add event listener to each form.
-  addBtns[i].addEventListener("click", function (e) {
-    addToCart(e);
-  });
-}
 // Search event listener.
 if (document.getElementById("search-form")) {
   const searchForm = document.getElementById("search-form");

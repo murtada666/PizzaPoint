@@ -23,6 +23,7 @@
 						<?php endforeach; ?>
 					</ul>
 				</div>
+				<h6 class="price"><?php echo htmlspecialchars($pizza->price) ?>$</h6>
 				<div class='pizza-btn'>
 					<input type='button' name='remove' value='Remove' id="<?php echo $pizza->id; ?>" price="<?php echo $pizza->price; ?>" class="remove-btn">
 					<a href="<?php echo URLROOT; ?>/clients/details/<?php echo $pizza->id; ?>">More info</a>

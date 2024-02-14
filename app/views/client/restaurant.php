@@ -34,7 +34,7 @@
         </div>
     <?php endforeach; ?>
 </section>
-
+                        
 <!-- SnackBar -->
 <div id="snackbar"></div>
 

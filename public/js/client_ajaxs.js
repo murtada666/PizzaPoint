@@ -1,4 +1,4 @@
-import { showSnackbar, generateClientPizzaHTML } from "./services.js";
+import { showSnackbar, generateClientCartPizzaHTML, generateClientAddPizzaHTML } from "./services.js";
 
 const searchResID = document.getElementById("res-id");
 const page = document.getElementById("page");
@@ -26,7 +26,7 @@ export function search(e) {
       page.innerHTML = "";
 
       response.forEach(function (pizza) {
-        page.innerHTML += generateClientPizzaHTML(pizza);
+        page.innerHTML += generateClientAddPizzaHTML(pizza);
       });
     } else if (response === "empty") {
       page.innerHTML = `
@@ -85,7 +85,7 @@ export function removeFromCart(e) {
       total.innerHTML = result[1][0].total;
 
       result[0].forEach(function (pizza) {
-        page.innerHTML += generateClientPizzaHTML(pizza);
+        page.innerHTML += generateClientCartPizzaHTML(pizza);
       });
     } else {
       page.innerHTML = `
@@ -105,16 +105,14 @@ export function placeOrder(e) {
 
   xhr.open("GET", url, true);
   xhr.onload = function () {
-    console.log("works");
-    console.log(this.responseText);
     // Check if the cart is empty to show snackbar.
-    // if (this.responseText.trim() === "empty") {
-    //   page.innerHTML += '<div id="snackbar"></div>';
-    //   showSnackbar("Cart is empty, please add some items first!");
-    //   // Check if the order is placed.
-    // } else if (this.responseText.trim() === "placed") {
-    //   window.location.href = "http://localhost/pizzapoint/clients/index";
-    // }
+    if (this.responseText.trim() === "empty") {
+      page.innerHTML += '<div id="snackbar"></div>';
+      showSnackbar("Cart is empty, please add some items first!");
+      // Check if the order is placed.
+    } else if (this.responseText.trim() === "placed") {
+      window.location.href = "http://localhost/pizzapoint/clients/index";
+    }
   };
   xhr.send();
 }

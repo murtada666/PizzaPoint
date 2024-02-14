@@ -15,7 +15,7 @@ export function isEmpty(element) {
   return element.childElementCount === 0 && element.textContent.trim() === "";
 }
 
-export function generateClientPizzaHTML(pizza) {
+export function generateClientCartPizzaHTML(pizza) {
   var title =
     pizza.title.charAt(0).toUpperCase() + pizza.title.slice(1).toLowerCase();
   var html = `
@@ -30,10 +30,38 @@ export function generateClientPizzaHTML(pizza) {
                     .join("")}
               </ul>
           </div>
+          <h6 class="price">${pizza.price}$</h6>
           <div class='pizza-btn'>
             <input type='button' name='remove' value='Remove' id="${
               pizza.id
             }" class="remove-btn">
+            <a href="http://localhost/pizzapoint/clients/details/${
+              pizza.id
+            }">More info</a>
+          </div>
+      </div>`;
+  return html;
+}
+export function generateClientAddPizzaHTML(pizza) {
+  var title =
+    pizza.title.charAt(0).toUpperCase() + pizza.title.slice(1).toLowerCase();
+  var html = `
+      <div class='pizza-container'>
+          <img src='http://localhost/pizzapoint/img/pizza.svg'>
+          <div>
+              <h6>${title}</h6>
+              <ul class='ing'>
+                  ${pizza.ingredients
+                    .split(",")
+                    .map((ing) => `<li>${ing.trim()}</li>`)
+                    .join("")}
+              </ul>
+          </div>
+          <h6 class="price">${pizza.price}$</h6>
+          <div class='pizza-btn'>
+          <input type="button" name="add" value="Add" id="${pizza.id}" price="${
+    pizza.price
+  }" class="add-btn">
             <a href="http://localhost/pizzapoint/clients/details/${
               pizza.id
             }">More info</a>
