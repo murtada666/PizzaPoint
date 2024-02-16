@@ -32,42 +32,18 @@
         }
       }
 
+      // Restaurant side.
       if (controllerName($url) == "restaurants") {
         if (pageName($url) == "index") {
           echo '<li ><a href="orders">Orders</a></li>
-                <li ><a href="process">In Process</a></li>
-                <li ><a href="completed">Completed</a></li>
                 <li ><a href="add">New Item</a></li>';
-        } elseif (pageName($url) == "cart") {
-          echo '
-                  <li ><a href="../index">Home</a></li>
-                  <form action="./order" method="POST">
-                      <li><input  id="place-btn" type="submit" name="ordered" value="Place order"></li>
-                  </form>
-                  ';
-        } elseif (pageName($url) == "restaurant") {
-          echo '<li ><a href="../index">Home</a></li>
-                <li ><a href="../cart">Your CART</a></li>';
+        } elseif (pageName($url) == "orders") {
+          echo '<li ><a href="../index">Home</a></li>';
         }
       }
 
 
-      // restaurant
-      if (pageName($url) == "restaurant/jj" || pageName($url) == "restaurant/index") {
-        echo '<li><a href="orders.php" >Orders</a></li>';
-      }
-      if (pageName($url) == "/pizzawebapp/restaurant/dashboard.php" || pageName($url) == "/pizzawebapp/restaurant/orders.php") {
-        echo '<li><a href="process.php" >in process</a></li>';
-      }
-      if (pageName($url) == "/pizzawebapp/restaurant/orders.php" || pageName($url) == "/pizzawebapp/restaurant/process.php") {
-        echo '<li><a href="dashboard.php" >dashboard</a></li>';
-      }
-      if (pageName($url) == "/pizzawebapp/restaurant/dashboard.php") {
-        echo '<li><a href="add.php" >Add a Pizza</a></li>';
-      }
-
-
-      // driver buttons
+      // Driver side.
       if (pageName($url) == "/pizzawebapp/driver/in_the_way.php") {
         echo '<li><a href="driver.php" >orders</a></li>';
       }
@@ -82,7 +58,7 @@
       </form>";
       }
 
-      if(isset($_SESSION['user_name'])) {
+      if (isset($_SESSION['user_name'])) {
         echo "<li class='user-name'>HELLO " . htmlspecialchars(strtoupper($_SESSION['user_name'])) . '</li>';
       }
 

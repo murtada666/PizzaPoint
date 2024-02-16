@@ -571,15 +571,30 @@ tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-.order-status {
-  outline: none;
-  border-radius: 1rem;
-  background: var(--primary-color);
-  border: none;
+.status {
   color: var(--white-color);
-  padding: 0.4rem;
+  border-radius: 1rem;
+  padding: 0.2rem;
 }
 
+.pending {
+  background: rgb(135, 206, 250);
+}
+.confirmed {
+  background: rgb(0, 128, 0);
+}
+.completed {
+  background: rgb(128, 0, 128);
+}
+.shipped {
+  background: rgb(0, 0, 128);
+}
+.on-the-way {
+  background: rgb(255, 165, 0);
+}
+.delivered {
+  background: rgb(0, 128, 128);
+}
 .br {
   background: var(--primary-color);
   padding-bottom: 0.5rem;

@@ -1,13 +1,16 @@
 <?php
-class Restaurant {
+class Restaurant
+{
     private $db;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->db = new Database;
     }
 
     // Bring restaurant pizzas to dashboard.
-    public function getPizzas($id) {
+    public function getPizzas($id)
+    {
         $this->db->query('SELECT * FROM pizzas WHERE restaurant_id = :id');
 
         $this->db->bind(':id', $id);
@@ -23,7 +26,8 @@ class Restaurant {
     }
 
     // Remove pizza from restaurant dashboard.
-    function remove($id) {
+    function remove($id)
+    {
         $this->db->query('DELETE FROM pizzas WHERE id = :id');
 
         $this->db->bind(':id', $id);
@@ -37,7 +41,8 @@ class Restaurant {
     }
 
     // Get single pizza.
-    public function getPizza($id) {
+    public function getPizza($id)
+    {
         $this->db->query('SELECT * FROM pizzas WHERE id = :id');
 
         $this->db->bind('id', $id);
@@ -49,7 +54,8 @@ class Restaurant {
     }
 
     // Update pizza details.
-    public function updatePizza($id, $title, $ing) {
+    public function updatePizza($id, $title, $ing)
+    {
 
         // Clean data 
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
@@ -60,43 +66,72 @@ class Restaurant {
         $this->db->query('UPDATE pizzas 
         SET title = :title, ingredients = :ing 
         WHERE id = :id');
-        
+
         // Bind the data.                  
         $this->db->bind(':id', $id);
         $this->db->bind(':title', $title);
         $this->db->bind(':ing', $ing);
 
-        try{
+        try {
             $this->db->execute();
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
 
     // Get all restaurant orders.
-    public function getOrders($id) {
+    public function getOrders($id)
+    {
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
 
         $this->db->query('SELECT * from orders WHERE restaurant_id = :id');
         $this->db->bind(':id', $id);
 
-        try{
+        try {
             return $this->db->resultSet();
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    // Customer Name.
+    public function customerName($id)
+    {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+        $this->db->query('SELECT name FROM clients WHERE id = :id');
+        $this->db->bind(':id', $id);
+
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+    // Driver Name.
+    public function driverName($id)
+    {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+        $this->db->query('SELECT name FROM drivers WHERE id = :id');
+        $this->db->bind(':id', $id);
+
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
 
     // Get pizza for orders.
-    public function getOrderPizza($id) {
+    public function getOrderPizza($id)
+    {
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
 
         $this->db->query('SELECT title FROM pizzas WHERE id = :id');
         $this->db->bind(':id', $id);
 
-        try{
+        try {
             return $this->db->single();
-        } catch(PDOException $e) {
+        } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }
     }
