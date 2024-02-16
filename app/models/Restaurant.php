@@ -41,7 +41,7 @@ class Restaurant
     }
 
     // Get single pizza.
-    public function getPizza($id)
+    public function getSinglePizza($id)
     {
         $this->db->query('SELECT * FROM pizzas WHERE id = :id');
 
@@ -129,6 +129,33 @@ class Restaurant
         $this->db->query('SELECT title FROM pizzas WHERE id = :id');
         $this->db->bind(':id', $id);
 
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    // Get single order.
+    public function getSingleOrder($id) {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
+        $this->db->query('SELECT order_details, order_status FROM orders WHERE order_id = :id');
+        $this->db->bind(':id', $id);
+
+        try {
+            return $this->db->single();
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    // Get pizza title.
+    public function getSinglePizzaTitle($id)
+    {
+        $this->db->query('SELECT title FROM pizzas WHERE id = :id');
+
+        $this->db->bind('id', $id);
         try {
             return $this->db->single();
         } catch (PDOException $e) {

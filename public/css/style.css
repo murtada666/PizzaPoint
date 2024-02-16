@@ -535,6 +535,7 @@ img {
   align-items: center;
   justify-content: start;
 }
+
 /* Dashboard */
 .dash-table-container {
   margin-bottom: 6rem;
@@ -554,7 +555,7 @@ table {
 
 td,
 th {
-  padding: 0.8rem 6rem;
+  padding: 0.8rem 4rem;
   text-align: center;
   border: 0.4rem solid var(--primary-color);
 }
@@ -605,4 +606,32 @@ tr:nth-child(even) {
   text-align: center;
   font-size: xx-large;
   margin-bottom: 1rem;
+}
+
+.details-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: 2rem auto;
+  width: 22rem;
+  height: auto;
+  border-bottom: 0.5rem solid var(--primary-color);
+  border-radius: 1rem;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.details-container ol li {
+  margin: 1rem auto;
+  font-size: 2rem;
+}
+
+.order-details-btn {
+  background: var(--primary-color);
+  border: none;
+  border-radius: 1rem;
+  padding: 0.6rem;
+  font-size: 1.6rem;
+  margin-bottom: 1rem;
+  color: var(--white-color);
 }

@@ -40,7 +40,7 @@ class Restaurants extends Controller
     {
         $errors = array('title' => '', 'ingredients' => '');
         $data = [
-            'pizza' => $this->restaurantModel->getPizza($id),
+            'pizza' => $this->restaurantModel->getSinglePizza($id),
             'errors' => $errors
         ];
         $this->view('restaurant/update', $data);
@@ -94,6 +94,7 @@ class Restaurants extends Controller
         // Looping through all orders to fetch its details.
         foreach ($orders as $order) {
             $single_order = [
+                'order_id' => $order->order_id,
                 'customer_name' => $this->restaurantModel->customerName($order->client_id)->name,
                 'order_status' => $order->order_status,
                 'driver_name' => $this->restaurantModel->driverName($order->driver_id)->name,
@@ -107,34 +108,21 @@ class Restaurants extends Controller
         $this->view('restaurant/orders', $data);
     }
 
-    // Orders page.
-    // public function orders() {
-    //     // Get all orders that belong to a specific restaurant.
-    //     $orders = $this->restaurantModel->getOrders($_SESSION['user_id']);
-    //     // Initialize array to hold arrays of titles. 
-    //     $all_orders_titles = [];
-    //     /*
-    //         - Loop through orders to get the details(aka pizzas IDs) for each order.
-    //         - Get order details/pizzas.
-    //         - Get the title of each pizza and add it to order_titles array.
-    //         - Add order_titles array to all_orders_pizzas_titles array.
-    //     */
-    //     foreach($orders as $order) {
-
-    //         $order_titles = [];
-
-    //         $pizza_details =  explode(',',$order->order_details);
-
-    //         foreach($pizza_details as $id) {
-    //             $pizza_title = $this->restaurantModel->getOrderPizza($id);
-    //             array_push($order_titles, $pizza_title);                
-    //         }
-    //         array_push($all_orders_titles, $order_titles);
-    //     }
-    //     $data = [
-    //         'orders' => $orders,
-    //         'orders_titles' => $all_orders_titles
-    //     ];
-    //     $this->view('restaurant/orders', $data);
-    // }
+    // Order details.
+    public function order_details($id)
+    {
+        $order = $this->restaurantModel->getSingleOrder($id);
+        $pizza_IDs = explode(',', $order->order_details);
+        
+        $pizzas_titles = array();
+        foreach ($pizza_IDs as $pizza_id) {
+            $title = $this->restaurantModel->getSinglePizzaTitle($pizza_id)->title;
+            array_push($pizzas_titles, $title);
+        }
+        $data = [
+            'order_details' => $pizzas_titles,
+            'order_status' => $order->order_status
+        ];
+        $this->view('restaurant/order_details', $data);
+    }
 }

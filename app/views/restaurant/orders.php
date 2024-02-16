@@ -1,8 +1,4 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
-<?php
-// Counter for order number.
-$num_counter = 1;
-?>
 
 <h1 class="res-header">Restaurant Orders</h1>
 
@@ -15,6 +11,7 @@ $num_counter = 1;
 				<th>Driver Name</th>
 				<th>Price</th>
 				<th>Submitted Datetime</th>
+				<th>Details</th>
 			</tr>
 			<?php foreach ($data as $order) : ?>
 				<tr>
@@ -47,8 +44,9 @@ $num_counter = 1;
 					<td><?php echo $order['driver_name'] ?></td>
 					<td><?php echo $order['total'] ?>$</td>
 					<td><?php echo $order['date_time'] ?></td>
-			</tr>
-		<?php endforeach ?>
+					<td><a href="<?php echo URLROOT . '/restaurants/order_details/' . $order['order_id'] ?>">View</a></td>
+				</tr>
+			<?php endforeach ?>
 		</table>
 	</div>
 </div>
