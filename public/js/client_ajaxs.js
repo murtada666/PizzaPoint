@@ -43,7 +43,7 @@ export function addToCart(e) {
     var pizzaID = e.target.getAttribute("id");
     var pizzaPrice = e.target.getAttribute("price");
     var resID = searchResID.value;
-    var url = "http://localhost/pizzapoint/clients/restaurant/" + resID;
+    var url = "http://localhost/pizzapoint/clients/add/" + resID;
     var params =
       "pizza_id=" +
       encodeURIComponent(pizzaID) +
