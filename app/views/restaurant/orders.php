@@ -48,6 +48,7 @@
 				</tr>
 			<?php endforeach ?>
 		</table>
+		<div id="snackbar" class="updated-order-snackbar"></div>
 	</div>
 </div>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

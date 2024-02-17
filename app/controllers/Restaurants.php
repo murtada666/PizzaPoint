@@ -6,9 +6,9 @@ class Restaurants extends Controller
     public function __construct()
     {
         // Check for login & account type
-        // if (!isLoggedIn() || $_SESSION['user_type'] != 'restaurant') {
-        //     redirect('users/login');
-        // }
+        if (!isLoggedIn() || $_SESSION['user_type'] != 'restaurant') {
+            redirect('users/login');
+        }
         // Initialize the restaurant model.
         $this->restaurantModel = $this->model('restaurant');
     }
@@ -113,16 +113,43 @@ class Restaurants extends Controller
     {
         $order = $this->restaurantModel->getSingleOrder($id);
         $pizza_IDs = explode(',', $order->order_details);
-        
+
         $pizzas_titles = array();
         foreach ($pizza_IDs as $pizza_id) {
             $title = $this->restaurantModel->getSinglePizzaTitle($pizza_id)->title;
             array_push($pizzas_titles, $title);
         }
         $data = [
+            'order_id' => $order->order_id,
             'order_details' => $pizzas_titles,
             'order_status' => $order->order_status
         ];
         $this->view('restaurant/order_details', $data);
+    }
+
+    // Update order status.
+    public function update_status()
+    {
+        if (!empty($_POST['the_new_status']) && !empty($_POST['order_id'])) {
+            $result_check = $this->restaurantModel->updateOrderStatus($_POST['order_id'], $_POST['the_new_status']);
+            if ($result_check == true) {
+                // To show snackbar.
+                $_SESSION['updated'] = true;
+                // Let know the JS that the order is updated.
+                echo true;
+            }
+        } else {
+            echo 'nothing';
+        }
+    }
+
+    public function check_updated_order()
+    {
+        if (isset($_SESSION['updated']) && $_SESSION['updated'] == true) {
+            unset($_SESSION['updated']);
+            echo true;
+        } else {
+            echo false;
+        }
     }
 }

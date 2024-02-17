@@ -65,7 +65,7 @@ export function generateResPizzaHTML(pizza) {
             <input type="submit" name="delete" value="Delete" class="remove-btn" id="${
               pizza.id
             }">
-            <a href='update/${pizza.id}'>update</a>
+            <a href='update/${pizza.id}'>Update</a>
         </div>
       </div>`;
   return html;

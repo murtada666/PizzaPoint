@@ -137,10 +137,11 @@ class Restaurant
     }
 
     // Get single order.
-    public function getSingleOrder($id) {
+    public function getSingleOrder($id)
+    {
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
 
-        $this->db->query('SELECT order_details, order_status FROM orders WHERE order_id = :id');
+        $this->db->query('SELECT order_id, order_details, order_status FROM orders WHERE order_id = :id');
         $this->db->bind(':id', $id);
 
         try {
@@ -158,6 +159,23 @@ class Restaurant
         $this->db->bind('id', $id);
         try {
             return $this->db->single();
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    // Update order status.
+    public function updateOrderStatus($order_id, $status)
+    {
+        $this->db->query('UPDATE orders
+        SET order_status = :status
+        WHERE order_id = :order_id;');
+
+        $this->db->bind('order_id', $order_id);
+        $this->db->bind('status', $status);
+        try {
+            $this->db->execute();
+            return true;
         } catch (PDOException $e) {
             echo 'Error: ' . $e->getMessage();
         }

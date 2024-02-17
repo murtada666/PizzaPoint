@@ -22,7 +22,7 @@
                 </div>
                 <div class="pizza-btn">
                     <input type="submit" name="delete" value="Delete" class="remove-btn" id="<?php echo $pizza->id ?>">
-                    <a href='<?php echo URLROOT . "/restaurants/update/" . $pizza->id; ?>'>update</a>
+                    <a href='<?php echo URLROOT . "/restaurants/update/" . $pizza->id; ?>'>Update</a>
                 </div>
             </div>
         <?php endforeach; ?>

@@ -635,3 +635,17 @@ tr:nth-child(even) {
   margin-bottom: 1rem;
   color: var(--white-color);
 }
+
+/* Return button */
+.order-details-header {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.return-to-orders {
+  position: absolute;
+  left: 1rem;
+  font-size: 1.8rem;
+}
