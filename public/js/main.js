@@ -5,6 +5,7 @@ import {
   updatePizzaDetails,
   updateOrderStatus,
   checkUpdatedOrder,
+  addPizza
 } from "./res_ajaxs.js";
 import {
   addToCart,
@@ -22,6 +23,8 @@ const resPage = document.getElementById("res-index");
 const placeBtn = document.getElementById("place-btn");
 const itemUpdateForm = document.getElementById("item-update-form");
 const orderForm = document.getElementById("order-form");
+const addForm = document.getElementById("add-pizza-form");
+const addBtn = document.getElementById("add-pizza-btn");
 
 // XHR instant
 // var xhr = new XMLHttpRequest();
@@ -89,8 +92,12 @@ if (orderForm) {
   orderForm.addEventListener("click", updateOrderStatus);
 }
 
+// Add new item to restaurant event listener.
+if (addForm) {
+  addBtn.addEventListener("click", addPizza);
+}
 
-// Snack bars event listeners.
+// Snack bars event listeners.  
 
 // Place order snackbar.
 document.addEventListener("DOMContentLoaded", CheckPlaceOrder);

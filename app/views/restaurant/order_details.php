@@ -24,7 +24,6 @@
                 break;
             default:
                 echo "<a class='order-details-btn' href='../orders'>Return</a>";
-                // echo "<input type='button' class='order-details-btn' value='Return'>";
         } ?>
     </div>
 </div>

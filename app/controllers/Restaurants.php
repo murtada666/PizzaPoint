@@ -127,6 +127,22 @@ class Restaurants extends Controller
         $this->view('restaurant/order_details', $data);
     }
 
+    // Add new item page.
+    public function add()
+    {
+        $data = [
+            'title' => '',
+            'ingredients' => ''
+        ];
+        $this->view('restaurant/add', $data);
+    }
+
+    // Add pizza to DB.
+    public function add_pizza()
+    {
+        // Save data to DB.
+    }
+
     // Update order status.
     public function update_status()
     {

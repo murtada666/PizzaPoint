@@ -1,4 +1,8 @@
-import { generateResPizzaHTML, showSnackbar } from "./services.js";
+import {
+  generateResPizzaHTML,
+  showSnackbar,
+  validateAddForm,
+} from "./services.js";
 
 const resPage = document.getElementById("res-index");
 const itemUpdateForm = document.getElementById("item-update-form");
@@ -129,10 +133,43 @@ export function checkUpdatedOrder() {
   xhr.open("GET", url, true);
 
   xhr.onload = function () {
-    console.log(this.responseText);
     if (this.responseText == 1) {
       showSnackbar("Your order is updated successfully");
     }
   };
   xhr.send();
+}
+
+// Add pizza AJAX.
+export function addPizza(e) {
+  e.preventDefault();
+
+  var url = "http://localhost/pizzapoint/restaurants/add_pizza";
+
+  var title = document.getElementById("title").value.trim();
+  var ing = document.getElementById("ingredients").value.trim();
+  var price = document.getElementById("price").value.trim();
+
+  // Validate the inputs.
+  var response = validateAddForm(title, ing, price);
+
+  if (
+    response.title_err === "" &&
+    response.ing_err === "" &&
+    response.price_err === ""
+  ) {
+    // Initiate params for POST request.
+    var params =
+      "title=" + encodeURIComponent(title) + "&ing=" + encodeURIComponent(ing);
+    "&price=" + encodeURIComponent(price);
+
+    xhr.open("POST", url, true);
+    xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+
+    xhr.onload = function () {
+      console.log("done");
+    };
+
+    xhr.send(params);
+  }
 }
