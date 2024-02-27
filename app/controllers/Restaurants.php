@@ -140,7 +140,13 @@ class Restaurants extends Controller
     // Add pizza to DB.
     public function add_pizza()
     {
-        // Save data to DB.
+        // TODO: Save data to DB.
+        // Pass to the function restaurant ID & pizza details.
+        if ($this->restaurantModel->addPizza($_SESSION['user_id'], $_POST)) {
+            echo true;
+        } else {
+            echo 'not saved';
+        }
     }
 
     // Update order status.

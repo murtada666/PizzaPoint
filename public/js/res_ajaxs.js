@@ -154,22 +154,40 @@ export function addPizza(e) {
   var response = validateAddForm(title, ing, price);
 
   if (
-    response.title_err === "" &&
+    response.price_err === "" &&
     response.ing_err === "" &&
     response.price_err === ""
   ) {
     // Initiate params for POST request.
     var params =
-      "title=" + encodeURIComponent(title) + "&ing=" + encodeURIComponent(ing);
-    "&price=" + encodeURIComponent(price);
+      "title=" +
+      encodeURIComponent(title) +
+      "&ing=" +
+      encodeURIComponent(ing) +
+      "&price=" +
+      encodeURIComponent(price);
 
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onload = function () {
-      console.log("done");
+      if (this.responseText == 1) {
+        window.location.href = "http://localhost/pizzapoint/restaurants/index";
+      }
     };
 
     xhr.send(params);
+  } else {
+    // TODO: errors are not currently updated by itself when fixing an error, Fix it; 
+    // Check separately every response in order to show it in form.
+    if (response.title_err !== "") {
+      document.getElementById("title-err").innerHTML = response.title_err;
+    }
+    if (response.ing_err !== "") {
+      document.getElementById("ing-err").innerHTML = response.ing_err;
+    }
+    if (response.price_err !== "") {
+      document.getElementById("price-err").innerHTML = response.price_err;
+    }
   }
 }

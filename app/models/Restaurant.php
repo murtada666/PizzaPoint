@@ -98,6 +98,7 @@ class Restaurant
     public function customerName($id)
     {
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
         $this->db->query('SELECT name FROM clients WHERE id = :id');
         $this->db->bind(':id', $id);
 
@@ -167,12 +168,39 @@ class Restaurant
     // Update order status.
     public function updateOrderStatus($order_id, $status)
     {
+        $id = filter_var(htmlspecialchars(strip_tags($order_id)), FILTER_VALIDATE_INT);
+        $status =  htmlspecialchars(strip_tags($status));
+
         $this->db->query('UPDATE orders
         SET order_status = :status
         WHERE order_id = :order_id;');
 
         $this->db->bind('order_id', $order_id);
         $this->db->bind('status', $status);
+        try {
+            $this->db->execute();
+            return true;
+        } catch (PDOException $e) {
+            echo 'Error: ' . $e->getMessage();
+        }
+    }
+
+    // Add pizza to DB.
+    public function addPizza($res_id, $pizza_details)
+    {
+        // Clean data.
+        $id = filter_var(htmlspecialchars(strip_tags($res_id)), FILTER_VALIDATE_INT);
+        $title = htmlspecialchars(strip_tags($pizza_details['title']));
+        $ing = htmlspecialchars(strip_tags($pizza_details['ing']));
+        $price = filter_var(htmlspecialchars(strip_tags($pizza_details['price'])), FILTER_VALIDATE_INT);
+        // Query.
+        $this->db->query('insert into pizzas(restaurant_id, title, ingredients, price) VALUES(:id, :title, :ing, :price);');
+        // Binding.
+        $this->db->bind(':id', $id);
+        $this->db->bind(':title', $title);
+        $this->db->bind(':ing', $ing);
+        $this->db->bind(':price', $price);
+        // Query execution.
         try {
             $this->db->execute();
             return true;

@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <div class="new-user">
-    <h1 class="center">Add new pizza</h1>
+    <h1 class="center add-header">Add new pizza</h1>
     <form id="add-pizza-form">
         <div>
             <label>Title: </label>

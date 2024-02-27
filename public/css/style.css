@@ -312,7 +312,7 @@ img {
 /* login - sign up */
 .new-user {
   max-width: 35rem;
-  height: 30rem;
+  min-height: 30rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -650,4 +650,8 @@ tr:nth-child(even) {
   position: absolute;
   left: 1rem;
   font-size: 1.8rem;
+}
+
+.add-header {
+  font-size: 2rem;
 }
