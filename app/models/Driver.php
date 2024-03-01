@@ -54,12 +54,16 @@ class Driver
     }
 
     // Get single order.
-    public function getSingleOrder($id)
+    public function getSingleOrder($order_id)
     {
-        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+        $driver_id = $_SESSION['user_id'];
+        $order_id = filter_var(htmlspecialchars(strip_tags($order_id)), FILTER_VALIDATE_INT);
+        $driver_id = filter_var(htmlspecialchars(strip_tags($driver_id)), FILTER_VALIDATE_INT);
 
-        $this->db->query('SELECT order_id, order_details, order_status FROM orders WHERE order_id = :id');
-        $this->db->bind(':id', $id);
+        $this->db->query('SELECT order_id, order_details, order_status FROM orders WHERE order_id = :id AND driver_id = :driver_id');
+
+        $this->db->bind(':id', $order_id);
+        $this->db->bind(':driver_id', $driver_id);
 
         try {
             return $this->db->single();

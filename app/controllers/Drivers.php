@@ -40,21 +40,24 @@ class Drivers extends Controller
     // Order details.
     public function order_details($id)
     {
-        $order = $this->driverModel->getSingleOrder($id);
-        $pizza_IDs = explode(',', $order->order_details);
-
-        $pizzas_titles = array();
-        foreach ($pizza_IDs as $pizza_id) {
-            $title = $this->driverModel->getSinglePizzaTitle($pizza_id)->title;
-            array_push($pizzas_titles, $title);
+        if($order = $this->driverModel->getSingleOrder($id)){
+            $pizza_IDs = explode(',', $order->order_details);
+    
+            $pizzas_titles = array();
+            foreach ($pizza_IDs as $pizza_id) {
+                $title = $this->driverModel->getSinglePizzaTitle($pizza_id)->title;
+                array_push($pizzas_titles, $title);
+            }
+            $data = [
+                'order_id' => $order->order_id,
+                'order_details' => $pizzas_titles,
+                'order_status' => $order->order_status
+            ];
+            // Load view.
+            $this->view('driver/order_details', $data);
+        } else {
+            $this->view('404');
         }
-        $data = [
-            'order_id' => $order->order_id,
-            'order_details' => $pizzas_titles,
-            'order_status' => $order->order_status
-        ];
-        // Load view.
-        $this->view('driver/order_details', $data);
     }
 
     // Update order status.

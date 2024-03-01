@@ -12,7 +12,7 @@ class Restaurant
     public function getPizzas($id)
     {
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
-        
+
         $this->db->query('SELECT * FROM pizzas WHERE restaurant_id = :id');
 
         $this->db->bind(':id', $id);
@@ -45,13 +45,19 @@ class Restaurant
     }
 
     // Get single pizza.
-    public function getSinglePizza($id)
+    public function getSinglePizza($pizza_id)
     {
-        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+        // Used to check unauthorized access.
+        $res_id = $_SESSION['user_id'];
 
-        $this->db->query('SELECT * FROM pizzas WHERE id = :id');
+        $pizza_id = filter_var(htmlspecialchars(strip_tags($pizza_id)), FILTER_VALIDATE_INT);
+        $res_id = filter_var(htmlspecialchars(strip_tags($res_id)), FILTER_VALIDATE_INT);
 
-        $this->db->bind('id', $id);
+        print_r($this->db->query('SELECT * FROM pizzas WHERE id = :id AND restaurant_id = :res_id'));
+
+        $this->db->bind('id', $pizza_id);
+        $this->db->bind('res_id', $res_id);
+
         try {
             return $this->db->single();
         } catch (PDOException $e) {
@@ -144,12 +150,17 @@ class Restaurant
     }
 
     // Get single order.
-    public function getSingleOrder($id)
+    public function getSingleOrder($order_id)
     {
-        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+        // Used to make sure a restaurant can't access other restaurant orders. 
+        $restaurant_id =  $_SESSION['user_id'];
+        $order_id = filter_var(htmlspecialchars(strip_tags($order_id)), FILTER_VALIDATE_INT);
+        $restaurant_id = filter_var(htmlspecialchars(strip_tags($restaurant_id)), FILTER_VALIDATE_INT);
 
-        $this->db->query('SELECT order_id, order_details, order_status FROM orders WHERE order_id = :id');
-        $this->db->bind(':id', $id);
+
+        $this->db->query('SELECT order_id, order_details, order_status FROM orders WHERE order_id = :id AND restaurant_id = :restaurant_id');
+        $this->db->bind(':id', $order_id);
+        $this->db->bind(':restaurant_id', $restaurant_id);
 
         try {
             return $this->db->single();

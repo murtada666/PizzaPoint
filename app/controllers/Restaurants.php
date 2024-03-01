@@ -36,14 +36,18 @@ class Restaurants extends Controller
     }
 
     // Show pizza details(update page).
-    public function update($id)
+    public function update($pizza_id)
     {
-        $errors = array('title' => '', 'ingredients' => '');
-        $data = [
-            'pizza' => $this->restaurantModel->getSinglePizza($id),
-            'errors' => $errors
-        ];
-        $this->view('restaurant/update', $data);
+        if ($pizza = $this->restaurantModel->getSinglePizza($pizza_id)) {
+            $errors = array('title' => '', 'ingredients' => '');
+            $data = [
+                'pizza' => $pizza,
+                'errors' => $errors
+            ];
+            $this->view('restaurant/update', $data);
+        } else {
+            $this->view('404');
+        }
     }
 
     // Update pizza details.
@@ -109,22 +113,26 @@ class Restaurants extends Controller
     }
 
     // Order details.
-    public function order_details($id)
+    public function order_details($order_id)
     {
-        $order = $this->restaurantModel->getSingleOrder($id);
-        $pizza_IDs = explode(',', $order->order_details);
+        $order = $this->restaurantModel->getSingleOrder($order_id);
+        if ($order) {
+            $pizza_IDs = explode(',', $order->order_details);
 
-        $pizzas_titles = array();
-        foreach ($pizza_IDs as $pizza_id) {
-            $title = $this->restaurantModel->getSinglePizzaTitle($pizza_id)->title;
-            array_push($pizzas_titles, $title);
+            $pizzas_titles = array();
+            foreach ($pizza_IDs as $pizza_id) {
+                $title = $this->restaurantModel->getSinglePizzaTitle($pizza_id)->title;
+                array_push($pizzas_titles, $title);
+            }
+            $data = [
+                'order_id' => $order->order_id,
+                'order_details' => $pizzas_titles,
+                'order_status' => $order->order_status
+            ];
+            $this->view('restaurant/order_details', $data);
+        } else {
+            $this->view('404');
         }
-        $data = [
-            'order_id' => $order->order_id,
-            'order_details' => $pizzas_titles,
-            'order_status' => $order->order_status
-        ];
-        $this->view('restaurant/order_details', $data);
     }
 
     // Update order status.
@@ -142,7 +150,7 @@ class Restaurants extends Controller
             echo 'nothing';
         }
     }
-    
+
     // Add new item page.
     public function add()
     {

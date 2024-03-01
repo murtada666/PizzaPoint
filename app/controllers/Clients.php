@@ -31,19 +31,23 @@ class Clients extends Controller
     public function restaurant($id)
     {
         $_SESSION['res_id'] = $id;
-        $result = $this->clientModel->getRestaurantPizzas($id);
-        $res_name = $this->clientModel->resName($id);
+        // In case restaurant exist, otherwise the client is redirected to 404 page.
+        if ($result = $this->clientModel->getRestaurantPizzas($id)) {
+            $res_name = $this->clientModel->resName($id);
 
-        if (!$result) {
-            $result = [];
+            if (!$result) {
+                $result = [];
+            }
+
+            $data = [
+                'search' => '',
+                'pizzas' => $result,
+                'res_name' => $res_name,
+            ];
+            $this->view('client/restaurant', $data);
+        } else {
+            $this->view('404');
         }
-        
-        $data = [
-            'search' => '',
-            'pizzas' => $result,
-            'res_name' => $res_name,
-        ];
-        $this->view('client/restaurant', $data);
     }
 
     // Add item to cart.
