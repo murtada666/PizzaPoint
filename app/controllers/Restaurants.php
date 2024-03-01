@@ -127,6 +127,22 @@ class Restaurants extends Controller
         $this->view('restaurant/order_details', $data);
     }
 
+    // Update order status.
+    public function update_status()
+    {
+        if (!empty($_POST['the_new_status']) && !empty($_POST['order_id'])) {
+            $result_check = $this->restaurantModel->updateOrderStatus($_POST['order_id'], $_POST['the_new_status']);
+            if ($result_check == true) {
+                // To show snackbar.
+                $_SESSION['updated'] = true;
+                // Let know the JS that the order is updated.
+                echo true;
+            }
+        } else {
+            echo 'nothing';
+        }
+    }
+    
     // Add new item page.
     public function add()
     {
@@ -194,21 +210,6 @@ class Restaurants extends Controller
         }
     }
 
-    // Update order status.
-    public function update_status()
-    {
-        if (!empty($_POST['the_new_status']) && !empty($_POST['order_id'])) {
-            $result_check = $this->restaurantModel->updateOrderStatus($_POST['order_id'], $_POST['the_new_status']);
-            if ($result_check == true) {
-                // To show snackbar.
-                $_SESSION['updated'] = true;
-                // Let know the JS that the order is updated.
-                echo true;
-            }
-        } else {
-            echo 'nothing';
-        }
-    }
 
     public function check_updated_order()
     {

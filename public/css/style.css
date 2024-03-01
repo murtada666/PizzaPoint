@@ -592,9 +592,6 @@ tr:nth-child(even) {
 .shipped {
   background: rgb(0, 0, 128);
 }
-.on-the-way {
-  background: rgb(255, 165, 0);
-}
 .delivered {
   background: rgb(0, 128, 128);
 }

@@ -3,10 +3,10 @@ import { CheckSigned } from "./user_ajax.js";
 import {
   removeItemFromRes,
   updatePizzaDetails,
-  updateOrderStatus,
+  updateOrderStatus_res,
   checkUpdatedOrder,
   addPizza,
-  checkNewPizza
+  checkNewPizza,
 } from "./res_ajaxs.js";
 import {
   addToCart,
@@ -15,6 +15,7 @@ import {
   placeOrder,
   CheckPlaceOrder,
 } from "./client_ajaxs.js";
+import { updateOrderStatus_driver } from "./driver_ajaxs.js";
 
 // Used to show (empty note).
 const page = document.getElementsByClassName("page");
@@ -23,7 +24,8 @@ const clientPage = document.getElementById("page");
 const resPage = document.getElementById("res-index");
 const placeBtn = document.getElementById("place-btn");
 const itemUpdateForm = document.getElementById("item-update-form");
-const orderForm = document.getElementById("order-form");
+const restaurantOrderForm = document.getElementById("restaurant-order-form");
+const driverOrderForm = document.getElementById("driver-order-form");
 const addForm = document.getElementById("add-pizza-form");
 const addBtn = document.getElementById("add-pizza-btn");
 
@@ -89,8 +91,8 @@ if (itemUpdateForm) {
 }
 
 // Update order status from restaurant side.
-if (orderForm) {
-  orderForm.addEventListener("click", updateOrderStatus);
+if (restaurantOrderForm) {
+  restaurantOrderForm.addEventListener("click", updateOrderStatus_res);
 }
 
 // Add new item to restaurant event listener.
@@ -98,7 +100,12 @@ if (addForm) {
   addBtn.addEventListener("click", addPizza);
 }
 
-// Snack bars event listeners.  
+// Update order status from driver side.
+if (driverOrderForm) {
+  driverOrderForm.addEventListener("click", (updateOrderStatus_driver));
+}
+
+// Snack bars event listeners.
 
 // Place order snackbar.
 document.addEventListener("DOMContentLoaded", CheckPlaceOrder);

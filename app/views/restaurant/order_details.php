@@ -10,7 +10,7 @@
             <li><?php echo $title; ?></li>
         <?php endforeach ?>
     </ol>
-    <div id="order-form">
+    <div id="restaurant-order-form">
         <!-- The ID in the input tag represent the future order_status value of the order -->
         <?php switch ($data['order_status']) {
             case 0:

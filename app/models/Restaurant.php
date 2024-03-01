@@ -11,6 +11,8 @@ class Restaurant
     // Bring restaurant pizzas to dashboard.
     public function getPizzas($id)
     {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+        
         $this->db->query('SELECT * FROM pizzas WHERE restaurant_id = :id');
 
         $this->db->bind(':id', $id);
@@ -28,6 +30,8 @@ class Restaurant
     // Remove pizza from restaurant dashboard.
     function remove($id)
     {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
         $this->db->query('DELETE FROM pizzas WHERE id = :id');
 
         $this->db->bind(':id', $id);
@@ -43,6 +47,8 @@ class Restaurant
     // Get single pizza.
     public function getSinglePizza($id)
     {
+        $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
         $this->db->query('SELECT * FROM pizzas WHERE id = :id');
 
         $this->db->bind('id', $id);
@@ -168,7 +174,7 @@ class Restaurant
     // Update order status.
     public function updateOrderStatus($order_id, $status)
     {
-        $id = filter_var(htmlspecialchars(strip_tags($order_id)), FILTER_VALIDATE_INT);
+        $order_id = filter_var(htmlspecialchars(strip_tags($order_id)), FILTER_VALIDATE_INT);
         $status =  htmlspecialchars(strip_tags($status));
 
         $this->db->query('UPDATE orders

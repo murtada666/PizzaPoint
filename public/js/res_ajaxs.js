@@ -94,10 +94,10 @@ export function updatePizzaDetails(e) {
 }
 
 // Update Order status.
-export function updateOrderStatus(e) {
+export function updateOrderStatus_res(e) {
   // Represents the new status of the order.
-  var theNewStatus = e.target.getAttribute("status") || "";
-  var orderID = e.target.id || "";
+  var theNewStatus = e.target.getAttribute("status");
+  var orderID = e.target.id;
   var params =
     "the_new_status=" +
     encodeURIComponent(theNewStatus) +
@@ -113,7 +113,6 @@ export function updateOrderStatus(e) {
   xhr.onload = function () {
     // Check if the order is Updated successfully.
     if (this.responseText == 1) {
-      console.log(this.responseText, "nice");
       // Navigate to orders page after updating the order.
       window.location.href = "http://localhost/pizzapoint/restaurants/orders";
     }

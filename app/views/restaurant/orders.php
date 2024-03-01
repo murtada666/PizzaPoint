@@ -9,7 +9,7 @@
 				<th>Customer Name</th>
 				<th>Order Status</th>
 				<th>Driver Name</th>
-				<th>Price</th>
+				<th>Total price</th>
 				<th>Submitted Datetime</th>
 				<th>Details</th>
 			</tr>
@@ -32,9 +32,6 @@
 								echo "<div class='status shipped' value='shipped'>Shipped</div>";
 								break;
 							case 4:
-								echo "<div class='status on-the-way' value='on-the-way'>On the way</div>";
-								break;
-							case 5:
 								echo "<div class='status delivered' value='delivered'>Delivered</div>";
 								break;
 							default:
