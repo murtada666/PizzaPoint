@@ -5,7 +5,8 @@ import {
   updatePizzaDetails,
   updateOrderStatus,
   checkUpdatedOrder,
-  addPizza
+  addPizza,
+  checkNewPizza
 } from "./res_ajaxs.js";
 import {
   addToCart,
@@ -105,3 +106,5 @@ document.addEventListener("DOMContentLoaded", CheckPlaceOrder);
 document.addEventListener("DOMContentLoaded", CheckSigned);
 // Updated order snackbar.
 document.addEventListener("DOMContentLoaded", checkUpdatedOrder);
+// New pizza add snackbar.
+document.addEventListener("DOMContentLoaded", checkNewPizza);

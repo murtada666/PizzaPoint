@@ -27,5 +27,6 @@
             </div>
         <?php endforeach; ?>
     </section>
+    <div id="snackbar" class="updated-order-snackbar"></div>
 <?php endif ?>
 <?php require APPROOT . '/views/inc/footer.php'; ?>

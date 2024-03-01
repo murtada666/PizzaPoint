@@ -60,7 +60,7 @@ class Restaurants extends Controller
             if (isset($_POST['title']) && empty($_POST['title'])) {
                 $errors['title'] = 'empty';
             } else {
-                if (isset($_POST['title']) && !preg_match('/^[a-zA-Z\s]+$/',  $_POST['title'])) {
+                if (isset($_POST['title']) && !preg_match('/^[A-Za-z\d\s]+$/',  $_POST['title'])) {
                     $errors['title'] = 'unacceptable';
                 }
             }
@@ -140,12 +140,57 @@ class Restaurants extends Controller
     // Add pizza to DB.
     public function add_pizza()
     {
-        // TODO: Save data to DB.
-        // Pass to the function restaurant ID & pizza details.
-        if ($this->restaurantModel->addPizza($_SESSION['user_id'], $_POST)) {
+        if (isset($_POST)) {
+            $response = [
+                "title_err" => "",
+                "ing_err" => "",
+                "price_err" => "",
+            ];
+            // Validate the form inputs.
+
+            // Validate title
+            if (empty($_POST['title'])) {
+                $response["title_err"] = "Title is required";
+            } else if (!preg_match('/^[A-Za-z\d\s]+$/', $_POST['title'])) {
+                $response["title_err"] = "Title is not a valid word";
+            }
+
+            // Validate ingredients
+            if (empty($_POST['ing'])) {
+                $response["ing_err"] = "Ingredients are required";
+            } else if (!preg_match('/^[a-zA-Z]+(?:\s*,\s*[a-zA-Z\s]+)*$/', $_POST['ing'])) {
+                $response["ing_err"] = "Ingredients must be valid words separated by comma";
+            }
+
+            // Validate price
+            if (empty($_POST['price'])) {
+                $response["price_err"] = "Price is required";
+            } else if (!is_numeric($_POST['price']) || $_POST['price'] < 0) {
+                $response["price_err"] = "Price must be a number greater than zero";
+            }
+            // If response R empty, save data to DB.
+            if (empty($response['title_err']) && empty($response['ing_err']) && empty($response['price_err'])) {
+                // Pass to the function restaurant ID & pizza details.
+                if ($result = $this->restaurantModel->addPizza($_SESSION['user_id'], $_POST) === true) {
+                    $_SESSION['pizza_saved'] = true;
+                    echo true;
+                } else {
+                    // Returns the SQL error.
+                    echo $result;
+                }
+            } else {
+                // Return the response to the AJAX as a JSON.
+                print_r(json_encode($response));
+            }
+        }
+    }
+
+    // New pizza added.
+    public function check_new_pizza()
+    {
+        if (isset($_SESSION['pizza_saved']) && $_SESSION['pizza_saved'] === true) {
+            unset($_SESSION['pizza_saved']);
             echo true;
-        } else {
-            echo 'not saved';
         }
     }
 

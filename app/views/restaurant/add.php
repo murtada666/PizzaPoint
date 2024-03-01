@@ -2,7 +2,7 @@
 
 <div class="new-user">
     <h1 class="center add-header">Add new pizza</h1>
-    <form id="add-pizza-form">
+    <form id="add-pizza-form" class="add-pizza-form">
         <div>
             <label>Title: </label>
             <input type="text" class="p-l" id="title">

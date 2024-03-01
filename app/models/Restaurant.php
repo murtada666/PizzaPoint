@@ -193,13 +193,16 @@ class Restaurant
         $title = htmlspecialchars(strip_tags($pizza_details['title']));
         $ing = htmlspecialchars(strip_tags($pizza_details['ing']));
         $price = filter_var(htmlspecialchars(strip_tags($pizza_details['price'])), FILTER_VALIDATE_INT);
+
         // Query.
         $this->db->query('insert into pizzas(restaurant_id, title, ingredients, price) VALUES(:id, :title, :ing, :price);');
+
         // Binding.
         $this->db->bind(':id', $id);
         $this->db->bind(':title', $title);
         $this->db->bind(':ing', $ing);
         $this->db->bind(':price', $price);
+
         // Query execution.
         try {
             $this->db->execute();

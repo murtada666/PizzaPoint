@@ -655,3 +655,7 @@ tr:nth-child(even) {
 .add-header {
   font-size: 2rem;
 }
+/* Add pizza form */
+.add-pizza-form div {
+  margin-top: 1rem;
+}
