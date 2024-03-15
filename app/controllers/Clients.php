@@ -31,10 +31,13 @@ class Clients extends Controller
     public function restaurant($id)
     {
         $_SESSION['res_id'] = $id;
-        // In case restaurant exist, otherwise the client is redirected to 404 page.
-        if ($result = $this->clientModel->getRestaurantPizzas($id)) {
+        // Check  if restaurant exist first.
+        if ($this->clientModel->doesResExist($id)) {
+            // In case restaurant exist, otherwise the client is redirected to 404 page.
+            $result = $this->clientModel->getRestaurantPizzas($id);
             $res_name = $this->clientModel->resName($id);
 
+            // In case no data found.
             if (!$result) {
                 $result = [];
             }
@@ -44,7 +47,9 @@ class Clients extends Controller
                 'pizzas' => $result,
                 'res_name' => $res_name,
             ];
+
             $this->view('client/restaurant', $data);
+            // In case restaurant is not exist.
         } else {
             $this->view('404');
         }

@@ -18,6 +18,26 @@ class client
         return $results;
     }
 
+    // Check if restaurant exist in DB to handle 404.
+    public function doesResExist($id)
+    {
+        // Clean data 
+        $id =  filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
+        $this->db->query("SELECT id FROM restaurants WHERE id = :id");
+
+        $this->db->bind('id', $id);
+
+        try {
+            // In case restaurant is not exist.
+            if ($this->db->single()) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+        }
+    }
+
     // Getting pizzas for restaurant page
     public function getRestaurantPizzas($id)
     {
