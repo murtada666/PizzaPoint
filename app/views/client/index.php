@@ -8,7 +8,7 @@
 			<div class="name-container">
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="GET">
 					<div>
-						<a class="res-name" href="restaurant/<?php echo $restaurant->id ?>"><?php echo ucwords($restaurant->name); ?></a>
+						<a class="res-name" href="./clients/restaurant/<?php echo $restaurant->id ?>"><?php echo ucwords($restaurant->name); ?></a>
 					</div>
 				</form>
 			</div>

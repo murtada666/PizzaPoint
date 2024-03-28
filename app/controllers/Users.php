@@ -148,8 +148,8 @@ class Users extends Controller
           $this->createUserSession($loggedInUser);
           // Check account type.
           if ($_SESSION['user_type'] == 'client') {
-            // redirect('aa');
-            redirect('clients/index');
+            redirect('home');
+            // redirect('clients/index');
           } elseif ($_SESSION['user_type'] == 'restaurant') {
             redirect('restaurants/index');
           } elseif ($_SESSION['user_type'] == 'driver') {

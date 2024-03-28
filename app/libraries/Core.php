@@ -6,53 +6,62 @@
     * URL FORMAT - /controller/methods/params
 */
 
-class Core {
+class Core
+{
+    // Routing is implemented on clients/index only to show how to implement routing if needed!!.
+    // Routes.
+    protected $routes = [
+        'home' => ['controller' => 'clients', 'method' => 'index'],
+        'bb' => ['controller' => 'SomeOtherController', 'method' => 'someMethod'],
+    ];
+
     protected $currentController = 'users';
     protected $currentMethod = 'register';
     protected $params = [];
 
-    public function __construct() {
-
+    public function __construct()
+    {
         $url = $this->getUrl();
-        // print_r($url);
 
-        // Look in controllers for first value (the controller)
-        if (!empty($url) && file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
-            // if exist set as controller 
-            $this->currentController = ucwords($url[0]);
-            // Unset 0 index
-            unset($url[0]);
-        }
+        // Search in routes.
+        if (!empty($url) && isset($this->routes[$url[0]])) {
+            $route = $this->routes[$url[0]];
+            // Set the controller.
+            $this->currentController = $route['controller'];
+            // Set the method.
+            $this->currentMethod = $route['method'];
+            // Require the controller.
+            require_once '../app/controllers/' . $this->currentController  . '.php';
+            // Instantiate controller class.
+            $this->currentController = new $this->currentController;
+            unset($url);
 
-        // require the controller
-        require_once '../app/controllers/' . $this->currentController  . '.php';
-
-        // instantiate controller class
-        $this->currentController = new $this->currentController;
-
-        // Check for second part of url
-        if (isset($url[1])) {
-            // Check to see if method exists in controller
-            if (method_exists($this->currentController, $url[1])) {
-                $this->currentMethod = $url[1];
-                // Unset 1 index
-                unset($url[1]);
+            // Search in controllers for first value (the controller).
+        } else {
+            if (!empty($url) && file_exists('../app/controllers/' . ucwords($url[0]) . '.php')) {
+                $this->currentController = ucwords($url[0]);
+                unset($url[0]);
             }
+            // Require the controller.
+            require_once '../app/controllers/' . $this->currentController  . '.php';
+            // Instantiate controller class.
+            $this->currentController = new $this->currentController;
+            // Check for second part of URL(Method).
+            if (isset($url[1])) {
+                // Check to see if method exists in controller.
+                if (method_exists($this->currentController, $url[1])) {
+                    $this->currentMethod = $url[1];
+                    // Unset 1 index.
+                    unset($url[1]);
+                }
+            }
+            // Get params (and because we unset the controller and the method, that means the values remaining in the array are the params only).
+            $this->params = $url ? array_values($url) : [];
         }
-
-        // Get params (and because we unset the controller and the method, that means the values remaining in the array are the params only)
-        $this->params = $url ? array_values($url) : [];
-
-        // Call a callback with array of params (notice that this function takes two params and NOT three)
+        // Call a callback with array of params (notice that this function takes two params and NOT three).
         call_user_func_array([$this->currentController, $this->currentMethod], $this->params);
-        
-        /* we are basically saying:
-      - Here is a class named something 
-      - There is a method inside it named something
-      - And here is the params of the method
-      - Now call it for me. 
-      */
     }
+
 
     /*
         *rtrim is being used to remove (/) on the right if exist

@@ -1,11 +1,20 @@
+<?php
+$current_page = $_SERVER['PHP_SELF'];
+$url = $_SERVER['REQUEST_URI'];
+?>
+
 <nav>
   <div class="container">
-    <a href="<?php echo URLROOT . "/" . ($_SESSION['user_type'] ?? 'user') . "s/index"; ?>" class="logo">Pizza Point</a>
+    <?php if (!isset($_SESSION['user_type'])) : ?>
+      <!-- In this way the logo will stay in the same page -->
+      <a href="<?php echo URLROOT . "/" . controllerName($url) . '/' . pageName($url); ?>" class="logo">Pizza Point</a>
+    <?php elseif ($_SESSION['user_type'] == 'client') : ?>
+      <a href="<?php echo URLROOT . "/home" ?>" class="logo">Pizza Point</a>
+    <?php else : ?>
+      <a href="<?php echo URLROOT . "/" . $_SESSION['user_type'] . "s/index"; ?>" class="logo">Pizza Point</a>
+    <?php endif ?>
     <ul class="nav-ul">
       <?php
-
-      $current_page = $_SERVER['PHP_SELF'];
-      $url = $_SERVER['REQUEST_URI'];
 
       // Unsigned side.
       if (pageName($url) == "register") {
@@ -30,6 +39,8 @@
           echo '<li ><a href="../index">Home</a></li>
                 <li ><a href="../cart">Your CART</a></li>';
         }
+      } elseif (controllerName($url) == "home") {
+        echo '<li ><a href="./clients/cart">Your CART</a></li>';
       }
 
       // Restaurant side.
