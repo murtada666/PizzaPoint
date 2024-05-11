@@ -8,7 +8,7 @@ class client
     {
         $this->db = new Database;
     }
-    // Getting restaurants for index page
+    // Getting restaurants for index page.
     public function getRestaurants()
     {
         $this->db->query("SELECT name, id FROM restaurants");
