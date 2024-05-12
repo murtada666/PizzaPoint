@@ -164,7 +164,7 @@ export function addPizza(e) {
       var response = JSON.parse(this.responseText);
 
       // Show errors in form.
-      document.getElementById("title-err").innerHTML = response["title_err"];
+      document.getElementById("title-err").innerHTML = response.title_err;
       document.getElementById("ing-err").innerHTML = response.ing_err;
       document.getElementById("price-err").innerHTML = response.price_err;
     }

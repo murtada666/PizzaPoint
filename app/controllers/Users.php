@@ -23,7 +23,7 @@ class Users extends Controller
 
       // Initialize data.
       $data = [
-        'account_type' => trim($_POST['account_type']),
+        'account_type' => 'client',
         'name' => trim($_POST['name']),
         'email' => trim($_POST['email']),
         'password' => trim($_POST['password']),
@@ -146,19 +146,23 @@ class Users extends Controller
         if ($loggedInUser) {
           // Create Session.
           $this->createUserSession($loggedInUser);
+
           // Check account type.
           if ($_SESSION['user_type'] == 'client') {
             redirect('home');
             // redirect('clients/index');
+
           } elseif ($_SESSION['user_type'] == 'restaurant') {
             redirect('restaurants/index');
           } elseif ($_SESSION['user_type'] == 'driver') {
             redirect('drivers/index');
+          } elseif ($_SESSION['user_type'] == 'admin') {
+            redirect('admins/index');
           } else {
             die('Unrecognizable User Type!');
           }
         } else {
-          $data['password_err'] = 'Password incorrect';
+          $data['password_err'] = 'Email or Password is incorrect';
 
           $this->view('users/login', $data);
         }

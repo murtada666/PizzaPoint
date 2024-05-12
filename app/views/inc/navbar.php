@@ -53,13 +53,11 @@ $url = $_SERVER['REQUEST_URI'];
         }
       }
 
-
-      // Driver side.
-      if (pageName($url) == "/pizzawebapp/driver/in_the_way.php") {
-        echo '<li><a href="driver.php" >orders</a></li>';
-      }
-      if (pageName($url) == "/pizzawebapp/driver/driver.php") {
-        echo '<li><a href="in_the_way.php" >in the way</a></li>';
+      // Admin side.
+      if (controllerName($url) == "admins") {
+        if (pageName($url) == "index") {
+          echo '<li ><a href="new_admin">New Admin</a></li>';
+        }
       }
 
 

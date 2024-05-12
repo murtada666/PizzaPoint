@@ -27,42 +27,45 @@ class User
         }
     }
 
-    // Login user
+    // Login user.
     public function login($email, $password)
     {
-        // Match email account type with its corresponding table
+        // Match email account type with its corresponding table.
         $this->db->query('SELECT id, account_type FROM clients WHERE email = :email
                           UNION 
                           SELECT id, account_type FROM restaurants WHERE email = :email
                           UNION 
-                          SELECT id, account_type FROM drivers WHERE email = :email');
+                          SELECT id, account_type FROM drivers WHERE email = :email
+                          UNION 
+                          SELECT id, account_type FROM admins WHERE email = :email');
 
         $this->db->bind(':email', $email);
 
-        $row = $this->db->single();
+        $row_1 = $this->db->single();
 
         // Check the right table.
-        if ($row->account_type == 'client') {
+        if ($row_1->account_type == 'client') {
             $this->db->query('SELECT * FROM clients WHERE id = :id');
-        } elseif ($row->account_type == 'restaurant') {
+        } elseif ($row_1->account_type == 'restaurant') {
             $this->db->query('SELECT * FROM `restaurants` WHERE id = :id');
-        } elseif ($row->account_type == 'driver') {
+        } elseif ($row_1->account_type == 'driver') {
             $this->db->query('SELECT * FROM drivers WHERE id = :id');
+        } elseif ($row_1->account_type == 'admin') {
+            $this->db->query('SELECT * FROM admins WHERE id = :id');
         }
 
-        $this->db->bind(':id', $row->id);
+        $this->db->bind(':id', $row_1->id);
 
-        $row = $this->db->single();
+        $row_2 = $this->db->single();
+        $hashed_password = $row_2->password;
 
-        $hashed_password = $row->password;
 
         if (password_verify($password, $hashed_password)) {
-            return $row;
+            return $row_2;
         } else {
             return false;
         }
     }
-
     // Find user by email
     public function findUserByEmail($email)
     {
@@ -70,7 +73,9 @@ class User
                           UNION 
                           SELECT * FROM restaurants WHERE email = :email
                           UNION 
-                          SELECT * FROM drivers WHERE email = :email');
+                          SELECT * FROM drivers WHERE email = :email
+                          UNION 
+                          SELECT * FROM admins WHERE email = :email');
         // Bind values
         $this->db->bind(':email', $email);
 

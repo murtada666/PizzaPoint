@@ -16,7 +16,7 @@ import {
   CheckPlaceOrder,
 } from "./client_ajaxs.js";
 import { updateOrderStatus_driver } from "./driver_ajaxs.js";
-
+import { addNewAdminUser } from "./admin_ajax.js"
 // Used to show (empty note).
 const page = document.getElementsByClassName("page");
 // Used for event Listener.
@@ -28,6 +28,7 @@ const restaurantOrderForm = document.getElementById("restaurant-order-form");
 const driverOrderForm = document.getElementById("driver-order-form");
 const addForm = document.getElementById("add-pizza-form");
 const addBtn = document.getElementById("add-pizza-btn");
+const newAdminBtn = document.getElementById("new-admin-submit-btn");
 
 // XHR instant
 // var xhr = new XMLHttpRequest();
@@ -102,7 +103,12 @@ if (addForm) {
 
 // Update order status from driver side.
 if (driverOrderForm) {
-  driverOrderForm.addEventListener("click", (updateOrderStatus_driver));
+  driverOrderForm.addEventListener("click", updateOrderStatus_driver);
+}
+
+// Adding new admin account btn.
+if(newAdminBtn) {
+  newAdminBtn.addEventListener('click', addNewAdminUser)
 }
 
 // Snack bars event listeners.

@@ -656,3 +656,25 @@ tr:nth-child(even) {
 .add-pizza-form div {
   margin-top: 1rem;
 }
+
+/* Admin */
+.admin-header {
+  text-align: center;
+  font-size: 4rem;
+  margin: 4rem auto;
+}
+.admin-main-container {
+  width: 100%;
+  height: 7rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  padding: 0 15rem;
+}
+.admin-main-container a {
+  height: 8rem;  
+  font-size: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
