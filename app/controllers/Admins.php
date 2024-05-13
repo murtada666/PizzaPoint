@@ -5,22 +5,26 @@ class Admins extends Controller
 
   public function __construct()
   {
-    if($_SESSION['user_type'] != 'admin') {
+    // Redirect if  unauthenticated admin.
+    if ($_SESSION['user_type'] != 'admin') {
       redirect('users/login');
     }
-
+    // Assign admin model.
     $this->adminModel = $this->model('admin');
   }
 
+  // View index page.
   public function index()
   {
-    $data = [];
-    $this->view('admin/index', $data);
+    $this->view('admin/index');
   }
 
   // View new admin page.
   public function new_admin()
   {
+    // Needed to determine the table latter.
+    $_SESSION['future_account_type'] = 'admins';
+
     // Init data.
     $data = [
       'name' => '',
@@ -36,18 +40,96 @@ class Admins extends Controller
     $this->view('admin/new_admin', $data);
   }
 
-  // Add admin to DB.
-  public function add_admin()
+  // View restaurants page.
+  public function restaurants()
+  {
+    $this->view('admin/restaurants');
+  }
+
+  // View new restaurant page.
+  public function new_restaurant()
+  {
+    // Needed to determine the table latter.
+    $_SESSION['future_account_type'] = 'restaurants';
+
+    // Init data.
+    $data = [
+      'name' => '',
+      'email' => '',
+      'password' => '',
+      'confirm_password' => '',
+      'name_err' => '',
+      'email_err' => '',
+      'password_err' => '',
+      'confirm_password_err' => ''
+    ];
+
+    $this->view('admin/new_restaurant', $data);
+  }
+
+  // View clients page.
+  public function clients()
+  {
+    $this->view('admin/clients');
+  }
+  // View new clients page.
+  public function new_client()
+  {
+    $_SESSION['future_account_type'] = 'clients';
+
+    // Init data.
+    $data = [
+      'name' => '',
+      'email' => '',
+      'password' => '',
+      'confirm_password' => '',
+      'name_err' => '',
+      'email_err' => '',
+      'password_err' => '',
+      'confirm_password_err' => ''
+    ];
+
+    $this->view('admin/new_client', $data);
+  }
+
+  // View drivers page.
+  public function drivers()
+  {
+    $this->view('admin/drivers');
+  }
+  // View new driver page.
+  public function new_driver()
+  {
+    // Needed to determine the table latter.
+    $_SESSION['future_account_type'] = 'drivers';
+
+    // Init data.
+    $data = [
+      'name' => '',
+      'email' => '',
+      'password' => '',
+      'confirm_password' => '',
+      'name_err' => '',
+      'email_err' => '',
+      'password_err' => '',
+      'confirm_password_err' => ''
+    ];
+
+    $this->view('admin/new_driver', $data);
+  }
+
+  // Create new account(Restaurant, driver, client, admin) in DB - Dynamic function.
+  public function add_account()
   {
     // Check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Process form.
+
       // Sanitize POST data.
       $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
 
       // Initialize data.
       $data = [
-        'account_type' => 'admin',
         'name' => trim($_POST['name']),
         'email' => trim($_POST['email']),
         'password' => trim($_POST['password']),
@@ -63,7 +145,7 @@ class Admins extends Controller
 
       // Validate Email.
       if (empty($data['email'])) {
-        $data['email_err'] = 'Please enter email';
+        $response['email_err'] = 'Please enter email';
       } else {
         // Check email.
         if ($this->adminModel->findUserByEmail($data['email'])) {
@@ -101,8 +183,14 @@ class Admins extends Controller
         $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         // Register User.
-        if ($this->adminModel->register($data)) {
-          echo (json_encode(true));
+        if ($this->adminModel->registerAccount($_SESSION['future_account_type'], $data)) {
+          if ($_SESSION['future_account_type'] == 'admins') {
+            $response = [true, 'index'];
+            print_r(json_encode($response));
+          } else {
+            $response = [true, $_SESSION['future_account_type']];
+            print_r(json_encode($response));
+          }
         } else {
           die('Something went wrong');
         }
@@ -110,21 +198,5 @@ class Admins extends Controller
         print_r(json_encode($response));
       }
     }
-  }
-
-  public function clients()
-  {
-    $data = [];
-    $this->view('admin/clients', $data);
-  }
-  public function restaurants()
-  {
-    $data = [];
-    $this->view('admin/restaurants', $data);
-  }
-  public function drivers()
-  {
-    $data = [];
-    $this->view('admin/drivers', $data);
   }
 }

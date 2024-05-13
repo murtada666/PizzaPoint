@@ -16,7 +16,7 @@ import {
   CheckPlaceOrder,
 } from "./client_ajaxs.js";
 import { updateOrderStatus_driver } from "./driver_ajaxs.js";
-import { addNewAdminUser } from "./admin_ajax.js"
+import { addNewAccount } from "./admin_ajax.js"
 // Used to show (empty note).
 const page = document.getElementsByClassName("page");
 // Used for event Listener.
@@ -29,6 +29,9 @@ const driverOrderForm = document.getElementById("driver-order-form");
 const addForm = document.getElementById("add-pizza-form");
 const addBtn = document.getElementById("add-pizza-btn");
 const newAdminBtn = document.getElementById("new-admin-submit-btn");
+const newRestaurantBtn = document.getElementById("new-restaurant-submit-btn");
+const newDriverBtn = document.getElementById("new-driver-submit-btn");
+const newClientBtn = document.getElementById("new-client-submit-btn");
 
 // XHR instant
 // var xhr = new XMLHttpRequest();
@@ -43,7 +46,11 @@ if (page[0] && isEmpty(page[0])) {
   `;
 }
 
-/* Event Listeners */
+
+
+
+
+/*--------------------------------------------- Event Listeners -------------------------------------- */
 
 // We Used Event Delegation.
 if (clientPage) {
@@ -108,10 +115,21 @@ if (driverOrderForm) {
 
 // Adding new admin account btn.
 if(newAdminBtn) {
-  newAdminBtn.addEventListener('click', addNewAdminUser)
+  newAdminBtn.addEventListener('click', addNewAccount)
+}
+if(newRestaurantBtn) {
+  newRestaurantBtn.addEventListener('click', addNewAccount)
+}
+if(newDriverBtn) {
+  newDriverBtn.addEventListener('click', addNewAccount)
+}
+if(newClientBtn) {
+  newClientBtn.addEventListener('click', addNewAccount)
 }
 
-// Snack bars event listeners.
+
+
+/*----------------------------------------- Snack bars event listeners ------------------------------------ */
 
 // Place order snackbar.
 document.addEventListener("DOMContentLoaded", CheckPlaceOrder);

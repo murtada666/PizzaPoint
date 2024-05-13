@@ -1,8 +1,8 @@
-
-// XHR instant
+// XHR instant.
 var xhr = new XMLHttpRequest();
 
-export function addNewAdminUser(e) {
+// Dynamic function.
+export function addNewAccount(e) {
     e.preventDefault();
 
     // Get form values.
@@ -21,25 +21,26 @@ export function addNewAdminUser(e) {
     "&confirm_password=" +
     encodeURIComponent(confirmPassword);
 
-    var url = "http://localhost/pizzapoint/admins/add_admin";
+    var url = "http://localhost/pizzapoint/admins/add_account";
 
     xhr.open("POST", url, true);
     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 
     xhr.onload = function () {
+        var response = JSON.parse(this.responseText);
+
         // In case user saved to DB.
-        if (JSON.parse(this.responseText) == 1) {
+        if (response[0] == 1) {
         // Navigate to home page.
-        window.location.href = "http://localhost/pizzapoint/admins/index";
+        window.location.href = "http://localhost/pizzapoint/admins/" + response[1];
         } else {
         var response = JSON.parse(this.responseText);
-        console.log(response.email_err)
-        
+
         // Show errors in form.
         document.getElementById("name-err").innerHTML = response.name_err;
         document.getElementById("email-err").innerHTML = response.email_err;
-        document.getElementById("password-err").innerHTML = response.price_err;
-        document.getElementById("confirm_password_err").innerHTML = response.price_err;
+        document.getElementById("password-err").innerHTML = response.password_err;
+        document.getElementById("confirm-password-err").innerHTML = response.confirm_password_err;
         }
     };
     xhr.send(params);

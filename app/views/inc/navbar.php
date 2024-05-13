@@ -57,6 +57,12 @@ $url = $_SERVER['REQUEST_URI'];
       if (controllerName($url) == "admins") {
         if (pageName($url) == "index") {
           echo '<li ><a href="new_admin">New Admin</a></li>';
+        } elseif (pageName($url) == 'restaurants') {
+          echo '<li ><a href="new_restaurant">New Restaurant</a></li>';
+        } elseif (pageName($url) == 'drivers') {
+          echo '<li ><a href="new_driver">New driver</a></li>';
+        } elseif (pageName($url) == 'clients') {
+          echo '<li ><a href="new_client">New client</a></li>';
         }
       }
 

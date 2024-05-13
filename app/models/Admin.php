@@ -8,12 +8,14 @@ class admin
         $this->db = new Database;
     }
 
-    // Find user by email
+    // Find user by email - used to find existing emails.
     public function findUserByEmail($email)
     {
         $this->db->query('SELECT * FROM clients WHERE email = :email
                           UNION 
                           SELECT * FROM restaurants WHERE email = :email
+                          UNION 
+                          SELECT * FROM admins WHERE email = :email
                           UNION 
                           SELECT * FROM drivers WHERE email = :email');
         // Bind values
@@ -29,13 +31,13 @@ class admin
         }
     }
 
-    // Register Admin.
-    public function register($data)
-    {
-        // Check account type.
-        $this->db->query('INSERT INTO admins (name, email, password) VALUES(:name, :email, :password)');
 
-        // Bind values
+    public function registerAccount($table_name, $data)
+    {
+        // Table name is dynamic.
+        $this->db->query("INSERT INTO " . $table_name . " (name, email, password) VALUES(:name, :email, :password)");
+
+        // Bind values  
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
         $this->db->bind(':password', $data['password']);

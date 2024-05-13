@@ -1,7 +1,7 @@
 <?php require APPROOT . '/views/inc/header.php'; ?>
 
 <div class="new-user signup">
-  <h2>Create a new admin account</h2>
+  <h2>Add a new driver</h2>
   <form action="<?php echo URLROOT; ?>/users/register" method="POST">
     <div>
       <label>Name: </label>
@@ -28,7 +28,7 @@
         <?php echo $data['confirm_password_err']; ?>
       </div>
     </div>
-    <input type="submit" value="Submit" id="new-admin-submit-btn" name="submit">
+    <input type="submit" value="Submit" id="new-driver-submit-btn" name="submit">
   </form>
 </div>
 
