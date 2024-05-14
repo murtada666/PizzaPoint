@@ -22,7 +22,7 @@ class Drivers extends Controller
         // Looping through all orders to fetch its details.
         foreach ($orders as $order) {
             $single_order = [
-                'order_id' => $order->order_id,
+                'order_id' => $order->id,
                 'customer_name' => $this->driverModel->customerName($order->client_id)->name,
                 'order_status' => $order->order_status,
                 'restaurant_name' => $this->driverModel->restaurantName($order->restaurant_id)->name,
@@ -40,16 +40,16 @@ class Drivers extends Controller
     // Order details.
     public function order_details($id)
     {
-        if($order = $this->driverModel->getSingleOrder($id)){
+        if ($order = $this->driverModel->getSingleOrder($id)) {
             $pizza_IDs = explode(',', $order->order_details);
-    
+
             $pizzas_titles = array();
             foreach ($pizza_IDs as $pizza_id) {
                 $title = $this->driverModel->getSinglePizzaTitle($pizza_id)->title;
                 array_push($pizzas_titles, $title);
             }
             $data = [
-                'order_id' => $order->order_id,
+                'order_id' => $order->id,
                 'order_details' => $pizzas_titles,
                 'order_status' => $order->order_status
             ];

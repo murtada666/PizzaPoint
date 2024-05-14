@@ -98,7 +98,7 @@ class Restaurants extends Controller
         // Looping through all orders to fetch its details.
         foreach ($orders as $order) {
             $single_order = [
-                'order_id' => $order->order_id,
+                'order_id' => $order->id,
                 'customer_name' => $this->restaurantModel->customerName($order->client_id)->name,
                 'order_status' => $order->order_status,
                 'driver_name' => $this->restaurantModel->driverName($order->driver_id)->name,
@@ -125,7 +125,7 @@ class Restaurants extends Controller
                 array_push($pizzas_titles, $title);
             }
             $data = [
-                'order_id' => $order->order_id,
+                'order_id' => $order->id,
                 'order_details' => $pizzas_titles,
                 'order_status' => $order->order_status
             ];

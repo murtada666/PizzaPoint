@@ -669,7 +669,12 @@ tr:nth-child(even) {
   display: flex;
   align-items: center;
   justify-content: space-around;
-  padding: 0 15rem;
+  padding: 0 15rem; 
+}
+.admin-main-container .restaurants-btn:hover,
+.admin-main-container .drivers-btn:hover,
+.admin-main-container .clients-btn:hover {
+  scale: 0.98;
 }
 .admin-main-container a {
   height: 8rem;  
@@ -677,4 +682,51 @@ tr:nth-child(even) {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.info-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 4rem;
+  background: #EADBC8;
+  margin-top: 6rem;
+  margin-bottom: 5rem;
+  padding: 2rem;
+
+}
+
+.info-section h2 {
+  font-size: 2.8rem;
+  margin: 2rem 0;
+}
+.info-container {
+  width: 100% ;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+}
+.info-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 20rem;
+  height: 20rem;
+  background: #F1F1F1;  
+  margin: 1rem;
+  border-radius: 50%;
+}
+
+.info-box .box-title {
+  font-size: 2.4rem;
+  padding-bottom: 2.4rem;
+  font-weight: 600;
+}
+.info-box .box-content {
+  font-size: 2rem;
+  font-weight: 600;
 }

@@ -158,7 +158,7 @@ class Restaurant
         $restaurant_id = filter_var(htmlspecialchars(strip_tags($restaurant_id)), FILTER_VALIDATE_INT);
 
 
-        $this->db->query('SELECT order_id, order_details, order_status FROM orders WHERE order_id = :id AND restaurant_id = :restaurant_id');
+        $this->db->query('SELECT id, order_details, order_status FROM orders WHERE id = :id AND restaurant_id = :restaurant_id');
         $this->db->bind(':id', $order_id);
         $this->db->bind(':restaurant_id', $restaurant_id);
 
@@ -190,7 +190,7 @@ class Restaurant
 
         $this->db->query('UPDATE orders
         SET order_status = :status
-        WHERE order_id = :order_id;');
+        WHERE id = :order_id;');
 
         $this->db->bind('order_id', $order_id);
         $this->db->bind('status', $status);

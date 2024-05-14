@@ -60,7 +60,7 @@ class Driver
         $order_id = filter_var(htmlspecialchars(strip_tags($order_id)), FILTER_VALIDATE_INT);
         $driver_id = filter_var(htmlspecialchars(strip_tags($driver_id)), FILTER_VALIDATE_INT);
 
-        $this->db->query('SELECT order_id, order_details, order_status FROM orders WHERE order_id = :id AND driver_id = :driver_id');
+        $this->db->query('SELECT id, order_details, order_status FROM orders WHERE id = :id AND driver_id = :driver_id');
 
         $this->db->bind(':id', $order_id);
         $this->db->bind(':driver_id', $driver_id);
@@ -93,7 +93,7 @@ class Driver
     
             $this->db->query('UPDATE orders
             SET order_status = :status
-            WHERE order_id = :order_id;');
+            WHERE id = :order_id;');
     
             $this->db->bind('order_id', $order_id);
             $this->db->bind('status', $status);

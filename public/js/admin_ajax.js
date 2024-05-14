@@ -32,7 +32,7 @@ export function addNewAccount(e) {
         // In case user saved to DB.
         if (response[0] == 1) {
         // Navigate to home page.
-        window.location.href = "http://localhost/pizzapoint/admins/" + response[1];
+        window.location.href = "http://localhost/pizzapoint/admins/" + response[1]; // Method name.
         } else {
         var response = JSON.parse(this.responseText);
 

@@ -16,7 +16,30 @@ class Admins extends Controller
   // View index page.
   public function index()
   {
-    $this->view('admin/index');
+    // Fetch data from the model(DB).
+    $clients = $this->adminModel->tableCount('clients');
+    $restaurants = $this->adminModel->tableCount('restaurants');
+    $drivers = $this->adminModel->tableCount('drivers');
+    $orders = $this->adminModel->tableCount('orders');
+    $pizzas = $this->adminModel->tableCount('pizzas');
+    $admins = $this->adminModel->tableCount('admins');
+    $best_driver = $this->adminModel->bestDriver()->name;
+    $best_restaurant = $this->adminModel->bestRestaurant()->name;
+    $best_client = $this->adminModel->bestClient()->name;
+
+    $data = [
+      'clients' => ['clients' => $clients],
+      'restaurants' => ['restaurants' => $restaurants],
+      'drivers' => ['drivers' => $drivers],
+      'orders' => ['orders' => $orders],
+      'pizzas' => ['pizzas' => $pizzas],
+      'admins' => ['admins' => $admins],
+      'best_driver' => ['best driver' => $best_driver],
+      'best_client' => ['best client' => $best_client],
+      'best_restaurant' => ['best restaurant' => $best_restaurant]
+    ];
+
+    $this->view('admin/index', $data);
   }
 
   // View new admin page.
