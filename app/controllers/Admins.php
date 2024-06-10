@@ -169,13 +169,23 @@ class Admins extends Controller
       // Validate Email.
       if (empty($data['email'])) {
         $response['email_err'] = 'Please enter email';
-      } else {
-        // Check email.
-        if ($this->adminModel->findUserByEmail($data['email'])) {
+      }
 
+      try {
+        // Check email existent.
+        $this->adminModel->findUserByEmail($data['email']);
+
+        if (['status'] == true) {
           $response['email_err'] = 'Email is already taken';
         }
+      } catch (PDOException $e) {
+        return [
+          'status' => 'false',
+          'message' => 'Something went wrong with email existent check'
+        ];
       }
+
+
 
       // Validate Name.
       if (empty($data['name'])) {

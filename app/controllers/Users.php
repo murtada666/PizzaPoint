@@ -18,14 +18,16 @@ class Users extends Controller
     // Check for POST
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Process form.
+
       // Sanitize POST data.
-      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+      $name = filter_var($_POST['name'], FILTER_SANITIZE_SPECIAL_CHARS);;
+      $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
       // Initialize data.
       $data = [
         'account_type' => 'client',
-        'name' => trim($_POST['name']),
-        'email' => trim($_POST['email']),
+        'name' => $name,
+        'email' => $email,
         'password' => trim($_POST['password']),
         'confirm_password' => trim($_POST['confirm_password']),
         'name_err' => '',
@@ -37,12 +39,9 @@ class Users extends Controller
       // Validate Email.
       if (empty($data['email'])) {
         $data['email_err'] = 'Please enter email';
-      } else {
         // Check email.
-        if ($this->userModel->findUserByEmail($data['email'])) {
-
-          $data['email_err'] = 'Email is already taken';
-        }
+      } elseif ($this->userModel->findUserByEmail($data['email'])) {
+        $data['email_err'] = 'Email is already taken';
       }
 
       // Validate Name.
@@ -53,6 +52,7 @@ class Users extends Controller
       // Validate Password.
       if (empty($data['password'])) {
         $data['password_err'] = 'Please enter password';
+        // Check password length.
       } elseif (strlen($data['password']) < 6) {
         $data['password_err'] = 'Password must be at least 6 characters';
       }
@@ -60,6 +60,7 @@ class Users extends Controller
       // Validate Confirm Password.
       if (empty($data['confirm_password'])) {
         $data['confirm_password_err'] = 'Please confirm password';
+        // Check if passwords matches.
       } else {
         if ($data['password'] != $data['confirm_password']) {
           $data['confirm_password_err'] = 'Passwords do not match';
@@ -68,17 +69,16 @@ class Users extends Controller
 
       // Make sure errors are empty.
       if (empty($data['email_err']) && empty($data['name_err']) && empty($data['password_err']) && empty($data['confirm_password_err'])) {
+
         // Validated.
 
-        // Hash Password.
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-
         // Register User.
-        if ($this->userModel->register($data)) {
+        if ($response = $this->userModel->register($data)) {
+          // Set session (signed) to true for the snackbar.
           $_SESSION['signed'] = true;
           redirect('users/login');
         } else {
-          die('Something went wrong');
+          die($response['message']);
         }
       } else {
         // Load view with errors.
@@ -107,11 +107,12 @@ class Users extends Controller
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
       // Process form.
       // Sanitize POST data.
-      $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
+
+      $email = filter_var($_POST['email'], FILTER_SANITIZE_EMAIL);
 
       // Initialize data.
       $data = [
-        'email' => trim($_POST['email']),
+        'email' => trim($email),
         'password' => trim($_POST['password']),
         'email_err' => '',
         'password_err' => '',
@@ -120,6 +121,8 @@ class Users extends Controller
       // Validate Email.
       if (empty($data['email'])) {
         $data['email_err'] = 'Please enter email';
+      } elseif (!$this->userModel->findUserByEmail($data['email'])) {
+        $data['email_err'] = 'No user found';
       }
 
       // Validate Password.
@@ -127,13 +130,13 @@ class Users extends Controller
         $data['password_err'] = 'Please enter password';
       }
 
-      // Check for user/email.
-      if ($this->userModel->findUserByEmail($data['email'])) {
-        // User found
-      } else {
-        // User not found.
-        $data['email_err'] = 'No user found';
-      }
+      // // Check for user/email.
+      // if ($this->userModel->findUserByEmail($data['email'])) {
+      //   // User found.
+      // } else {
+      //   // User not found.
+      //   $data['email_err'] = 'No user found';
+      // }
 
       // Make sure errors are empty.
       if (empty($data['email_err']) && empty($data['password_err'])) {
@@ -193,6 +196,7 @@ class Users extends Controller
     $_SESSION['user_name'] = $user->name;
     $_SESSION['user_type'] = $user->account_type;
   }
+
   // Logout operations.
   public function logout()
   {
@@ -202,10 +206,12 @@ class Users extends Controller
     session_destroy();
     redirect('users/login');
   }
+
   // Checks for a signed up(to show the snackBar).
   public function check_signed()
   {
     if (isset($_SESSION['signed']) && $_SESSION['signed'] === true) {
+      // Unset session value as the value needed for a short period of time .
       unset($_SESSION['signed']);
       echo 'true';
     }

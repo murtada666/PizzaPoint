@@ -11,25 +11,64 @@ class admin
     // Find user by email - used to find existing emails.
     public function findUserByEmail($email)
     {
-        $this->db->query('SELECT * FROM clients WHERE email = :email
+        try {
+            $this->db->query('SELECT * FROM clients WHERE email = :email
                           UNION 
                           SELECT * FROM restaurants WHERE email = :email
                           UNION 
                           SELECT * FROM admins WHERE email = :email
                           UNION 
                           SELECT * FROM drivers WHERE email = :email');
-        // Bind values
-        $this->db->bind(':email', $email);
+            // Bind values.
+            $this->db->bind(':email', $email);
 
-        $row = $this->db->single();
-
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
+            // Check row.
+            if ($this->db->rowCount() > 0) {
+                return [
+                    'status' => true,
+                    'message' => 'User found'
+                ];
+            } else {
+                return [
+                    'status' => false,
+                    'message' => 'No match found'
+                ];
+            }
+        } catch (PDOException $e) {
+            // Return an error message indicating the query failed.
+            return [
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
         }
     }
+
+    // public function findUserByEmail($email)
+    // {
+    //     try {
+    //         $this->db->query('SELECT * FROM clients WHERE email = :email
+    //                       UNION 
+    //                       SELECT * FROM restaurants WHERE email = :email
+    //                       UNION 
+    //                       SELECT * FROM admins WHERE email = :email
+    //                       UNION 
+    //                       SELECT * FROM drivers WHERE email = :email');
+    //         // Bind values
+    //         $this->db->bind(':email', $email);
+
+    //         $row = $this->db->single();
+
+    //         // Check row
+    //         if ($this->db->rowCount() > 0) {
+    //             return true;
+    //         } else {
+    //             return false;
+    //         }
+    //     } catch (PDOException $e) {
+    //         // echo "Error: " . $e->getMessage();
+    //         return "Error: " . $e->getMessage();
+    //     }
+    // }
 
     // Fetch count of selected a table.
     public function tableCount($table_name)

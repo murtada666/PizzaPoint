@@ -11,19 +11,26 @@ class User
     // Register user
     public function register($data)
     {
+        // Hash Password.
+        $hashed_password = password_hash($data['password'], PASSWORD_DEFAULT);
         // Check account type.
         $this->db->query('INSERT INTO clients (name, email, password) VALUES(:name, :email, :password)');
 
         // Bind values
         $this->db->bind(':name', $data['name']);
         $this->db->bind(':email', $data['email']);
-        $this->db->bind(':password', $data['password']);
+        $this->db->bind(':password', $hashed_password);
 
-        // Execute
-        if ($this->db->execute()) {
-            return true;
-        } else {
-            return false;
+        try {
+            // Execute
+            if ($this->db->execute()) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            return [
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
         }
     }
 
@@ -40,28 +47,41 @@ class User
                           SELECT id, account_type FROM admins WHERE email = :email');
 
         $this->db->bind(':email', $email);
-
-        $row_1 = $this->db->single();
+        try {
+            $sub_result = $this->db->single();
+        } catch (PDOException $e) {
+            return [
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
+        }
 
         // Check the right table.
-        if ($row_1->account_type == 'client') {
+        if ($sub_result->account_type == 'client') {
             $this->db->query('SELECT * FROM clients WHERE id = :id');
-        } elseif ($row_1->account_type == 'restaurant') {
+        } elseif ($sub_result->account_type == 'restaurant') {
             $this->db->query('SELECT * FROM `restaurants` WHERE id = :id');
-        } elseif ($row_1->account_type == 'driver') {
+        } elseif ($sub_result->account_type == 'driver') {
             $this->db->query('SELECT * FROM drivers WHERE id = :id');
-        } elseif ($row_1->account_type == 'admin') {
+        } elseif ($sub_result->account_type == 'admin') {
             $this->db->query('SELECT * FROM admins WHERE id = :id');
         }
 
-        $this->db->bind(':id', $row_1->id);
+        $this->db->bind(':id', $sub_result->id);
 
-        $row_2 = $this->db->single();
-        $hashed_password = $row_2->password;
+        try {
+            $result = $this->db->single();
+        } catch (PDOException $e) {
+            return [
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
+        }
+        $hashed_password = $result->password;
 
 
         if (password_verify($password, $hashed_password)) {
-            return $row_2;
+            return $result;
         } else {
             return false;
         }
@@ -79,13 +99,16 @@ class User
         // Bind values
         $this->db->bind(':email', $email);
 
-        $row = $this->db->single();
-
-        // Check row
-        if ($this->db->rowCount() > 0) {
-            return true;
-        } else {
-            return false;
+        try {
+            // Check row
+            if ($this->db->rowCount() > 0) {
+                return true;
+            }
+        } catch (PDOException $e) {
+            return [
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
         }
     }
 
@@ -96,8 +119,15 @@ class User
         // Bind value
         $this->db->bind(':id', $id);
 
-        $row = $this->db->single();
+        try {
+            $row = $this->db->single();
 
-        return $row;
+            return $row;
+        } catch (PDOException $e) {
+            return [
+                'status' => false,
+                'message' => 'Error: ' . $e->getMessage()
+            ];
+        }
     }
 }
