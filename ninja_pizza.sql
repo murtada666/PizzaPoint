@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 11, 2024 at 01:26 PM
+-- Generation Time: Jun 11, 2024 at 01:55 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -130,10 +130,11 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `client_id`, `restaurant_id`, `driver_id`, `order_status`, `order_details`, `total`, `created_at`) VALUES
-(290, 35, 8, 9, '0', '63, 88, 89, 90', 87, '2024-06-11 11:13:40'),
+(290, 35, 8, 9, '4', '63, 88, 89, 90', 87, '2024-06-11 11:13:40'),
 (291, 35, 9, 8, '0', '18, 23', 9, '2024-06-11 11:14:23'),
-(292, 35, 8, 11, '1', '63, 88', 23, '2024-06-11 11:16:23'),
-(293, 35, 8, 12, '0', '88, 89, 117, 90', 97, '2024-06-11 11:18:19');
+(292, 35, 8, 11, '4', '63, 88', 23, '2024-06-11 11:16:23'),
+(293, 35, 8, 12, '0', '88, 89, 117, 90', 97, '2024-06-11 11:18:19'),
+(294, 35, 8, 8, '0', '63, 91, 92', 76, '2024-06-11 11:36:43');
 
 -- --------------------------------------------------------
 
@@ -300,7 +301,7 @@ ALTER TABLE `drivers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=295;
 
 --
 -- AUTO_INCREMENT for table `order_status`

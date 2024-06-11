@@ -50,6 +50,7 @@ class admin
     // Best driver.
     public function bestDriver()
     {
+        // Fetch the driver name with the most orders.
         $this->db->query("SELECT name 
         FROM drivers 
         WHERE id = (

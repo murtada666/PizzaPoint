@@ -13,9 +13,12 @@ class client
     {
         $this->db->query("SELECT name, id FROM restaurants");
 
-        $results = $this->db->resultSet();
-
-        return $results;
+        try {
+            $results = $this->db->resultSet();
+            return $results;
+        } catch (PDOException $e) {
+            return 'Error: ' . $e->getMessage();
+        }
     }
 
     // Check if restaurant exist in DB to handle 404.

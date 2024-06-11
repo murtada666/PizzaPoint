@@ -23,9 +23,10 @@ class Admins extends Controller
     $orders = $this->adminModel->tableCount('orders');
     $pizzas = $this->adminModel->tableCount('pizzas');
     $admins = $this->adminModel->tableCount('admins');
-    $best_driver = $this->adminModel->bestDriver()->name;
-    $best_restaurant = $this->adminModel->bestRestaurant()->name;
-    $best_client = $this->adminModel->bestClient()->name;
+    // None -> in case there is no best yet, the result will be none. 
+    $best_driver = $this->adminModel->bestDriver()->name ?? 'none';
+    $best_restaurant = $this->adminModel->bestRestaurant()->name ?? 'none';
+    $best_client = $this->adminModel->bestClient()->name ?? 'none';
 
     // Data set like that so it can be used as key value pairs in view loop. 
     $data = [
