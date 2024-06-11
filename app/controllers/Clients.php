@@ -177,17 +177,13 @@ class Clients extends Controller
             $res_id = $_SESSION['res_id'];
             $pizzas_ids = implode(", ", $_SESSION['cart']);
             $total = $_SESSION['total_price'];
-            try {
-                $this->clientModel->placeOrder($client_id, $res_id, $pizzas_ids, $driver_id, $total);
-                // Clear cart session.
-                unset($_SESSION['cart']);
-                // To show snackBar after placing order.
-                $_SESSION['placed'] = true;
-                unset($_SESSION['current_res']);
-                echo 'placed';
-            } catch (Exception $e) {
-                echo "Error: " . $e->getMessage();
-            }
+            $this->clientModel->placeOrder($client_id, $res_id, $pizzas_ids, $driver_id, $total);
+            // Clear cart session.
+            unset($_SESSION['cart']);
+            // To show snackBar after placing order.
+            $_SESSION['placed'] = true;
+            unset($_SESSION['current_res']);
+            echo 'placed';
         }
     }
 

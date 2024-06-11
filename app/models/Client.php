@@ -145,10 +145,10 @@ class client
     // Random driver.
     public function randDriver()
     {
+
+        $this->db->query("SELECT id from drivers");
+
         try {
-
-            $this->db->query("SELECT id from drivers");
-
             $result = $this->db->resultSet();
             // Random id index.
             $rand_index = array_rand($result);
@@ -167,7 +167,6 @@ class client
     // Place order.
     public function placeOrder($client_id, $res_id, $pizzas_ids, $driver_id, $total)
     {
-
         // Clean data 
         $client_id =  filter_var(htmlspecialchars(strip_tags($client_id)), FILTER_VALIDATE_INT);
         $res_id =  filter_var(htmlspecialchars(strip_tags($res_id)), FILTER_VALIDATE_INT);

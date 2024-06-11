@@ -136,7 +136,8 @@ export function placeOrder(e) {
       showSnackbar("Cart is empty, please add some items first!");
       // Check if the order is placed.
     } else if (this.responseText.trim() === "placed") {
-      window.location.href = "http://localhost/pizzapoint/clients/index";
+      // Navigate to home page.
+      window.location.href = "http://localhost/pizzapoint/home";
     }
   };
   xhr.send();

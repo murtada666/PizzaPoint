@@ -23,7 +23,7 @@ class Restaurant
             }
         } catch (PDOException $e) {
             // Handle the exception (e.g., log the error, display a user-friendly message)
-            echo "Error: " . $e->getMessage();
+            return "Error: " . $e->getMessage();
         }
     }
 
@@ -40,7 +40,7 @@ class Restaurant
             $this->db->execute();
             return true;
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -50,10 +50,11 @@ class Restaurant
         // Used to check unauthorized access.
         $res_id = $_SESSION['user_id'];
 
+        // Clean data.
         $pizza_id = filter_var(htmlspecialchars(strip_tags($pizza_id)), FILTER_VALIDATE_INT);
         $res_id = filter_var(htmlspecialchars(strip_tags($res_id)), FILTER_VALIDATE_INT);
 
-        print_r($this->db->query('SELECT * FROM pizzas WHERE id = :id AND restaurant_id = :res_id'));
+        $this->db->query('SELECT * FROM pizzas WHERE id = :id AND restaurant_id = :res_id');
 
         $this->db->bind('id', $pizza_id);
         $this->db->bind('res_id', $res_id);
@@ -61,14 +62,13 @@ class Restaurant
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
     // Update pizza details.
     public function updatePizza($id, $title, $ing)
     {
-
         // Clean data 
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
         $title = htmlspecialchars(strip_tags($title));
@@ -87,7 +87,7 @@ class Restaurant
         try {
             $this->db->execute();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -102,35 +102,38 @@ class Restaurant
         try {
             return $this->db->resultSet();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
     // Customer Name.
     public function customerName($id)
     {
+        // Clean data.
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
 
+        // Set query.
         $this->db->query('SELECT name FROM clients WHERE id = :id');
         $this->db->bind(':id', $id);
 
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
     // Driver Name.
     public function driverName($id)
     {
         $id = filter_var(htmlspecialchars(strip_tags($id)), FILTER_VALIDATE_INT);
+
         $this->db->query('SELECT name FROM drivers WHERE id = :id');
         $this->db->bind(':id', $id);
 
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -145,7 +148,7 @@ class Restaurant
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -154,9 +157,9 @@ class Restaurant
     {
         // Used to make sure a restaurant can't access other restaurant orders. 
         $restaurant_id =  $_SESSION['user_id'];
+        // Clean data.
         $order_id = filter_var(htmlspecialchars(strip_tags($order_id)), FILTER_VALIDATE_INT);
         $restaurant_id = filter_var(htmlspecialchars(strip_tags($restaurant_id)), FILTER_VALIDATE_INT);
-
 
         $this->db->query('SELECT id, order_details, order_status FROM orders WHERE id = :id AND restaurant_id = :restaurant_id');
         $this->db->bind(':id', $order_id);
@@ -165,7 +168,7 @@ class Restaurant
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -174,11 +177,11 @@ class Restaurant
     {
         $this->db->query('SELECT title FROM pizzas WHERE id = :id');
 
-        $this->db->bind('id', $id);
+        $this->db->bind(':id', $id);
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -198,7 +201,7 @@ class Restaurant
             $this->db->execute();
             return true;
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -225,7 +228,7 @@ class Restaurant
             $this->db->execute();
             return true;
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 }

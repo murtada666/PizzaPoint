@@ -124,6 +124,7 @@ class Restaurants extends Controller
                 $title = $this->restaurantModel->getSinglePizzaTitle($pizza_id)->title;
                 array_push($pizzas_titles, $title);
             }
+            
             $data = [
                 'order_id' => $order->id,
                 'order_details' => $pizzas_titles,

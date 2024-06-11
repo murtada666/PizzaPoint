@@ -27,6 +27,7 @@ class Admins extends Controller
     $best_restaurant = $this->adminModel->bestRestaurant()->name;
     $best_client = $this->adminModel->bestClient()->name;
 
+    // Data set like that so it can be used as key value pairs in view loop. 
     $data = [
       'clients' => ['clients' => $clients],
       'restaurants' => ['restaurants' => $restaurants],
@@ -100,7 +101,7 @@ class Admins extends Controller
   {
     $_SESSION['future_account_type'] = 'clients';
 
-    // Init data.
+    // Initialize data.
     $data = [
       'name' => '',
       'email' => '',
@@ -159,6 +160,7 @@ class Admins extends Controller
         'confirm_password' => trim($_POST['confirm_password'])
       ];
 
+      // Errors data.
       $response = [
         'name_err' => '',
         'email_err' => '',
@@ -171,20 +173,10 @@ class Admins extends Controller
         $response['email_err'] = 'Please enter email';
       }
 
-      try {
-        // Check email existent.
-        $this->adminModel->findUserByEmail($data['email']);
-
-        if (['status'] == true) {
-          $response['email_err'] = 'Email is already taken';
-        }
-      } catch (PDOException $e) {
-        return [
-          'status' => 'false',
-          'message' => 'Something went wrong with email existent check'
-        ];
+      // Check email existent.
+      if ($this->adminModel->findUserByEmail($data['email'])) {
+        $response['email_err'] = 'Email is already taken';
       }
-
 
 
       // Validate Name.
@@ -211,9 +203,6 @@ class Admins extends Controller
       // Make sure errors are empty.
       if (empty($response['email_err']) && empty($response['name_err']) && empty($response['password_err']) && empty($response['confirm_password_err'])) {
         // Validated.
-
-        // Hash Password.
-        $data['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
 
         // Register User.
         if ($this->adminModel->registerAccount($_SESSION['future_account_type'], $data)) {

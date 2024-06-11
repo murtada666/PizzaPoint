@@ -20,7 +20,7 @@ class Driver
             if ($result = $this->db->resultSet())
                 return $result;
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -35,7 +35,7 @@ class Driver
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
     // Restaurant Name.
@@ -49,7 +49,7 @@ class Driver
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -68,7 +68,7 @@ class Driver
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -81,7 +81,7 @@ class Driver
         try {
             return $this->db->single();
         } catch (PDOException $e) {
-            echo 'Error: ' . $e->getMessage();
+            return 'Error: ' . $e->getMessage();
         }
     }
 
@@ -101,7 +101,7 @@ class Driver
                 $this->db->execute();
                 return true;
             } catch (PDOException $e) {
-                echo 'Error: ' . $e->getMessage();
+                return 'Error: ' . $e->getMessage();
             }
         }
 }

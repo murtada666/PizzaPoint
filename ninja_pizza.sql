@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 14, 2024 at 10:11 PM
+-- Generation Time: Jun 11, 2024 at 01:26 PM
 -- Server version: 10.4.28-MariaDB
 -- PHP Version: 8.2.4
 
@@ -47,7 +47,8 @@ INSERT INTO `admins` (`id`, `name`, `email`, `password`, `account_type`) VALUES
 (15, 'Baghdad', 'baghdad99@gmail.com', '$2y$10$Ac8MkTimmB7huFJdTX3RL.0LjR4n/mPN46ZKdi/Zgjb3nvYe1i5qW', 'admin'),
 (16, 'Baghdad', 'baghdad8@gmail.com', '$2y$10$.lvIciZuqHcm6Hl/kJTSZOmINnHgj0sA/hPG2Y6Dn40DKaKVjRhCK', 'admin'),
 (17, 'Baghdad', 'baghdad11@gmail.com', '$2y$10$c8Gm4INd5/55oqsLYGQdSuJL2ide1evnQ5NapJjff79sAHFFRgQ0W', 'admin'),
-(23, 'admin test', 'admintest@gmail.com', '$2y$10$SeAIiRUpFxNBIROGXwItwO6Qw8geq.aAhfzQJ1Faz1x3/g9S5W7KG', 'admin');
+(23, 'admin test', 'admintest@gmail.com', '$2y$10$SeAIiRUpFxNBIROGXwItwO6Qw8geq.aAhfzQJ1Faz1x3/g9S5W7KG', 'admin'),
+(24, 'admin test', 'admin11@gmail.com', '$2y$10$t5n4ZaCyTPOoi3bT7JlV0.BtJGAQsJ/k4E3p6gqSTrCIfmU7kNHVK', 'admin');
 
 -- --------------------------------------------------------
 
@@ -78,7 +79,8 @@ INSERT INTO `clients` (`id`, `name`, `email`, `password`, `account_type`) VALUES
 (53, 'ali', 'alihut@gmail.com', '$2y$10$QJPJuWgtschFpGPN.eiCPOahkz7x3PRc.V.NEY036xc/r4gqHPCGO', 'client'),
 (54, 'moaml', 'moaml-new@gmail.com', '$2y$10$GmI2qRhmrN0ypxDAaHnwiO2GoTFZe3ychLXIijhm9wUCJSA9k5kF2', 'client'),
 (55, 'alal', 'alal@gmail.com', '$2y$10$kZPGtbKIdjCwD7xpt8UImucRRWs/PpCUDRWBv1dupS3bYZiWsDQwq', 'client'),
-(60, 'client test', 'client.test@gmail.com', '$2y$10$XClzUiYA07tHrJ3jL7uRIe59o6Go9iIsBQ2Hv6X4JG3DN5ft/YJ62', 'client');
+(60, 'client test', 'client.test@gmail.com', '$2y$10$XClzUiYA07tHrJ3jL7uRIe59o6Go9iIsBQ2Hv6X4JG3DN5ft/YJ62', 'client'),
+(61, 'murtada', 'murt.work@gmail.com', '$2y$10$7bg9iutgBBKGyuMVirMpROVEgnY3UhLnbjKTfeuExsRrWQws2jOdy', 'client');
 
 -- --------------------------------------------------------
 
@@ -128,19 +130,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `client_id`, `restaurant_id`, `driver_id`, `order_status`, `order_details`, `total`, `created_at`) VALUES
-(277, 35, 8, 8, '2', '63, 84, 85', 34, '2024-02-16 12:27:52'),
-(278, 35, 9, 12, '4', '18, 23', 9, '2024-02-16 12:29:06'),
-(279, 35, 8, 12, '4', '63, 84, 85', 34, '2024-02-16 12:29:15'),
-(280, 35, 11, 9, '0', '82', 16, '2024-02-16 12:29:46'),
-(281, 35, 9, 13, '0', '18, 23', 9, '2024-02-16 12:35:01'),
-(282, 35, 8, 9, '2', '63, 85', 23, '2024-02-16 12:35:20'),
-(283, 50, 8, 12, '4', '84, 85', 34, '2024-02-17 07:52:16'),
-(284, 51, 9, 13, '4', '18', 3, '2024-02-17 11:56:18'),
-(285, 51, 8, 8, '2', '84, 119', 23, '2024-03-26 09:24:02'),
-(286, 51, 9, 13, '0', '18, 23', 9, '2024-03-28 22:55:30'),
-(287, 50, 9, 11, '0', '18, 23', 9, '2024-03-28 23:04:52'),
-(288, 52, 8, 13, '0', '18', 3, '2024-04-02 08:12:15'),
-(289, 35, 9, 14, '0', '18', 9, '2024-05-13 15:54:43');
+(290, 35, 8, 9, '0', '63, 88, 89, 90', 87, '2024-06-11 11:13:40'),
+(291, 35, 9, 8, '0', '18, 23', 9, '2024-06-11 11:14:23'),
+(292, 35, 8, 11, '1', '63, 88', 23, '2024-06-11 11:16:23'),
+(293, 35, 8, 12, '0', '88, 89, 117, 90', 97, '2024-06-11 11:18:19');
 
 -- --------------------------------------------------------
 
@@ -289,13 +282,13 @@ ALTER TABLE `restaurants`
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `clients`
 --
 ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- AUTO_INCREMENT for table `drivers`
@@ -307,7 +300,7 @@ ALTER TABLE `drivers`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=290;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=294;
 
 --
 -- AUTO_INCREMENT for table `order_status`
